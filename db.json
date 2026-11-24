@@ -2,7 +2,7 @@
   "students": [
     {
       "id": "1",
-      "studentNumber": "2023-0101",
+      "studentNumber": "2023-00101",
       "fullName": "Elena Cruz",
       "email": "elena.cruz@univ.edu",
       "course": "BSCS",
@@ -14,7 +14,7 @@
     },
     {
       "id": "2",
-      "studentNumber": "2024-0214",
+      "studentNumber": "2024-00214",
       "fullName": "Marco Villanueva",
       "email": "marco.villanueva@univ.edu",
       "course": "BSIT",
@@ -26,7 +26,7 @@
     },
     {
       "id": "3",
-      "studentNumber": "2025-0309",
+      "studentNumber": "2025-00309",
       "fullName": "Hannah Reyes",
       "email": "hannah.reyes@univ.edu",
       "course": "BSCS",
@@ -38,7 +38,7 @@
     },
     {
       "id": "4",
-      "studentNumber": "2026-0418",
+      "studentNumber": "2026-00418",
       "fullName": "Daniel Lim",
       "email": "daniel.lim@univ.edu",
       "course": "BSIS",
@@ -50,7 +50,7 @@
     },
     {
       "id": "5",
-      "studentNumber": "2024-0522",
+      "studentNumber": "2024-00522",
       "fullName": "Sofia Navarro",
       "email": "sofia.navarro@univ.edu",
       "course": "BSCE",

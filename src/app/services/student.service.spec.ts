@@ -11,7 +11,7 @@ describe('StudentService', () => {
   const mockStudents: Student[] = [
     {
       id: '1',
-      studentNumber: '2023-0101',
+      studentNumber: '2023-00101',
       fullName: 'Elena Cruz',
       email: 'elena.cruz@univ.edu',
       course: 'BSCS',
@@ -23,7 +23,7 @@ describe('StudentService', () => {
     },
     {
       id: '2',
-      studentNumber: '2024-0214',
+      studentNumber: '2024-00214',
       fullName: 'Marco Villanueva',
       email: 'marco.villanueva@univ.edu',
       course: 'BSIT',
@@ -74,7 +74,7 @@ describe('StudentService', () => {
 
   it('should create a student via POST /students', () => {
     const payload: StudentPayload = {
-      studentNumber: '2026-0999',
+      studentNumber: '2026-00999',
       fullName: 'Lukas Bautista',
       email: 'lukas.bautista@univ.edu',
       course: 'BSIS',
@@ -98,7 +98,7 @@ describe('StudentService', () => {
 
   it('should update a student via PUT /students/:id', () => {
     const updatedPayload: StudentPayload = {
-      studentNumber: '2023-0101',
+      studentNumber: '2023-00101',
       fullName: 'Elena Cruz',
       email: 'elena.cruz@univ.edu',
       course: 'BSCS',

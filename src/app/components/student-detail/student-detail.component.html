@@ -239,20 +239,20 @@
               type="text"
               class="control mono"
               required
-              pattern="^\d{4}-\d{4}$"
-              placeholder="2026-0142"
+              pattern="^\d{4}-\d{5}$"
+              placeholder="2026-00142"
               [(ngModel)]="formModel.studentNumber"
               #studentNumberCtrl="ngModel"
               [attr.aria-invalid]="studentNumberCtrl.invalid && (studentNumberCtrl.touched || formSubmitted())"
               aria-describedby="studentNumber-help studentNumber-err"
             />
-            <span id="studentNumber-help" class="field-hint">Format: YYYY-NNNN</span>
+            <span id="studentNumber-help" class="field-hint">Format: YYYY-NNNNN</span>
             @if (studentNumberCtrl.invalid && (studentNumberCtrl.touched || formSubmitted())) {
               <span id="studentNumber-err" class="field-error" role="alert">
                 @if (studentNumberCtrl.errors?.['required']) {
                   Student number is required.
                 } @else {
-                  Use format YYYY-NNNN (example: 2026-0142).
+                  Use format YYYY-NNNNN (example: 2026-00142).
                 }
               </span>
             }
