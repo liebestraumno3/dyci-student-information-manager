@@ -7,7 +7,6 @@
 
 **Submitted by: Group 1**
 - Joevan Delos Santos
-- Jaztin Hart Alejo
 - Richmon Ecal
 - John Yzhekiel Millar
 - Celine Licanda
@@ -71,7 +70,7 @@ To design, develop, and verify an API-connected Angular 22 single-page applicati
 ## 3. Scope and Limitations
 
 ### 3.1 Scope (Included Features)
-- **Academic Overview Dashboard (`/dashboard`):** Live computed metrics (Total Enrolled, Active Standing, Probation/On Leave, Mean Cumulative GPA), clickable program and year-level breakdowns, and recent registrations table.
+- **Academic Overview Dashboard (`/dashboard`):** Live computed metrics (Total Enrolled, Active, Needs Attention, Mean Cumulative GPA), clickable program and year-level breakdowns, and recent registrations table.
 - **Searchable & Filterable Student Directory (`/students`):** Real-time debounced search (name, student number, email, course, advisor) plus Course and Year Level dropdowns bidirectionally synchronized with URL query parameters (`?q=`, `?course=`, `?yearLevel=`).
 - **Unified Student Record Workflows (`/students/new`, `/students/:id`, `/students/:id?edit=true`):** Validated registration form, read-only Academic Dossier, pre-filled edit mode, and safe record deletion with keyboard-accessible confirmation (`Escape` to cancel).
 - **Complete UI Feedback & Accessibility:** Skeleton loading states, dismissible confirmation banners, inline validation messages, empty-database and empty-filter states, offline API error banners with Retry, and mobile responsive reflow.
@@ -119,7 +118,7 @@ Wireframe sketches planning the sticky navigation shell, Academic Overview metri
 *Sketch 2: Initial wireframe of the Student Directory (`/students`) showing the search input, course and year-level filter dropdowns, and roster action controls.*
 
 ![Sketch 3: Initial wireframe of the Register Student form](screenshots/sketch-3-register-student.png)
-*Sketch 3: Initial wireframe of the Register Student form (`/students/new`) outlining the two-column grid for all nine required student fields and submission controls.*
+*Sketch 3: Initial wireframe of the Register Student form (`/students/new`) outlining the two-column grid for all ten required student fields and submission controls.*
 
 ![Sketch 4: Initial wireframe of the Student Academic Dossier](screenshots/sketch-4-student-dossier.png)
 *Sketch 4: Initial wireframe of the Student Academic Dossier (`/students/:id`) displaying the student header, record action buttons, and two-column academic profile grid.*
@@ -130,7 +129,26 @@ Wireframe sketches planning the sticky navigation shell, Academic Overview metri
 ### 5.3 Final Screenshots
 Captured screenshots of the running application across desktop and mobile viewports (Dashboard, Student Directory with active filters, Student Dossier, Registration/Edit validation states, and Delete confirmation):
 
-> `[INSERT_FINAL_SCREENSHOT_HERE]`
+![Final desktop screenshot of the Academic Overview Dashboard](screenshots/final-desktop-dashboard.png)
+*Desktop (1440×900): Academic Overview Dashboard (`/dashboard`) displaying live KPIs, program and year-level breakdowns, and recent registrations.*
+
+![Final desktop screenshot of the Student Directory with active BSCS filter](screenshots/final-desktop-directory.png)
+*Desktop (1440×900): Student Directory filtered by `BSCS` with URL synchronization (`/students?course=BSCS`) and the Clear Filters button.*
+
+![Final desktop screenshot of the Student Dossier view for Elena Cruz](screenshots/final-desktop-dossier.png)
+*Desktop (1440×900): Student Academic Dossier (`/students/1`) displaying full student metadata alongside Edit Record and Delete actions.*
+
+![Final desktop screenshot of the Register Student form showing inline validation errors](screenshots/final-desktop-validation.png)
+*Desktop (1440×900): Registration form validation state (`/students/new`) showing the summary alert banner and per-field inline validation messages.*
+
+![Final desktop screenshot of the Remove Student Record delete confirmation modal](screenshots/final-desktop-delete-modal.png)
+*Desktop (1440×900): Keyboard-accessible delete confirmation modal (`Remove Student Record`) guarding permanent deletion.*
+
+![Final mobile screenshot of the Academic Overview Dashboard at 390x844](screenshots/final-mobile-dashboard.png)
+*Mobile (390×844): Responsive Dashboard with stacked KPI cards, mobile Menu button, and zero horizontal overflow.*
+
+![Final mobile screenshot of the Student Directory with active BSCS filter at 390x844](screenshots/final-mobile-directory.png)
+*Mobile (390×844): Responsive Student Directory (`/students?course=BSCS`) with stacked filter controls and card-style student rows.*
 
 ---
 
@@ -196,7 +214,7 @@ StudentInformationManagement/
 | **Interpolation (`{{ ... }}`)** | `navbar.component.html`, `dashboard.component.html`, `student-list.component.html`, `student-detail.component.html` | Renders live values such as `{{ currentPath() }}`, `{{ totalStudents() }}`, `{{ averageGpa() \| number: '1.2-2' }}`, `{{ student.fullName }}`, `{{ feedbackMessage() }}`, and `{{ breadcrumbLabel() }}`. |
 | **Property Binding (`[...]`)** | All 4 component templates | Dynamically binds `[routerLink]="['/students', student.id]"`, `[queryParams]="{ edit: 'true' }"`, `[style.width.%]="item.percentage"`, `[disabled]="isSubmitting()"`, `[attr.aria-expanded]`, `[attr.aria-invalid]`, `[ngValue]`, and `[href]`. |
 | **Event Binding (`(...)`)** | All 4 component templates + component `host` metadata | Captures user events: `(click)="openCourseFilter(item.course)"`, `(click)="confirmDelete()"`, `(ngSubmit)="submitForm(studentForm)"`, `(ngModelChange)="onFiltersChanged()"`, and host keyboard listeners `'(document:keydown.escape)'`. |
-| **Two-Way Binding (`[(ngModel)]`)** | `student-list.component.html`, `student-detail.component.html` | Synchronizes filter controls (`[(ngModel)]="searchTerm"`, `selectedCourse`, `selectedYearLevel`) and all 9 student registration/edit form fields (`[(ngModel)]="formModel.*"`) with component state. |
+| **Two-Way Binding (`[(ngModel)]`)** | `student-list.component.html`, `student-detail.component.html` | Synchronizes filter controls (`[(ngModel)]="searchTerm"`, `selectedCourse`, `selectedYearLevel`) and all 10 student registration/edit form fields (`[(ngModel)]="formModel.*"`) with component state. |
 | **Control Flow: `@if` / `@else`** | `navbar.component.html`, `student-list.component.html`, `student-detail.component.html` | Conditionally renders the mobile menu drawer, confirmation banners, active filter reset button, delete alert dialog, and per-field validation messages. |
 | **Control Flow: `@for` with `track`** | `dashboard.component.html`, `student-list.component.html`, `student-detail.component.html` | Efficiently iterates over students (`track student.id`), course breakdowns (`track item.course`), year levels (`track year.yearLevel`), select options, and loading skeleton rows. |
 | **Control Flow: `@switch` / `@case` / `@default`** | `dashboard.component.html`, `student-list.component.html`, `student-detail.component.html` | Renders view states (`loading`, `error`, `empty`, `empty-db`, `empty-filter`, `ready`), detail page modes (`create`, `view`, `edit`), and semantic academic standing indicators. |
@@ -255,7 +273,7 @@ StudentInformationManagement/
   type="text"
   class="control mono"
   required
-  pattern="^\d{4}-\d{4}$"
+  pattern="^\d{4}-\d{5}$"
   [(ngModel)]="formModel.studentNumber"
   #studentNumberCtrl="ngModel"
   [attr.aria-invalid]="studentNumberCtrl.invalid && (studentNumberCtrl.touched || formSubmitted())"
@@ -265,7 +283,7 @@ StudentInformationManagement/
     @if (studentNumberCtrl.errors?.['required']) {
       Student number is required.
     } @else {
-      Use format YYYY-NNNN (example: 2026-0142).
+      Use format YYYY-NNNNN (example: 2026-00142).
     }
   </span>
 }
@@ -367,8 +385,10 @@ export const routes: Routes = [
 | Field | Type | Constraints / Format | Example |
 | --- | --- | --- | --- |
 | `id` | `string` | Unique identifier assigned by `json-server` on `POST` | `"1"` |
-| `studentNumber` | `string` | Required, pattern `^\d{4}-\d{4}$` | `"2023-0101"` |
-| `fullName` | `string` | Required, 3 to 80 characters | `"Elena Cruz"` |
+| `studentNumber` | `string` | Required, pattern `^\d{4}-\d{5}$` | `"2023-00101"` |
+| `firstName` | `string` | Required, 2 to 50 characters | `"Elena"` |
+| `lastName` | `string` | Required, 2 to 50 characters | `"Cruz"` |
+| `fullName` | `string` | Derived automatically from `firstName` + `lastName` | `"Elena Cruz"` |
 | `email` | `string` | Required, valid email address | `"elena.cruz@univ.edu"` |
 | `course` | `string` | Required (`BSCS`, `BSIT`, `BSIS`, `BSCE`, `BSECE`) | `"BSCS"` |
 | `yearLevel` | `number` | Required integer (`1`, `2`, `3`, or `4`) | `4` |
@@ -394,7 +414,9 @@ export const routes: Routes = [
 [
   {
     "id": "1",
-    "studentNumber": "2023-0101",
+    "studentNumber": "2023-00101",
+    "firstName": "Elena",
+    "lastName": "Cruz",
     "fullName": "Elena Cruz",
     "email": "elena.cruz@univ.edu",
     "course": "BSCS",
@@ -406,7 +428,9 @@ export const routes: Routes = [
   },
   {
     "id": "2",
-    "studentNumber": "2024-0214",
+    "studentNumber": "2024-00214",
+    "firstName": "Marco",
+    "lastName": "Villanueva",
     "fullName": "Marco Villanueva",
     "email": "marco.villanueva@univ.edu",
     "course": "BSIT",
@@ -423,7 +447,9 @@ export const routes: Routes = [
 ```json
 {
   "id": "1",
-  "studentNumber": "2023-0101",
+  "studentNumber": "2023-00101",
+  "firstName": "Elena",
+  "lastName": "Cruz",
   "fullName": "Elena Cruz",
   "email": "elena.cruz@univ.edu",
   "course": "BSCS",
@@ -439,7 +465,9 @@ export const routes: Routes = [
 **Request Body:**
 ```json
 {
-  "studentNumber": "2026-0601",
+  "studentNumber": "2026-00601",
+  "firstName": "Andrea",
+  "lastName": "Tolentino",
   "fullName": "Andrea Tolentino",
   "email": "andrea.tolentino@univ.edu",
   "course": "BSIT",
@@ -455,7 +483,9 @@ export const routes: Routes = [
 ```json
 {
   "id": "Kub7wECDAIQ",
-  "studentNumber": "2026-0601",
+  "studentNumber": "2026-00601",
+  "firstName": "Andrea",
+  "lastName": "Tolentino",
   "fullName": "Andrea Tolentino",
   "email": "andrea.tolentino@univ.edu",
   "course": "BSIT",
@@ -472,7 +502,9 @@ export const routes: Routes = [
 ```json
 {
   "id": "Kub7wECDAIQ",
-  "studentNumber": "2026-0601",
+  "studentNumber": "2026-00601",
+  "firstName": "Andrea",
+  "lastName": "Tolentino",
   "fullName": "Andrea Tolentino",
   "email": "andrea.tolentino@univ.edu",
   "course": "BSIT",
@@ -489,7 +521,9 @@ export const routes: Routes = [
 ```json
 {
   "id": "Kub7wECDAIQ",
-  "studentNumber": "2026-0601",
+  "studentNumber": "2026-00601",
+  "firstName": "Andrea",
+  "lastName": "Tolentino",
   "fullName": "Andrea Tolentino",
   "email": "andrea.tolentino@univ.edu",
   "course": "BSIT",
@@ -589,28 +623,42 @@ npm run build      # Build production bundle into dist/
 ### 10.2 End-User Guide
 
 1. **Inspecting the Academic Overview (`/dashboard`):**
-   - Upon opening the application, review the top KPI strip (**Total Enrolled**, **Active Standing**, **Probation / On Leave**, **Mean Cumulative GPA**).
+   - Upon opening the application, review the top KPI strip (**Total Enrolled**, **Active**, **Needs Attention**, **Mean Cumulative GPA**).
    - Click any program row under **Enrollment by Program** (e.g., `BSCS`) or cohort row under **Enrollment by Year Level** to jump directly to a pre-filtered roster in the Student Directory.
-   - Click any student name or **Inspect** link in **Recent Registrations** to open their full Academic Dossier.
-   > `[INSERT_USER_GUIDE_SCREENSHOT_HERE]`
+   - Click any student name or **View** link in **Recent Registrations** to open their full Academic Dossier.
+
+   ![Academic Overview Dashboard](screenshots/guide-1-dashboard.png)
+   *Figure 1: Academic Overview Dashboard (`/dashboard`) displaying live KPIs, program and year-level breakdowns, and recent registrations.*
 
 2. **Searching and Filtering Records (`/students`):**
    - Click **Students** in the top navigation bar (or **Menu** on mobile screens).
    - Type a student's name, student number, email, course, or advisor in the **Search** input, and/or choose a **Course** and **Year Level** dropdown.
    - Notice the browser URL updates automatically (e.g., `/students?course=BSCS&yearLevel=2`), allowing bookmarking or page refreshes without losing active filters. Click **Clear Filters** to reset.
-   > `[INSERT_USER_GUIDE_SCREENSHOT_HERE]`
+
+   ![Student Directory filtered by BSCS](screenshots/guide-2-students-filter.png)
+   *Figure 2: Student Directory filtered by `BSCS` with URL synchronization (`/students?course=BSCS`) and the Clear Filters control.*
 
 3. **Registering a New Student (`/students/new`):**
    - Click **Register Student** in the top bar.
-   - Complete all required fields: Student Number (`YYYY-NNNN`), Full Name, Institutional Email, Degree Program, Year Level, Cumulative GPA (`0.00`–`4.00`), Academic Standing, Enrollment Date, and Academic Advisor.
+   - Complete all 10 required fields: First Name, Last Name, Student Number (`YYYY-NNNNN`), Institutional Email, Degree Program, Year Level, Cumulative GPA (`0.00`–`4.00`), Enrollment Status, Enrollment Date, and Academic Advisor.
    - Click **Register Student**. Invalid fields display inline guidance below each input; valid submissions save to `db.json` and redirect to the new student's dossier with a green confirmation banner.
-   > `[INSERT_USER_GUIDE_SCREENSHOT_HERE]`
+
+   ![Register Student form validation](screenshots/guide-3a-register-validation.png)
+   *Figure 3a: Registration form (`/students/new`) showing the validation summary banner and inline error feedback on incomplete or invalid fields.*
+
+   ![Newly registered student Academic Dossier with confirmation banner](screenshots/guide-3b-register-confirmed.png)
+   *Figure 3b: Confirmation banner and saved Academic Dossier displayed immediately after a valid `POST /students` registration.*
 
 4. **Viewing, Editing, and Deleting a Student Record (`/students/:id`):**
    - On a student's Academic Dossier, click **Edit Record** (URL updates to `/students/:id?edit=true`), modify any fields, and click **Save Changes** (or **Cancel** to discard).
    - To remove a record, click **Delete** from either the directory row or the student dossier, review the confirmation dialog, press **Escape** / **Cancel** to abort, or click **Delete Record** / **Confirm Delete** to remove it permanently.
    - If the local API server (`npm run api`) is offline, an alert banner appears; restart the API and click **Retry** to recover immediately.
-   > `[INSERT_USER_GUIDE_SCREENSHOT_HERE]`
+
+   ![Student Academic Dossier view](screenshots/guide-4a-student-dossier.png)
+   *Figure 4a: Read-only Academic Dossier (`/students/1`) providing direct navigation to Edit Record and Delete actions.*
+
+   ![Delete confirmation dialog](screenshots/guide-4b-delete-confirmation.png)
+   *Figure 4b: Keyboard-accessible delete confirmation dialog (`Remove Student Record`) requiring explicit confirmation before removing a record.*
 
 ---
 
@@ -631,7 +679,7 @@ All 10 test cases were executed live against the running Angular development ser
 | **TC-02** | Angular Router Drill-Down | 1. On `/dashboard`, click `BSCS` in Enrollment by Program.<br>2. Click `Clear Filters`. | Navigates to `/students?course=BSCS` showing 2 BSCS records; clearing filters returns URL to `/students` with all 5 records. | URL updated to `/students?course=BSCS` (Elena Cruz, Hannah Reyes); `Clear Filters` restored `/students` and all 5 rows. | **PASS** |
 | **TC-03** | Search, Filters & Empty State | 1. Choose Course `BSCS` and Year `2nd Year`.<br>2. Type `zzzz-no-match` in Search.<br>3. Click `Reset Filters`. | Filters down to Hannah Reyes (`?course=BSCS&yearLevel=2`); search displays `"No matching students"`; reset restores 5 rows. | URL became `/students?course=BSCS&yearLevel=2` (1 row); non-matching query displayed `"No matching students"`; `Reset Filters` restored 5 rows. | **PASS** |
 | **TC-04** | Invalid Input Validation | 1. Open `/students/new` and submit blank form.<br>2. Enter Student No. `123`, Email `not-an-email`, GPA `4.9` and submit. | Blocks HTTP `POST`; shows validation summary banner and inline messages below each invalid field. | Remained on `/students/new`; showed `"Validation Error"` banner plus inline errors for Student Number, Full Name, Email, GPA range, and Advisor. | **PASS** |
-| **TC-05** | Create CRUD & Persistence | 1. Register valid student `Andrea Tolentino` (`2026-0601`, `BSIT`, 2nd Year, GPA `3.74`).<br>2. Submit and reload browser. | Sends `POST /students` (`201 Created`), navigates to `/students/:newId`, shows confirmation banner, and persists after reload. | Redirected to `/students/Kub7wECDAIQ` with confirmation banner; full page reload fetched and displayed the identical persisted record. | **PASS** |
+| **TC-05** | Create CRUD & Persistence | 1. Register valid student `Andrea Tolentino` (`2026-00601`, `BSIT`, 2nd Year, GPA `3.74`).<br>2. Submit and reload browser. | Sends `POST /students` (`201 Created`), navigates to `/students/:newId`, shows confirmation banner, and persists after reload. | Redirected to `/students/Kub7wECDAIQ` with confirmation banner; full page reload fetched and displayed the identical persisted record. | **PASS** |
 | **TC-06** | Update CRUD & Persistence | 1. Click `Edit Record` on Andrea Tolentino.<br>2. Change GPA to `3.91` and Standing to `Probation`.<br>3. Click `Save Changes` and reload. | URL appends `?edit=true` with prefilled inputs; `PUT /students/:id` saves updates, returns to view mode with confirmation banner, and persists after reload. | Navigated to `?edit=true`, saved via `PUT`, displayed `"Confirmed: Saved updates for Andrea Tolentino."`, `3.91 / 4.00`, and `Probation`; persisted after reload. | **PASS** |
 | **TC-07** | Delete CRUD & Keyboard Cancel | 1. On `/students`, click `Delete` on Andrea Tolentino.<br>2. Press `Escape`.<br>3. Click `Delete` again and confirm `Delete Record`. | Confirmation dialog opens; `Escape` cancels without deleting; confirming sends `DELETE /students/:id`, shows banner, and restores count to 5. | `Escape` closed `alertdialog` (count stayed 6); confirming deleted the record, showed confirmation banner, and returned count to 5. | **PASS** |
 | **TC-08** | Invalid Route Parameter | 1. Navigate directly to `http://localhost:4200/students/999`.<br>2. Click `Back to Student Directory`. | Handles `404 Not Found` cleanly with error message and recovery link back to `/students`. | Rendered `"Unable to open student record"` and `"The requested student record was not found."`; button returned cleanly to `/students`. | **PASS** |
@@ -647,19 +695,15 @@ All group members actively participated in exploring **Angular Router**, contrib
 
 | Member's Name | Assigned Tasks | Actual Contributions | Files/Features Developed | Signature |
 | --- | --- | --- | --- | --- |
-| **Joevan Delos Santos** | Project coordination, component structure, and integration | Coordinated team milestones, designed standalone component architecture, configured Angular Router & HTTP providers, built root shell & sticky navbar with live path indicator, and led integration across all pages. | `src/app/app.config.ts`, `src/app/app.routes.ts`, `src/app/app.component.*`, `src/app/components/navbar/*` | ______________________ |
-| **Jaztin Hart Alejo** | Interface, forms, data binding, and styling | Designed global WCAG AA dark-zinc CSS tokens, built responsive breakpoints and mobile table-to-card reflow, implemented template-driven student registration/edit forms, two-way `[(ngModel)]` bindings, and inline validation feedback. | `src/styles.css`, `src/app/components/dashboard/*`, `src/app/components/student-detail/student-detail.component.html`, `src/app/components/student-detail/student-detail.component.css` | ______________________ |
+| **Joevan Delos Santos** | Project coordination, component structure, routing, interface, forms, styling, and integration | Coordinated team milestones, designed standalone component architecture, configured Angular Router & HTTP providers, built root shell & sticky navbar with live path indicator, designed global WCAG AA dark-zinc CSS tokens and responsive mobile table-to-card reflow, implemented template-driven student registration/edit forms with two-way `[(ngModel)]` bindings and inline validation feedback, and led integration across all pages. | `src/app/app.config.ts`, `src/app/app.routes.ts`, `src/app/app.component.*`, `src/app/components/navbar/*`, `src/styles.css`, `src/app/components/dashboard/*`, `src/app/components/student-detail/student-detail.component.html`, `src/app/components/student-detail/student-detail.component.css` | ______________________ |
 | **Richmon Ecal** | Services, API integration, and data persistence | Defined TypeScript student models/enums, built root-injected `StudentService` with full `HttpClient` CRUD, RxJS multi-criteria search projection, centralized `HttpErrorResponse` translation, and `json-server` `db.json` persistence. | `src/app/models/student.model.ts`, `src/app/services/student.service.ts`, `db.json`, `package.json` (`api` script) | ______________________ |
 | **John Yzhekiel Millar** | Testing, verification, and directory filter integration | Implemented URL-synced debounced search and Course/Year filters in the Student Directory, authored automated Vitest specs for `StudentService` and route matching, and verified persistence and offline recovery behavior. | `src/app/components/student-list/*`, `src/app/services/student.service.spec.ts`, `src/app/app.component.spec.ts` | ______________________ |
 | **Celine Licanda** | Documentation coordination, QA testing, and verification | Executed all 10 live end-to-end test cases (`TC-01`–`TC-10`), verified responsive accessibility and keyboard flows (`Escape` dismissal), authored API & Router documentation sections, and coordinated final PDF & slide deliverables. | `docs/PROJECT_DOCUMENTATION.md`, `docs/PROJECT_DOCUMENTATION.html`, `README.md`, QA verification (`TC-01`–`TC-10`) | ______________________ |
 
 ### 12.2 Individual Reflections
 
-#### Joevan Delos Santos: Coordination, Routing, and Integration
-Working on this project really helped me understand the new Angular standalone setup. Not using NgModules and just using provideRouter() made connecting the pages very easy. The biggest problem I had was a routing error. When we clicked "Register Student", it gave a 404 error. This happened because the router read the students/:id link before the students/new link. I moved the static route to the top and it fixed the bug. My main work was setting up the root files, configuring the routes, and making sure everyone's work connected together well.
-
-#### Jaztin Hart Alejo: Interface, Forms, and Styling
-I focused on the design and how the application looks. It was surprisingly hard to make it look good on mobile phones. Putting a big data table and a nine-field form on a small screen needed a lot of CSS changes. I made custom rules so the table rows turn into small cards, which stopped the screen from overflowing sideways. Also, using two-way data binding with Angular directives helped me show the loading messages properly. Adding aria-invalid to help with accessibility was a good learning experience for me.
+#### Joevan Delos Santos: Coordination, Routing, Interface, Forms, and Integration
+Working on this project really helped me understand the new Angular standalone setup. Not using NgModules and just using provideRouter() made connecting the pages very easy. The biggest problem I had was a routing error. When we clicked "Register Student", it gave a 404 error. This happened because the router read the students/:id link before the students/new link. I moved the static route to the top and it fixed the bug. I also handled the interface design, forms, and styling, where making a big data table and multi-field form look good on mobile phones required custom CSS rules so the table rows turn into small cards without overflowing sideways. Using two-way data binding with Angular directives and adding aria-invalid for accessibility were great learning experiences while setting up the root files, configuring the routes, and making sure everyone's work connected together well.
 
 #### Richmon Ecal: Services, API, and Persistence
 My main task was putting all the backend communication inside the StudentService. By using @Injectable and RxJS observables, I kept our user interface completely separate from the direct HTTP links. We had an unexpected issue when the new json-server update removed the old full-text search feature. Because of this, our search filter stopped working. I fixed it by writing a custom search function using the map() operator. This task really helped me learn how to handle data from the API safely.
@@ -704,4 +748,4 @@ Group 1 successfully delivered the **Student Information Manager**, a fully func
 
 ### Typography, Icons, and Visual Assets
 9. IBM Corporation. *IBM Plex Sans & IBM Plex Mono Typefaces* (loaded via Google Fonts in `src/index.html`). https://fonts.google.com/specimen/IBM+Plex+Sans
-10. Brand Icon (`SIM / Registrar`): Custom inline geometric SVG authored directly in `src/app/components/navbar/navbar.component.html` (no third-party stock images used).
+10. Brand Seal (`SIM / Registrar`): Institutional seal (`public/dyci-logo.png`, Dr. Yanga's Colleges, Inc.) rendered directly in `src/app/components/navbar/navbar.component.html`.

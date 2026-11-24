@@ -585,7 +585,6 @@
         <div class="cover-group">Group 1</div>
         <ul class="member-list">
           <li>Joevan Delos Santos</li>
-          <li>Jaztin Hart Alejo</li>
           <li>Richmon Ecal</li>
           <li>John Yzhekiel Millar</li>
           <li>Celine Licanda</li>
@@ -725,8 +724,8 @@
           <figcaption>Sketch 2: Initial wireframe of the Student Directory (<code>/students</code>) showing the search input, course and year-level filter dropdowns, and roster action controls.</figcaption>
         </figure>
         <figure class="guide-figure">
-          <img src="screenshots/sketch-3-register-student.png" alt="Initial wireframe sketch of the Register Student form with nine required fields and Cancel and Register Student buttons" />
-          <figcaption>Sketch 3: Initial wireframe of the Register Student form (<code>/students/new</code>) outlining the two-column grid for all nine required student fields and submission controls.</figcaption>
+          <img src="screenshots/sketch-3-register-student.png" alt="Initial wireframe sketch of the Register Student form with ten required fields and Cancel and Register Student buttons" />
+          <figcaption>Sketch 3: Initial wireframe of the Register Student form (<code>/students/new</code>) outlining the two-column grid for all ten required student fields and submission controls.</figcaption>
         </figure>
         <figure class="guide-figure">
           <img src="screenshots/sketch-4-student-dossier.png" alt="Initial wireframe sketch of the Student Academic Dossier showing student header, Back to Directory, Edit Record, and Delete buttons, and a two-column metadata grid" />
@@ -846,7 +845,7 @@
           <tr><td><strong>Interpolation (<code>{{ ... }}</code>)</strong></td><td>All 4 component templates</td><td>Renders live values such as <code>{{ currentPath() }}</code>, <code>{{ totalStudents() }}</code>, <code>{{ averageGpa() | number: '1.2-2' }}</code>, <code>{{ student.fullName }}</code>, <code>{{ feedbackMessage() }}</code>, and <code>{{ breadcrumbLabel() }}</code>.</td></tr>
           <tr><td><strong>Property Binding (<code>[...]</code>)</strong></td><td>All 4 component templates</td><td>Dynamically binds <code>[routerLink]="['/students', student.id]"</code>, <code>[queryParams]="{ edit: 'true' }"</code>, <code>[style.width.%]="item.percentage"</code>, <code>[disabled]="isSubmitting()"</code>, <code>[attr.aria-expanded]</code>, <code>[attr.aria-invalid]</code>, <code>[ngValue]</code>, and <code>[href]</code>.</td></tr>
           <tr><td><strong>Event Binding (<code>(...)</code>)</strong></td><td>All 4 component templates + <code>host</code> metadata</td><td>Captures user events: <code>(click)="openCourseFilter(item.course)"</code>, <code>(click)="confirmDelete()"</code>, <code>(ngSubmit)="submitForm(studentForm)"</code>, <code>(ngModelChange)="onFiltersChanged()"</code>, and host keyboard listeners <code>'(document:keydown.escape)'</code>.</td></tr>
-          <tr><td><strong>Two-Way Binding (<code>[(ngModel)]</code>)</strong></td><td><code>student-list.component.html</code>, <code>student-detail.component.html</code></td><td>Synchronizes filter controls (<code>[(ngModel)]="searchTerm"</code>, <code>selectedCourse</code>, <code>selectedYearLevel</code>) and all 9 student registration/edit form fields (<code>[(ngModel)]="formModel.*"</code>) with component state.</td></tr>
+          <tr><td><strong>Two-Way Binding (<code>[(ngModel)]</code>)</strong></td><td><code>student-list.component.html</code>, <code>student-detail.component.html</code></td><td>Synchronizes filter controls (<code>[(ngModel)]="searchTerm"</code>, <code>selectedCourse</code>, <code>selectedYearLevel</code>) and all 10 student registration/edit form fields (<code>[(ngModel)]="formModel.*"</code>) with component state.</td></tr>
           <tr><td><strong>Control Flow: <code>@if</code> / <code>@else</code></strong></td><td><code>navbar</code>, <code>student-list</code>, <code>student-detail</code></td><td>Conditionally renders the mobile menu drawer, confirmation banners, active filter reset button, delete alert dialog, and per-field validation messages.</td></tr>
           <tr><td><strong>Control Flow: <code>@for</code> with <code>track</code></strong></td><td><code>dashboard</code>, <code>student-list</code>, <code>student-detail</code></td><td>Efficiently iterates over students (<code>track student.id</code>), course breakdowns (<code>track item.course</code>), year levels (<code>track year.yearLevel</code>), select options, and loading skeleton rows.</td></tr>
           <tr><td><strong>Control Flow: <code>@switch</code> / <code>@case</code> / <code>@default</code></strong></td><td><code>dashboard</code>, <code>student-list</code>, <code>student-detail</code></td><td>Renders view states (<code>loading</code>, <code>error</code>, <code>empty</code>, <code>empty-db</code>, <code>empty-filter</code>, <code>ready</code>), detail page modes (<code>create</code>, <code>view</code>, <code>edit</code>), and semantic academic standing indicators.</td></tr>
@@ -902,7 +901,7 @@
   type="text"
   class="control mono"
   required
-  pattern="^\d{4}-\d{4}$"
+  pattern="^\d{4}-\d{5}$"
   [(ngModel)]="formModel.studentNumber"
   #studentNumberCtrl="ngModel"
   [attr.aria-invalid]="studentNumberCtrl.invalid &amp;&amp; (studentNumberCtrl.touched || formSubmitted())"
@@ -912,7 +911,7 @@
     @if (studentNumberCtrl.errors?.['required']) {
       Student number is required.
     } @else {
-      Use format YYYY-NNNN (example: 2026-0142).
+      Use format YYYY-NNNNN (example: 2026-00142).
     }
   &lt;/span&gt;
 }</code></pre>
@@ -1012,8 +1011,10 @@ export class StudentService {
         </thead>
         <tbody>
           <tr><td><code>id</code></td><td><code>string</code></td><td>Unique identifier assigned by <code>json-server</code> on <code>POST</code></td><td><code>"1"</code></td></tr>
-          <tr><td><code>studentNumber</code></td><td><code>string</code></td><td>Required, pattern <code>^\d{4}-\d{4}$</code></td><td><code>"2023-0101"</code></td></tr>
-          <tr><td><code>fullName</code></td><td><code>string</code></td><td>Required, 3 to 80 characters</td><td><code>"Elena Cruz"</code></td></tr>
+          <tr><td><code>studentNumber</code></td><td><code>string</code></td><td>Required, pattern <code>^\d{4}-\d{5}$</code></td><td><code>"2023-00101"</code></td></tr>
+          <tr><td><code>firstName</code></td><td><code>string</code></td><td>Required, 2 to 50 characters</td><td><code>"Elena"</code></td></tr>
+          <tr><td><code>lastName</code></td><td><code>string</code></td><td>Required, 2 to 50 characters</td><td><code>"Cruz"</code></td></tr>
+          <tr><td><code>fullName</code></td><td><code>string</code></td><td>Derived automatically from <code>firstName</code> + <code>lastName</code></td><td><code>"Elena Cruz"</code></td></tr>
           <tr><td><code>email</code></td><td><code>string</code></td><td>Required, valid email address</td><td><code>"elena.cruz@univ.edu"</code></td></tr>
           <tr><td><code>course</code></td><td><code>string</code></td><td>Required (<code>BSCS</code>, <code>BSIT</code>, <code>BSIS</code>, <code>BSCE</code>, <code>BSECE</code>)</td><td><code>"BSCS"</code></td></tr>
           <tr><td><code>yearLevel</code></td><td><code>number</code></td><td>Required integer (<code>1</code>, <code>2</code>, <code>3</code>, or <code>4</code>)</td><td><code>4</code></td></tr>
@@ -1044,7 +1045,9 @@ export class StudentService {
       <pre><code>[
   {
     "id": "1",
-    "studentNumber": "2023-0101",
+    "studentNumber": "2023-00101",
+    "firstName": "Elena",
+    "lastName": "Cruz",
     "fullName": "Elena Cruz",
     "email": "elena.cruz@univ.edu",
     "course": "BSCS",
@@ -1056,7 +1059,9 @@ export class StudentService {
   },
   {
     "id": "2",
-    "studentNumber": "2024-0214",
+    "studentNumber": "2024-00214",
+    "firstName": "Marco",
+    "lastName": "Villanueva",
     "fullName": "Marco Villanueva",
     "email": "marco.villanueva@univ.edu",
     "course": "BSIT",
@@ -1071,7 +1076,9 @@ export class StudentService {
       <h4><code>GET /students/1</code> (<code>200 OK</code>)</h4>
       <pre><code>{
   "id": "1",
-  "studentNumber": "2023-0101",
+  "studentNumber": "2023-00101",
+  "firstName": "Elena",
+  "lastName": "Cruz",
   "fullName": "Elena Cruz",
   "email": "elena.cruz@univ.edu",
   "course": "BSCS",
@@ -1084,7 +1091,9 @@ export class StudentService {
 
       <h4><code>POST /students</code> &mdash; Request Body</h4>
       <pre><code>{
-  "studentNumber": "2026-0601",
+  "studentNumber": "2026-00601",
+  "firstName": "Andrea",
+  "lastName": "Tolentino",
   "fullName": "Andrea Tolentino",
   "email": "andrea.tolentino@univ.edu",
   "course": "BSIT",
@@ -1098,7 +1107,9 @@ export class StudentService {
       <h4><code>POST /students</code> &mdash; Response (<code>201 Created</code>)</h4>
       <pre><code>{
   "id": "Kub7wECDAIQ",
-  "studentNumber": "2026-0601",
+  "studentNumber": "2026-00601",
+  "firstName": "Andrea",
+  "lastName": "Tolentino",
   "fullName": "Andrea Tolentino",
   "email": "andrea.tolentino@univ.edu",
   "course": "BSIT",
@@ -1112,7 +1123,9 @@ export class StudentService {
       <h4><code>PUT /students/Kub7wECDAIQ</code> &mdash; Request Body &amp; Response (<code>200 OK</code>)</h4>
       <pre><code>{
   "id": "Kub7wECDAIQ",
-  "studentNumber": "2026-0601",
+  "studentNumber": "2026-00601",
+  "firstName": "Andrea",
+  "lastName": "Tolentino",
   "fullName": "Andrea Tolentino",
   "email": "andrea.tolentino@univ.edu",
   "course": "BSIT",
@@ -1126,7 +1139,9 @@ export class StudentService {
       <h4><code>DELETE /students/Kub7wECDAIQ</code> &mdash; Response (<code>200 OK</code>)</h4>
       <pre><code>{
   "id": "Kub7wECDAIQ",
-  "studentNumber": "2026-0601",
+  "studentNumber": "2026-00601",
+  "firstName": "Andrea",
+  "lastName": "Tolentino",
   "fullName": "Andrea Tolentino",
   "email": "andrea.tolentino@univ.edu",
   "course": "BSIT",
@@ -1213,7 +1228,7 @@ npm run build      # Build production bundle into dist/</code></pre>
       <h3>10.2 End-User Guide</h3>
       <ol>
         <li>
-          <strong>Inspecting the Academic Overview (<code>/dashboard</code>):</strong> Review live enrollment KPIs (Total Enrolled, Active Standing, Probation/On Leave, Mean GPA). Click any program under <em>Enrollment by Program</em> or cohort under <em>Enrollment by Year Level</em> to drill into pre-filtered student rosters, or click a student name to inspect their dossier.
+          <strong>Inspecting the Academic Overview (<code>/dashboard</code>):</strong> Review live enrollment KPIs (Total Enrolled, Active, Needs Attention, Mean Cumulative GPA). Click any program under <em>Enrollment by Program</em> or cohort under <em>Enrollment by Year Level</em> to drill into pre-filtered student rosters, or click a student name or <em>View</em> to inspect their dossier.
           <figure class="guide-figure">
             <img src="screenshots/guide-1-dashboard.png" alt="Academic Overview Dashboard showing enrollment KPIs, program and year-level breakdowns, and recent registrations" />
             <figcaption>Figure 1: Academic Overview Dashboard (<code>/dashboard</code>) displaying live KPIs, program and year-level breakdowns, and recent registrations.</figcaption>
@@ -1227,7 +1242,7 @@ npm run build      # Build production bundle into dist/</code></pre>
           </figure>
         </li>
         <li>
-          <strong>Registering a New Student (<code>/students/new</code>):</strong> Click <em>Register Student</em>, fill out all required fields (Student Number <code>YYYY-NNNN</code>, Full Name, Email, Course, Year Level, GPA <code>0.00</code>&ndash;<code>4.00</code>, Standing, Enrollment Date, Advisor), and submit. Inline validation highlights any invalid fields before sending a <code>POST</code> request.
+          <strong>Registering a New Student (<code>/students/new</code>):</strong> Click <em>Register Student</em>, fill out all 10 required fields (First Name, Last Name, Student Number <code>YYYY-NNNNN</code>, Institutional Email, Degree Program, Year Level, Cumulative GPA <code>0.00</code>&ndash;<code>4.00</code>, Enrollment Status, Enrollment Date, Academic Advisor), and submit. Inline validation highlights any invalid fields before sending a <code>POST</code> request.
           <div class="guide-figure-group">
             <figure class="guide-figure">
               <img src="screenshots/guide-3a-register-validation.png" alt="Register Student form displaying validation error summary banner and inline field messages" />
@@ -1283,7 +1298,7 @@ npm run build      # Build production bundle into dist/</code></pre>
           <tr><td><code>TC-02</code></td><td>Router Drill-Down</td><td>Click <code>BSCS</code> on Dashboard; then click <code>Clear Filters</code>.</td><td>Navigates to <code>/students?course=BSCS</code> (2 rows); clearing returns to <code>/students</code> (5 rows).</td><td>URL became <code>/students?course=BSCS</code> (Elena Cruz, Hannah Reyes); Clear Filters restored all 5 rows.</td><td><span class="status-pass">PASS</span></td></tr>
           <tr><td><code>TC-03</code></td><td>Search &amp; Empty State</td><td>Filter <code>BSCS</code> + <code>2nd Year</code>; type <code>zzzz-no-match</code>; click <code>Reset Filters</code>.</td><td>Shows Hannah Reyes (<code>?course=BSCS&amp;yearLevel=2</code>); non-match shows empty state; Reset restores 5 rows.</td><td>Matched Hannah Reyes; non-matching search showed <code>"No matching students"</code>; Reset restored all 5 rows.</td><td><span class="status-pass">PASS</span></td></tr>
           <tr><td><code>TC-04</code></td><td>Input Validation</td><td>Submit blank form on <code>/students/new</code>; test ID <code>123</code>, email <code>not-an-email</code>, GPA <code>4.9</code>.</td><td>Blocks HTTP <code>POST</code>; shows validation banner and inline field errors.</td><td>Remained on <code>/students/new</code>; showed <code>"Validation Error"</code> banner and per-field inline errors.</td><td><span class="status-pass">PASS</span></td></tr>
-          <tr><td><code>TC-05</code></td><td>Create &amp; Persist</td><td>Register <code>Andrea Tolentino</code> (<code>2026-0601</code>, <code>BSIT</code>, 2nd Year, GPA <code>3.74</code>); reload browser.</td><td>Sends <code>POST /students</code> (201), navigates to <code>/students/:newId</code> with banner, persists on reload.</td><td>Created ID <code>Kub7wECDAIQ</code>, showed confirmation banner, and persisted identically after full reload.</td><td><span class="status-pass">PASS</span></td></tr>
+          <tr><td><code>TC-05</code></td><td>Create &amp; Persist</td><td>Register <code>Andrea Tolentino</code> (<code>2026-00601</code>, <code>BSIT</code>, 2nd Year, GPA <code>3.74</code>); reload browser.</td><td>Sends <code>POST /students</code> (201), navigates to <code>/students/:newId</code> with banner, persists on reload.</td><td>Created ID <code>Kub7wECDAIQ</code>, showed confirmation banner, and persisted identically after full reload.</td><td><span class="status-pass">PASS</span></td></tr>
           <tr><td><code>TC-06</code></td><td>Update &amp; Persist</td><td>Click <code>Edit Record</code>; change GPA to <code>3.91</code> &amp; Standing to <code>Probation</code>; save and reload.</td><td>Appends <code>?edit=true</code>, saves via <code>PUT</code>, returns to view mode with banner, persists on reload.</td><td>Saved via <code>PUT</code>, showed confirmation banner, <code>3.91 / 4.00</code>, and <code>Probation</code>; persisted after reload.</td><td><span class="status-pass">PASS</span></td></tr>
           <tr><td><code>TC-07</code></td><td>Delete &amp; Escape</td><td>Click <code>Delete</code> on Andrea Tolentino; press <code>Escape</code>; click <code>Delete</code> again and confirm.</td><td><code>Escape</code> cancels safely; confirming sends <code>DELETE /students/:id</code> and restores count to 5.</td><td><code>Escape</code> dismissed dialog (count remained 6); confirming deleted record and restored count to 5.</td><td><span class="status-pass">PASS</span></td></tr>
           <tr><td><code>TC-08</code></td><td>Invalid Param</td><td>Navigate directly to <code>/students/999</code>; click <code>Back to Student Directory</code>.</td><td>Handles 404 gracefully with error panel and return link to <code>/students</code>.</td><td>Displayed <code>"The requested student record was not found."</code> and navigated cleanly back to <code>/students</code>.</td><td><span class="status-pass">PASS</span></td></tr>
@@ -1313,16 +1328,9 @@ npm run build      # Build production bundle into dist/</code></pre>
         <tbody>
           <tr>
             <td><strong>Joevan Delos Santos</strong></td>
-            <td>Project coordination, component structure, and integration</td>
-            <td>Coordinated team milestones, designed standalone component architecture, configured Angular Router &amp; HTTP providers, built root shell &amp; sticky navbar with live path indicator, and led integration across all pages.</td>
-            <td><code>src/app/app.config.ts</code>, <code>src/app/app.routes.ts</code>, <code>src/app/app.component.*</code>, <code>src/app/components/navbar/*</code></td>
-            <td class="sig-cell">__________________</td>
-          </tr>
-          <tr>
-            <td><strong>Jaztin Hart Alejo</strong></td>
-            <td>Interface, forms, data binding, and styling</td>
-            <td>Designed global WCAG AA dark-zinc CSS tokens, built responsive breakpoints and mobile table-to-card reflow, implemented template-driven student registration/edit forms, two-way <code>[(ngModel)]</code> bindings, and inline validation feedback.</td>
-            <td><code>src/styles.css</code>, <code>src/app/components/dashboard/*</code>, <code>src/app/components/student-detail/student-detail.component.{html,css}</code></td>
+            <td>Project coordination, component structure, routing, interface, forms, styling, and integration</td>
+            <td>Coordinated team milestones, designed standalone component architecture, configured Angular Router &amp; HTTP providers, built root shell &amp; sticky navbar with live path indicator, designed global WCAG AA dark-zinc CSS tokens and responsive mobile table-to-card reflow, implemented template-driven student registration/edit forms with two-way <code>[(ngModel)]</code> bindings and inline validation feedback, and led integration across all pages.</td>
+            <td><code>src/app/app.config.ts</code>, <code>src/app/app.routes.ts</code>, <code>src/app/app.component.*</code>, <code>src/app/components/navbar/*</code>, <code>src/styles.css</code>, <code>src/app/components/dashboard/*</code>, <code>src/app/components/student-detail/student-detail.component.{html,css}</code></td>
             <td class="sig-cell">__________________</td>
           </tr>
           <tr>
@@ -1352,13 +1360,8 @@ npm run build      # Build production bundle into dist/</code></pre>
       <h3>12.2 Individual Reflections</h3>
 
       <div class="reflection-entry">
-        <h4 class="reflection-author">Joevan Delos Santos <span>&mdash; Coordination, Routing, and Integration</span></h4>
-        <p>Working on this project really helped me understand the new Angular standalone setup. Not using NgModules and just using provideRouter() made connecting the pages very easy. The biggest problem I had was a routing error. When we clicked "Register Student", it gave a 404 error. This happened because the router read the students/:id link before the students/new link. I moved the static route to the top and it fixed the bug. My main work was setting up the root files, configuring the routes, and making sure everyone's work connected together well.</p>
-      </div>
-
-      <div class="reflection-entry">
-        <h4 class="reflection-author">Jaztin Hart Alejo <span>&mdash; Interface, Forms, and Styling</span></h4>
-        <p>I focused on the design and how the application looks. It was surprisingly hard to make it look good on mobile phones. Putting a big data table and a nine-field form on a small screen needed a lot of CSS changes. I made custom rules so the table rows turn into small cards, which stopped the screen from overflowing sideways. Also, using two-way data binding with Angular directives helped me show the loading messages properly. Adding aria-invalid to help with accessibility was a good learning experience for me.</p>
+        <h4 class="reflection-author">Joevan Delos Santos <span>&mdash; Coordination, Routing, Interface, Forms, and Integration</span></h4>
+        <p>Working on this project really helped me understand the new Angular standalone setup. Not using NgModules and just using provideRouter() made connecting the pages very easy. The biggest problem I had was a routing error. When we clicked "Register Student", it gave a 404 error. This happened because the router read the students/:id link before the students/new link. I moved the static route to the top and it fixed the bug. I also handled the interface design, forms, and styling, where making a big data table and multi-field form look good on mobile phones required custom CSS rules so the table rows turn into small cards without overflowing sideways. Using two-way data binding with Angular directives and adding aria-invalid for accessibility were great learning experiences while setting up the root files, configuring the routes, and making sure everyone's work connected together well.</p>
       </div>
 
       <div class="reflection-entry">
@@ -1419,7 +1422,7 @@ npm run build      # Build production bundle into dist/</code></pre>
       <h3>Typography, Icons, and Visual Assets</h3>
       <ol start="9">
         <li>IBM Corporation. <em>IBM Plex Sans &amp; IBM Plex Mono Typefaces</em> (loaded via Google Fonts in <code>src/index.html</code>). <a href="https://fonts.google.com/specimen/IBM+Plex+Sans">https://fonts.google.com/specimen/IBM+Plex+Sans</a></li>
-        <li>Brand Icon (<code>SIM / Registrar</code>): Custom inline geometric SVG authored directly in <code>src/app/components/navbar/navbar.component.html</code> (no third-party stock images used).</li>
+        <li>Brand Seal (<code>SIM / Registrar</code>): Institutional seal (<code>public/dyci-logo.png</code>, Dr. Yanga's Colleges, Inc.) rendered directly in <code>src/app/components/navbar/navbar.component.html</code>.</li>
       </ol>
       <a class="back-top" href="#top">&uarr; Back to top</a>
     </section>
