@@ -12,6 +12,8 @@ describe('StudentService', () => {
     {
       id: '1',
       studentNumber: '2023-00101',
+      firstName: 'Elena',
+      lastName: 'Cruz',
       fullName: 'Elena Cruz',
       email: 'elena.cruz@univ.edu',
       course: 'BSCS',
@@ -24,6 +26,8 @@ describe('StudentService', () => {
     {
       id: '2',
       studentNumber: '2024-00214',
+      firstName: 'Marco',
+      lastName: 'Villanueva',
       fullName: 'Marco Villanueva',
       email: 'marco.villanueva@univ.edu',
       course: 'BSIT',
@@ -75,6 +79,8 @@ describe('StudentService', () => {
   it('should create a student via POST /students', () => {
     const payload: StudentPayload = {
       studentNumber: '2026-00999',
+      firstName: 'Lukas',
+      lastName: 'Bautista',
       fullName: 'Lukas Bautista',
       email: 'lukas.bautista@univ.edu',
       course: 'BSIS',
@@ -99,6 +105,8 @@ describe('StudentService', () => {
   it('should update a student via PUT /students/:id', () => {
     const updatedPayload: StudentPayload = {
       studentNumber: '2023-00101',
+      firstName: 'Elena',
+      lastName: 'Cruz',
       fullName: 'Elena Cruz',
       email: 'elena.cruz@univ.edu',
       course: 'BSCS',
@@ -141,5 +149,21 @@ describe('StudentService', () => {
     req.error(new ProgressEvent('error'), { status: 0, statusText: 'Unknown Error' });
 
     expect(capturedError).toContain('http://localhost:3000');
+  });
+
+  it('should match search queries against firstName, lastName, and readable status labels', () => {
+    let byLastName: Student[] = [];
+    service.searchStudents({ searchTerm: 'villanueva' }).subscribe((data) => (byLastName = data));
+    httpMock.expectOne('http://localhost:3000/students').flush(mockStudents);
+
+    expect(byLastName.length).toBe(1);
+    expect(byLastName[0].firstName).toBe('Marco');
+    expect(byLastName[0].lastName).toBe('Villanueva');
+
+    let byStatusLabel: Student[] = [];
+    service.searchStudents({ searchTerm: 'enrolled' }).subscribe((data) => (byStatusLabel = data));
+    httpMock.expectOne('http://localhost:3000/students').flush(mockStudents);
+
+    expect(byStatusLabel.length).toBe(2);
   });
 });

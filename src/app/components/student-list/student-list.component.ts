@@ -6,10 +6,12 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Subject, catchError, debounceTime, of, switchMap, tap } from 'rxjs';
 import {
   COURSE_OPTIONS,
+  STATUS_META_LIST,
   Student,
   StudentFilterCriteria,
   YEAR_LEVEL_OPTIONS,
-  YearLevel
+  YearLevel,
+  getStatusMeta
 } from '../../models/student.model';
 import { StudentService } from '../../services/student.service';
 
@@ -33,6 +35,8 @@ export class StudentListComponent implements OnInit {
 
   readonly courseOptions = COURSE_OPTIONS;
   readonly yearLevelOptions = YEAR_LEVEL_OPTIONS;
+  readonly statusLegend = STATUS_META_LIST;
+  readonly getStatusMeta = getStatusMeta;
 
   readonly students = signal<Student[]>([]);
   readonly totalDatabaseCount = signal(0);

@@ -53,23 +53,35 @@
               <span class="mono student-id">{{ record.studentNumber }}</span>
               @switch (record.status) {
                 @case ('Active') {
-                  <span class="status-text status-active">
+                  <span
+                    class="status-text status-active"
+                    [title]="getStatusMeta(record.status).description"
+                  >
                     <span class="status-dot" aria-hidden="true"></span>Active
                   </span>
                 }
                 @case ('Probation') {
-                  <span class="status-text status-probation">
-                    <span class="status-dot" aria-hidden="true"></span>Probation
+                  <span
+                    class="status-text status-probation"
+                    [title]="getStatusMeta(record.status).description"
+                  >
+                    <span class="status-dot" aria-hidden="true"></span>Academic Probation
                   </span>
                 }
                 @case ('On Leave') {
-                  <span class="status-text status-leave">
+                  <span
+                    class="status-text status-leave"
+                    [title]="getStatusMeta(record.status).description"
+                  >
                     <span class="status-dot" aria-hidden="true"></span>On Leave
                   </span>
                 }
                 @default {
-                  <span class="status-text status-graduated">
-                    <span class="status-dot" aria-hidden="true"></span>{{ record.status }}
+                  <span
+                    class="status-text status-graduated"
+                    [title]="getStatusMeta(record.status).description"
+                  >
+                    <span class="status-dot" aria-hidden="true"></span>{{ getStatusMeta(record.status).label }}
                   </span>
                 }
               }
@@ -158,6 +170,16 @@
 
           <dl class="dossier-grid">
             <div class="dossier-item">
+              <dt>First Name</dt>
+              <dd>{{ resolveStudentName(record).firstName }}</dd>
+            </div>
+
+            <div class="dossier-item">
+              <dt>Last Name</dt>
+              <dd>{{ resolveStudentName(record).lastName || '—' }}</dd>
+            </div>
+
+            <div class="dossier-item">
               <dt>Institutional Email</dt>
               <dd>
                 <a [href]="'mailto:' + record.email">{{ record.email }}</a>
@@ -188,6 +210,35 @@
               <dt>Enrollment Date</dt>
               <dd class="mono">{{ record.enrolledDate }}</dd>
             </div>
+
+            <div class="dossier-item dossier-item-full">
+              <dt>Enrollment Status</dt>
+              <dd class="dossier-status-row">
+                @switch (record.status) {
+                  @case ('Active') {
+                    <span class="status-text status-active">
+                      <span class="status-dot" aria-hidden="true"></span>Active
+                    </span>
+                  }
+                  @case ('Probation') {
+                    <span class="status-text status-probation">
+                      <span class="status-dot" aria-hidden="true"></span>Academic Probation
+                    </span>
+                  }
+                  @case ('On Leave') {
+                    <span class="status-text status-leave">
+                      <span class="status-dot" aria-hidden="true"></span>On Leave
+                    </span>
+                  }
+                  @default {
+                    <span class="status-text status-graduated">
+                      <span class="status-dot" aria-hidden="true"></span>{{ getStatusMeta(record.status).label }}
+                    </span>
+                  }
+                }
+                <span class="dossier-status-desc">{{ getStatusMeta(record.status).description }}</span>
+              </dd>
+            </div>
           </dl>
         </div>
       }
@@ -206,9 +257,6 @@
                 : 'Update the academic profile and save changes directly to the registrar API.'
             }}
           </p>
-        </div>
-        <div class="action-row">
-          <button type="button" class="btn" (click)="cancelEdit()">Cancel</button>
         </div>
       </header>
 
@@ -232,6 +280,72 @@
       >
         <div class="form-grid">
           <div class="field">
+            <label for="firstName" class="field-label">First Name *</label>
+            <input
+              id="firstName"
+              name="firstName"
+              type="text"
+              class="control"
+              required
+              minlength="2"
+              maxlength="50"
+              placeholder="e.g., Elena"
+              [(ngModel)]="formModel.firstName"
+              #firstNameCtrl="ngModel"
+              [attr.aria-invalid]="
+                (firstNameCtrl.invalid || formModel.firstName.trim().length < 2) &&
+                (firstNameCtrl.touched || formSubmitted())
+              "
+              aria-describedby="firstName-err"
+            />
+            @if (
+              (firstNameCtrl.invalid || formModel.firstName.trim().length < 2) &&
+              (firstNameCtrl.touched || formSubmitted())
+            ) {
+              <span id="firstName-err" class="field-error" role="alert">
+                @if (firstNameCtrl.errors?.['required'] || formModel.firstName.trim().length === 0) {
+                  First name is required.
+                } @else {
+                  First name must be at least 2 characters.
+                }
+              </span>
+            }
+          </div>
+
+          <div class="field">
+            <label for="lastName" class="field-label">Last Name *</label>
+            <input
+              id="lastName"
+              name="lastName"
+              type="text"
+              class="control"
+              required
+              minlength="2"
+              maxlength="50"
+              placeholder="e.g., Cruz"
+              [(ngModel)]="formModel.lastName"
+              #lastNameCtrl="ngModel"
+              [attr.aria-invalid]="
+                (lastNameCtrl.invalid || formModel.lastName.trim().length < 2) &&
+                (lastNameCtrl.touched || formSubmitted())
+              "
+              aria-describedby="lastName-err"
+            />
+            @if (
+              (lastNameCtrl.invalid || formModel.lastName.trim().length < 2) &&
+              (lastNameCtrl.touched || formSubmitted())
+            ) {
+              <span id="lastName-err" class="field-error" role="alert">
+                @if (lastNameCtrl.errors?.['required'] || formModel.lastName.trim().length === 0) {
+                  Last name is required.
+                } @else {
+                  Last name must be at least 2 characters.
+                }
+              </span>
+            }
+          </div>
+
+          <div class="field">
             <label for="studentNumber" class="field-label">Student Number *</label>
             <input
               id="studentNumber"
@@ -253,33 +367,6 @@
                   Student number is required.
                 } @else {
                   Use format YYYY-NNNNN (example: 2026-00142).
-                }
-              </span>
-            }
-          </div>
-
-          <div class="field">
-            <label for="fullName" class="field-label">Full Name *</label>
-            <input
-              id="fullName"
-              name="fullName"
-              type="text"
-              class="control"
-              required
-              minlength="3"
-              maxlength="80"
-              placeholder="Student full name"
-              [(ngModel)]="formModel.fullName"
-              #fullNameCtrl="ngModel"
-              [attr.aria-invalid]="fullNameCtrl.invalid && (fullNameCtrl.touched || formSubmitted())"
-              aria-describedby="fullName-err"
-            />
-            @if (fullNameCtrl.invalid && (fullNameCtrl.touched || formSubmitted())) {
-              <span id="fullName-err" class="field-error" role="alert">
-                @if (fullNameCtrl.errors?.['required']) {
-                  Full name is required.
-                } @else {
-                  Full name must be at least 3 characters.
                 }
               </span>
             }
@@ -380,18 +467,24 @@
           </div>
 
           <div class="field">
-            <label for="status" class="field-label">Academic Standing *</label>
+            <label for="status" class="field-label">Enrollment Status *</label>
             <select
               id="status"
               name="status"
               class="control"
               required
               [(ngModel)]="formModel.status"
+              aria-describedby="status-help"
             >
-              @for (status of statusOptions; track status) {
-                <option [value]="status">{{ status }}</option>
+              @for (status of statusMetaList; track status.value) {
+                <option [value]="status.value">
+                  {{ status.label }} — {{ status.shortDescription }}
+                </option>
               }
             </select>
+            <span id="status-help" class="field-hint">
+              {{ getStatusMeta(formModel.status).description }}
+            </span>
           </div>
 
           <div class="field">
@@ -414,7 +507,7 @@
             }
           </div>
 
-          <div class="field field-full">
+          <div class="field">
             <label for="advisor" class="field-label">Academic Advisor *</label>
             <input
               id="advisor"
@@ -427,12 +520,18 @@
               placeholder="Assigned faculty advisor"
               [(ngModel)]="formModel.advisor"
               #advisorCtrl="ngModel"
-              [attr.aria-invalid]="advisorCtrl.invalid && (advisorCtrl.touched || formSubmitted())"
+              [attr.aria-invalid]="
+                (advisorCtrl.invalid || formModel.advisor.trim().length < 3) &&
+                (advisorCtrl.touched || formSubmitted())
+              "
               aria-describedby="advisor-err"
             />
-            @if (advisorCtrl.invalid && (advisorCtrl.touched || formSubmitted())) {
+            @if (
+              (advisorCtrl.invalid || formModel.advisor.trim().length < 3) &&
+              (advisorCtrl.touched || formSubmitted())
+            ) {
               <span id="advisor-err" class="field-error" role="alert">
-                @if (advisorCtrl.errors?.['required']) {
+                @if (advisorCtrl.errors?.['required'] || formModel.advisor.trim().length === 0) {
                   Academic advisor is required.
                 } @else {
                   Advisor name must be at least 3 characters.

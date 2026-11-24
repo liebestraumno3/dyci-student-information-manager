@@ -183,80 +183,116 @@
 
     @case ('ready') {
       <div class="panel">
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th scope="col">Student No.</th>
-              <th scope="col">Student</th>
-              <th scope="col">Course</th>
-              <th scope="col">Year Level</th>
-              <th scope="col" class="num-col">GPA</th>
-              <th scope="col">Standing</th>
-              <th scope="col" class="actions-col">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (student of students(); track student.id) {
+        <div class="table-scroll">
+          <table class="data-table">
+            <thead>
               <tr>
-                <td data-label="Student No." class="mono muted-cell">
-                  {{ student.studentNumber }}
-                </td>
-                <td data-label="Student" class="student-cell">
-                  <a [routerLink]="['/students', student.id]" class="student-name">
-                    {{ student.fullName }}
-                  </a>
-                  <span class="student-email">{{ student.email }}</span>
-                </td>
-                <td data-label="Course" class="mono">{{ student.course }}</td>
-                <td data-label="Year Level">{{ formatYearLabel(student.yearLevel) }}</td>
-                <td data-label="GPA" class="mono num-col">{{ student.gpa | number: '1.2-2' }}</td>
-                <td data-label="Standing">
-                  @switch (student.status) {
-                    @case ('Active') {
-                      <span class="status-text status-active">
-                        <span class="status-dot" aria-hidden="true"></span>Active
-                      </span>
-                    }
-                    @case ('Probation') {
-                      <span class="status-text status-probation">
-                        <span class="status-dot" aria-hidden="true"></span>Probation
-                      </span>
-                    }
-                    @case ('On Leave') {
-                      <span class="status-text status-leave">
-                        <span class="status-dot" aria-hidden="true"></span>On Leave
-                      </span>
-                    }
-                    @default {
-                      <span class="status-text status-graduated">
-                        <span class="status-dot" aria-hidden="true"></span>{{ student.status }}
-                      </span>
-                    }
-                  }
-                </td>
-                <td data-label="Actions" class="actions-col">
-                  <div class="row-actions">
-                    <a [routerLink]="['/students', student.id]" class="action-link">View</a>
-                    <a
-                      [routerLink]="['/students', student.id]"
-                      [queryParams]="{ edit: 'true' }"
-                      class="action-link"
-                    >
-                      Edit
-                    </a>
-                    <button
-                      type="button"
-                      class="action-link action-danger"
-                      (click)="requestDelete(student)"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </td>
+                <th scope="col">Student No.</th>
+                <th scope="col">Student</th>
+                <th scope="col">Course</th>
+                <th scope="col">Year Level</th>
+                <th scope="col" class="num-col">GPA</th>
+                <th scope="col">Status</th>
+                <th scope="col" class="actions-col">Actions</th>
               </tr>
+            </thead>
+            <tbody>
+              @for (student of students(); track student.id) {
+                <tr>
+                  <td data-label="Student No." class="mono muted-cell">
+                    {{ student.studentNumber }}
+                  </td>
+                  <td data-label="Student" class="student-cell">
+                    <a [routerLink]="['/students', student.id]" class="student-name">
+                      {{ student.fullName }}
+                    </a>
+                    <span class="student-email">{{ student.email }}</span>
+                  </td>
+                  <td data-label="Course" class="mono">{{ student.course }}</td>
+                  <td data-label="Year Level">{{ formatYearLabel(student.yearLevel) }}</td>
+                  <td data-label="GPA" class="mono num-col">{{ student.gpa | number: '1.2-2' }}</td>
+                  <td data-label="Status">
+                    @switch (student.status) {
+                      @case ('Active') {
+                        <span
+                          class="status-text status-active"
+                          [title]="getStatusMeta(student.status).description"
+                        >
+                          <span class="status-dot" aria-hidden="true"></span>Active
+                        </span>
+                      }
+                      @case ('Probation') {
+                        <span
+                          class="status-text status-probation"
+                          [title]="getStatusMeta(student.status).description"
+                        >
+                          <span class="status-dot" aria-hidden="true"></span>Academic Probation
+                        </span>
+                      }
+                      @case ('On Leave') {
+                        <span
+                          class="status-text status-leave"
+                          [title]="getStatusMeta(student.status).description"
+                        >
+                          <span class="status-dot" aria-hidden="true"></span>On Leave
+                        </span>
+                      }
+                      @default {
+                        <span
+                          class="status-text status-graduated"
+                          [title]="getStatusMeta(student.status).description"
+                        >
+                          <span class="status-dot" aria-hidden="true"></span>{{ getStatusMeta(student.status).label }}
+                        </span>
+                      }
+                    }
+                  </td>
+                  <td data-label="Actions" class="actions-col">
+                    <div class="row-actions">
+                      <a [routerLink]="['/students', student.id]" class="action-link">View</a>
+                      <a
+                        [routerLink]="['/students', student.id]"
+                        [queryParams]="{ edit: 'true' }"
+                        class="action-link"
+                      >
+                        Edit
+                      </a>
+                      <button
+                        type="button"
+                        class="action-link action-danger"
+                        (click)="requestDelete(student)"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <div class="status-legend" aria-label="Status guide">
+          <span class="status-legend-title">Status Guide:</span>
+          <ul class="status-legend-list">
+            @for (item of statusLegend; track item.value) {
+              <li class="status-legend-item">
+                <span
+                  class="status-dot"
+                  [class.status-legend-dot-active]="item.value === 'Active'"
+                  [class.status-legend-dot-probation]="item.value === 'Probation'"
+                  [class.status-legend-dot-leave]="item.value === 'On Leave'"
+                  [class.status-legend-dot-graduated]="item.value === 'Graduated'"
+                  aria-hidden="true"
+                ></span>
+                <span>
+                  <span class="status-legend-label">{{ item.label }}:</span>
+                  {{ item.shortDescription }}
+                </span>
+              </li>
             }
-          </tbody>
-        </table>
+          </ul>
+        </div>
       </div>
     }
   }

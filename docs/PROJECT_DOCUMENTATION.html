@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Student Information Manager - Project Documentation</title>
+  <title>Student Information Manager - Final Project Documentation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     :root {
@@ -32,16 +32,16 @@
       background: #ffffff;
       color: var(--ink);
       font-family: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
-      font-size: 14px;
+      font-size: 13.5px;
       line-height: 1.6;
     }
 
     .doc {
-      max-width: 900px;
+      max-width: 920px;
       margin: 0 auto;
     }
 
-    /* Sticky screen-only navigation toolbar */
+    /* Sticky screen-only quick navigation */
     .doc-toolbar {
       position: sticky;
       top: 0;
@@ -50,7 +50,7 @@
       padding: 10px 14px;
       border: 1px solid var(--border);
       border-radius: 6px;
-      background: rgba(255, 255, 255, 0.96);
+      background: rgba(255, 255, 255, 0.97);
     }
 
     .toolbar-top {
@@ -65,19 +65,19 @@
     .quick-nav {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
+      gap: 5px;
       margin-top: 8px;
       padding-top: 8px;
       border-top: 1px solid var(--border);
     }
 
     .quick-nav a {
-      padding: 3px 8px;
+      padding: 2px 7px;
       border: 1px solid var(--border);
       border-radius: 4px;
       background: var(--surface);
       color: var(--ink);
-      font-size: 12px;
+      font-size: 11.5px;
       text-decoration: none;
     }
 
@@ -98,60 +98,110 @@
       cursor: pointer;
     }
 
-    /* Formal Cover Page */
+    /* Classic Academic Cover Page */
     .cover-page {
-      padding: 36px 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+      min-height: 820px;
+      padding: 64px 48px 56px;
       margin-bottom: 28px;
-      border: 1px solid var(--border-strong);
-      border-radius: 8px;
+      border: 1px solid #e5e7eb;
       background: #ffffff;
+      color: #111827;
     }
 
-    .cover-kicker {
-      font-family: 'IBM Plex Mono', ui-monospace, Consolas, monospace;
-      font-size: 12px;
-      color: var(--accent);
+    .cover-course {
+      font-size: 13px;
       font-weight: 600;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
+      color: #111827;
+    }
+
+    .cover-doc-type {
+      margin-top: 4px;
+      font-size: 13px;
+      color: #4b5563;
+    }
+
+    .cover-title-block {
+      max-width: 600px;
+      padding: 40px 0;
     }
 
     h1 {
-      margin: 8px 0 10px;
-      font-size: 32px;
-      line-height: 1.15;
-      letter-spacing: -0.02em;
+      margin: 0 0 14px;
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: #111827;
+    }
+
+    .cover-divider {
+      width: 120px;
+      height: 1px;
+      margin: 0 auto 14px;
+      background: #111827;
     }
 
     .cover-subtitle {
-      color: var(--ink-muted);
-      font-size: 15px;
-      margin-bottom: 22px;
+      margin: 0;
+      font-size: 14px;
+      font-style: italic;
+      color: #374151;
     }
 
-    .cover-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 16px 0 20px;
-      font-size: 13.5px;
+    .cover-section {
+      margin: 14px 0;
     }
 
-    .cover-table th {
-      width: 28%;
-      background: var(--surface);
-      font-weight: 600;
-      color: var(--ink);
-    }
-
-    .meta-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px 20px;
-      padding: 12px 14px;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      background: var(--surface);
+    .cover-label {
+      margin-bottom: 6px;
       font-size: 12.5px;
+      color: #4b5563;
+    }
+
+    .cover-group {
+      margin-bottom: 6px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .member-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: #111827;
+    }
+
+    .member-list li {
+      margin: 0;
+    }
+
+    .cover-instructor {
+      font-size: 14px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .cover-role {
+      font-size: 12.5px;
+      color: #4b5563;
+    }
+
+    .cover-date {
+      margin-top: 28px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #111827;
     }
 
     /* Table of Contents */
@@ -178,7 +228,7 @@
 
     .toc-list li {
       break-inside: avoid;
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
 
     .toc-list a {
@@ -191,9 +241,8 @@
       text-decoration: underline;
     }
 
-    /* Content typography */
     section {
-      scroll-margin-top: 96px;
+      scroll-margin-top: 108px;
     }
 
     h2 {
@@ -235,7 +284,7 @@
 
     code {
       font-family: 'IBM Plex Mono', ui-monospace, Consolas, monospace;
-      font-size: 12.5px;
+      font-size: 12px;
       background: var(--surface-alt);
       padding: 1px 4px;
       border-radius: 3px;
@@ -249,7 +298,7 @@
       background: var(--surface);
       overflow-x: auto;
       font-family: 'IBM Plex Mono', ui-monospace, Consolas, monospace;
-      font-size: 12px;
+      font-size: 11.5px;
       line-height: 1.5;
     }
 
@@ -262,12 +311,12 @@
       width: 100%;
       border-collapse: collapse;
       margin: 10px 0 16px;
-      font-size: 13px;
+      font-size: 12.5px;
     }
 
     th,
     td {
-      padding: 8px 10px;
+      padding: 7px 9px;
       border: 1px solid var(--border);
       text-align: left;
       vertical-align: top;
@@ -280,15 +329,61 @@
 
     .placeholder-box {
       margin: 10px 0 16px;
-      padding: 28px 16px;
+      padding: 24px 16px;
       border: 1.5px dashed var(--border-strong);
       border-radius: 6px;
       background: var(--surface);
       text-align: center;
       font-family: 'IBM Plex Mono', ui-monospace, Consolas, monospace;
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 600;
       color: var(--ink-muted);
+    }
+
+    .guide-figure-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 10px 0 16px;
+    }
+
+    .guide-figure {
+      margin: 10px 0 16px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      background: var(--surface);
+    }
+
+    .guide-figure-group .guide-figure {
+      margin: 0;
+    }
+
+    .guide-figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .guide-figure figcaption {
+      padding: 8px 12px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--ink-muted);
+      background: var(--surface);
+    }
+
+    .guide-figure-mobile-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+
+    @media (max-width: 640px) {
+      .guide-figure-mobile-pair {
+        grid-template-columns: 1fr;
+      }
     }
 
     .callout {
@@ -300,14 +395,52 @@
       background: var(--surface);
     }
 
+    .reflection-entry {
+      margin: 16px 0;
+      padding-bottom: 14px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .reflection-entry:last-of-type {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .reflection-author {
+      margin: 0 0 6px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .reflection-author span {
+      font-weight: 400;
+      color: var(--ink-muted);
+      font-size: 12.5px;
+    }
+
+    .reflection-entry p {
+      margin: 0 0 8px;
+      color: #1f2937;
+    }
+
+    .reflection-entry p:last-child {
+      margin-bottom: 0;
+    }
+
+    .sig-cell {
+      min-width: 120px;
+      vertical-align: bottom;
+      font-family: 'IBM Plex Mono', ui-monospace, Consolas, monospace;
+      color: var(--ink-muted);
+    }
+
     .status-pass {
       display: inline-block;
-      padding: 2px 6px;
-      border-radius: 3px;
-      background: var(--pass-bg);
-      color: var(--pass-ink);
+      background: transparent;
+      color: var(--ink);
       font-family: 'IBM Plex Mono', ui-monospace, Consolas, monospace;
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 600;
     }
 
@@ -325,23 +458,40 @@
     }
 
     @media (max-width: 680px) {
-      .meta-grid {
-        grid-template-columns: 1fr;
-      }
-
       .toc-list {
         columns: 1;
       }
 
       .cover-page {
-        padding: 20px 16px;
+        min-height: auto;
+        padding: 36px 20px;
       }
+    }
+
+    @page {
+      size: letter;
+      margin: 0.75in 0.8in;
+      @top-left { content: ""; }
+      @top-center { content: ""; }
+      @top-right { content: ""; }
+      @bottom-left { content: ""; }
+      @bottom-center {
+        content: counter(page);
+        font-family: 'IBM Plex Sans', system-ui, sans-serif;
+        font-size: 9pt;
+        color: #6b7280;
+      }
+      @bottom-right { content: ""; }
+    }
+
+    @page :first {
+      @bottom-center { content: ""; }
     }
 
     @media print {
       body {
         padding: 0;
-        font-size: 10.5pt;
+        font-size: 10pt;
       }
 
       .doc-toolbar,
@@ -350,18 +500,34 @@
       }
 
       .cover-page {
+        min-height: 9.4in;
+        padding: 0.9in 0.4in 0.6in;
+        margin: 0;
+        border: none;
         page-break-after: always;
-        border: 1px solid var(--border);
       }
 
-      h2 {
+      h2,
+      h3,
+      h4 {
         page-break-after: avoid;
       }
 
-      table,
+      pre {
+        white-space: pre-wrap;
+        word-break: break-word;
+        overflow: visible;
+      }
+
+      thead {
+        display: table-header-group;
+      }
+
       pre,
       .placeholder-box,
-      .callout {
+      .guide-figure,
+      .callout,
+      .reflection-entry {
         page-break-inside: avoid;
       }
 
@@ -379,61 +545,58 @@
   <article class="doc">
     <nav class="doc-toolbar" aria-label="Document navigation">
       <div class="toolbar-top">
-        <span><strong>Student Information Manager</strong> &mdash; Group 1 Finals Documentation</span>
+        <span><strong>Student Information Manager</strong> &mdash; Group 1 Final Project Documentation</span>
         <button type="button" class="print-btn" onclick="window.print()">Print / Save as PDF</button>
       </div>
       <div class="quick-nav">
         <a href="#cover">Cover</a>
         <a href="#sec-1">1. Overview</a>
-        <a href="#sec-2">2. Interface Plan</a>
-        <a href="#sec-3">3. Structure</a>
-        <a href="#sec-4">4. Topic Mapping</a>
-        <a href="#sec-5">5. API Docs</a>
-        <a href="#sec-6">6. Exploration</a>
-        <a href="#sec-7">7. Installation</a>
-        <a href="#sec-8">8. Testing</a>
-        <a href="#sec-9">9. Contributions &amp; Refs</a>
+        <a href="#sec-2">2. Objectives</a>
+        <a href="#sec-3">3. Scope</a>
+        <a href="#sec-4">4. Requirements</a>
+        <a href="#sec-5">5. Interface</a>
+        <a href="#sec-6">6. Structure</a>
+        <a href="#sec-7">7. Topics &amp; Code</a>
+        <a href="#sec-8">8. API</a>
+        <a href="#sec-9">9. Router</a>
+        <a href="#sec-10">10. Install &amp; Guide</a>
+        <a href="#sec-11">11. Testing</a>
+        <a href="#sec-12">12. Contributions</a>
+        <a href="#sec-13">13. Conclusion</a>
+        <a href="#sec-14">14. References</a>
       </div>
     </nav>
 
     <!-- COVER PAGE -->
     <header id="cover" class="cover-page">
-      <div class="cover-kicker">Angular Finals Group Project Documentation</div>
-      <h1>Student Information Manager</h1>
-      <p class="cover-subtitle">An API-Connected Angular 22 Single-Page Application Featuring Standalone Components, RxJS Observables, Injected Services, Local <code>json-server</code> Persistence, and Angular Router Exploration.</p>
+      <div>
+        <div class="cover-course">Professional Elective</div>
+        <div class="cover-doc-type">Final Project Documentation</div>
+      </div>
 
-      <table class="cover-table">
-        <tbody>
-          <tr>
-            <th scope="row">Project Title</th>
-            <td>Student Information Manager</td>
-          </tr>
-          <tr>
-            <th scope="row">Group Number</th>
-            <td>Group 1</td>
-          </tr>
-          <tr>
-            <th scope="row">Group Members</th>
-            <td>Joevan Delos Santos, Richmon Ecal, John Yzhekiel Millar, Jaztin Hart Alejo, Celine Licanda</td>
-          </tr>
-          <tr>
-            <th scope="row">Subject</th>
-            <td>Web Development / Angular</td>
-          </tr>
-          <tr>
-            <th scope="row">Submission Date</th>
-            <td>[Insert Date]</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="cover-title-block">
+        <h1>Student Information Manager</h1>
+        <div class="cover-divider" aria-hidden="true"></div>
+        <p class="cover-subtitle">An Angular Web Application for Managing Department Student Records</p>
+      </div>
 
-      <div class="meta-grid">
-        <div><strong>Framework:</strong> Angular 22 (Standalone, Zoneless, Signals)</div>
-        <div><strong>Control Flow:</strong> <code>@if</code>, <code>@for</code> (track), <code>@switch</code></div>
-        <div><strong>Reactive &amp; HTTP:</strong> RxJS 7.8 (<code>subscribe()</code>) + <code>HttpClient</code></div>
-        <div><strong>Mock API:</strong> <code>json-server</code> (<code>http://localhost:3000/students</code>)</div>
-        <div><strong>Explored Feature:</strong> Angular Router (<code>@angular/router</code>)</div>
-        <div><strong>Verification:</strong> 8 Vitest Unit Tests + 10 Live E2E Cases</div>
+      <div class="cover-section">
+        <div class="cover-label">Submitted by:</div>
+        <div class="cover-group">Group 1</div>
+        <ul class="member-list">
+          <li>Joevan Delos Santos</li>
+          <li>Jaztin Hart Alejo</li>
+          <li>Richmon Ecal</li>
+          <li>John Yzhekiel Millar</li>
+          <li>Celine Licanda</li>
+        </ul>
+      </div>
+
+      <div class="cover-section">
+        <div class="cover-label">Submitted to:</div>
+        <div class="cover-instructor">Mrs. AnaLizel Benedicto Del Poso</div>
+        <div class="cover-role">Instructor, Professional Elective</div>
+        <div class="cover-date">November 25, 2026</div>
       </div>
     </header>
 
@@ -442,24 +605,27 @@
       <h2>Table of Contents</h2>
       <ol class="toc-list">
         <li><a href="#sec-1">Project Overview</a></li>
-        <li><a href="#sec-2">Interface Plan</a></li>
-        <li><a href="#sec-3">Application Structure</a></li>
-        <li><a href="#sec-4">Topic Mapping</a></li>
-        <li><a href="#sec-5">API Documentation</a></li>
-        <li><a href="#sec-6">Exploration Report: Angular Router</a></li>
-        <li><a href="#sec-7">Installation Guide</a></li>
-        <li><a href="#sec-8">Testing Results</a></li>
-        <li><a href="#sec-9">Member Contributions, Reflections, and References</a></li>
+        <li><a href="#sec-2">Objectives</a></li>
+        <li><a href="#sec-3">Scope and Limitations</a></li>
+        <li><a href="#sec-4">System Requirements</a></li>
+        <li><a href="#sec-5">Interface Plan</a></li>
+        <li><a href="#sec-6">Application Structure</a></li>
+        <li><a href="#sec-7">Angular Topics Applied</a></li>
+        <li><a href="#sec-8">API Documentation</a></li>
+        <li><a href="#sec-9">Exploration Report: Angular Router</a></li>
+        <li><a href="#sec-10">Installation and User Guide</a></li>
+        <li><a href="#sec-11">Testing Results</a></li>
+        <li><a href="#sec-12">Member Contribution Report and Reflections</a></li>
+        <li><a href="#sec-13">Conclusion and Recommendations</a></li>
+        <li><a href="#sec-14">References</a></li>
       </ol>
     </nav>
 
     <!-- 1. PROJECT OVERVIEW -->
     <section id="sec-1">
       <h2>1. Project Overview</h2>
-
-      <h3>1.1 Problem Statement</h3>
-      <p>Academic departments and university registrars routinely manage student enrollment records across multiple degree programs and year levels. In small-scale or instructional settings, tracking student numbers, degree programs, academic standing (<code>Active</code>, <code>Probation</code>, <code>On Leave</code>, <code>Graduated</code>), GPA, and assigned faculty advisors using disconnected spreadsheets leads to formatting errors, inconsistent data entry, weak searchability, and broken cross-references between summary metrics and individual profiles.</p>
-      <p>The <strong>Student Information Manager (SIM)</strong> solves this problem by providing a structured, single-page web application with strict input validation, live CRUD persistence over a REST API, instant multi-criteria search and filtering, and URL-driven navigation between overview metrics, directory records, and detailed student dossiers.</p>
+      <h3>1.1 Background and Problem Addressed</h3>
+      <p>Academic departments and university registrars routinely manage student enrollment records across multiple degree programs and year levels. In small-scale or instructional settings, tracking student numbers, degree programs, academic standing (<code>Active</code>, <code>Probation</code>, <code>On Leave</code>, <code>Graduated</code>), cumulative GPA, and assigned faculty advisors using disconnected spreadsheets leads to formatting errors, inconsistent data entry, weak searchability, and broken cross-references between summary metrics and individual profiles.</p>
 
       <h3>1.2 Intended Users</h3>
       <ul>
@@ -468,60 +634,155 @@
         <li><strong>Department Coordinators:</strong> Review enrollment distribution by degree program (<code>BSCS</code>, <code>BSIT</code>, <code>BSIS</code>, <code>BSCE</code>, <code>BSECE</code>) and year level (1st through 4th Year), then click directly into filtered student rosters.</li>
       </ul>
 
-      <h3>1.3 Objectives</h3>
-      <ol>
-        <li>Implement a modular Angular single-page application composed of at least four meaningful standalone components (<code>NavbarComponent</code>, <code>DashboardComponent</code>, <code>StudentListComponent</code>, and <code>StudentDetailComponent</code>, hosted inside <code>AppComponent</code>) backed by a single injectable <code>StudentService</code>.</li>
-        <li>Demonstrate modern Angular template control flow (<code>@if</code>, <code>@for</code> with <code>track</code>, and <code>@switch</code>), all four Angular data bindings (interpolation, property binding, event binding, and two-way binding), HTTP CRUD operations, and RxJS Observable streams consumed via <code>subscribe()</code>.</li>
-        <li>Implement full CRUD operations (Create, Read, Update, Delete) alongside real-time search and filters for <code>course</code> and <code>yearLevel</code> against a writable local <code>json-server</code> mock REST API.</li>
-        <li>Explore and apply <strong>Angular Router</strong> thoroughly, including default redirects, parameterized routes, static route precedence, URL-synchronized query parameters, programmatic navigation, route metadata titles, and wildcard fallbacks.</li>
-        <li>Deliver a high-contrast, utilitarian dark-mode interface that satisfies WCAG AA contrast requirements, keyboard accessibility, responsive mobile reflow, and complete UI state handling (loading, empty, success, error, and validation).</li>
-      </ol>
+      <h3>1.3 Application Purpose</h3>
+      <p>The <strong>Student Information Manager (SIM)</strong> provides a structured, API-connected Angular single-page application that centralizes student records with strict client-side validation, persistent CRUD operations via a REST API, instant multi-criteria search and filtering, and URL-driven routing between overview metrics, student rosters, and individual student dossiers.</p>
+      <a class="back-top" href="#top">&uarr; Back to top</a>
+    </section>
 
-      <h3>1.4 Scope</h3>
+    <!-- 2. OBJECTIVES -->
+    <section id="sec-2">
+      <h2>2. Objectives</h2>
+      <h3>2.1 General Objective</h3>
+      <p>To design, develop, and verify an API-connected Angular 22 single-page application that enables an academic department to organize, search, filter, and persist student enrollment records while demonstrating core Angular concepts and an independent exploration of <strong>Angular Router</strong>.</p>
+
+      <h3>2.2 Specific Objectives</h3>
+      <ol>
+        <li>Architect a modular Angular application with at least four meaningful standalone components (<code>NavbarComponent</code>, <code>DashboardComponent</code>, <code>StudentListComponent</code>, and <code>StudentDetailComponent</code>, hosted inside <code>AppComponent</code>) backed by an injectable <code>StudentService</code>.</li>
+        <li>Apply modern Angular control flow (<code>@if</code>, <code>@for</code> with <code>track</code>, and <code>@switch</code>), all four data-binding types (interpolation, property binding, event binding, and two-way binding), HTTP CRUD operations, and RxJS Observables consumed via <code>subscribe()</code>.</li>
+        <li>Implement full Create, Read, Update, and Delete (CRUD) operations alongside multi-field search and course/year-level filtering backed by a writable local <code>json-server</code> REST API (<code>db.json</code>) so changes persist across browser refreshes.</li>
+        <li>Explore and integrate <strong>Angular Router</strong> using separate Dashboard, Student Directory, Registration, and Student Detail views, static-before-dynamic route precedence, URL-synchronized query parameters, programmatic navigation, document titles, and wildcard fallbacks.</li>
+        <li>Deliver an accessible, responsive, high-contrast dark-mode interface covering all UI feedback states (loading skeletons, success banners, inline validation, empty states, and API error recovery), verified through automated Vitest tests and 10 live end-to-end test cases.</li>
+      </ol>
+      <a class="back-top" href="#top">&uarr; Back to top</a>
+    </section>
+
+    <!-- 3. SCOPE AND LIMITATIONS -->
+    <section id="sec-3">
+      <h2>3. Scope and Limitations</h2>
+      <h3>3.1 Scope (Included Features)</h3>
       <ul>
-        <li>Live Academic Overview dashboard computed directly from persisted API data.</li>
-        <li>Searchable, filterable Student Directory synchronized with browser URL query parameters (<code>?q=</code>, <code>?course=</code>, <code>?yearLevel=</code>).</li>
-        <li>Unified Student Record view supporting Profile Inspection (<code>/students/:id</code>), Student Registration (<code>/students/new</code>), and Inline Editing (<code>/students/:id?edit=true</code>).</li>
-        <li>Safe record deletion with explicit keyboard-accessible confirmation (<code>Escape</code> to cancel).</li>
-        <li>Full client-side form validation with contextual inline error messages and a summary validation banner.</li>
-        <li>Automated unit test coverage (<code>StudentService</code> HTTP operations and route matching) and 10 live end-to-end verification test cases.</li>
+        <li><strong>Academic Overview Dashboard (<code>/dashboard</code>):</strong> Live computed metrics (Total Enrolled, Active Standing, Probation/On Leave, Mean Cumulative GPA), clickable program and year-level breakdowns, and recent registrations table.</li>
+        <li><strong>Searchable &amp; Filterable Student Directory (<code>/students</code>):</strong> Real-time debounced search (name, student number, email, course, advisor) plus Course and Year Level dropdowns bidirectionally synchronized with URL query parameters (<code>?q=</code>, <code>?course=</code>, <code>?yearLevel=</code>).</li>
+        <li><strong>Unified Student Record Workflows (<code>/students/new</code>, <code>/students/:id</code>, <code>/students/:id?edit=true</code>):</strong> Validated registration form, read-only Academic Dossier, pre-filled edit mode, and safe record deletion with keyboard-accessible confirmation (<code>Escape</code> to cancel).</li>
+        <li><strong>Complete UI Feedback &amp; Accessibility:</strong> Skeleton loading states, dismissible confirmation banners, inline validation messages, empty-database and empty-filter states, offline API error banners with Retry, and mobile responsive reflow.</li>
+        <li><strong>Automated &amp; End-to-End Verification:</strong> 8 Vitest unit tests (<code>StudentService</code> HTTP operations and route matching) plus 10 live browser end-to-end test cases.</li>
       </ul>
 
-      <h3>1.5 Limitations</h3>
+      <h3>3.2 Limitations</h3>
       <ul>
         <li><strong>Local Mock Persistence:</strong> Data is stored in a local <code>db.json</code> file served by <code>json-server</code> rather than a multi-user relational database (PostgreSQL/MySQL). Concurrent writes from multiple clients are not locked or transactional.</li>
-        <li><strong>No Authentication or Role-Based Access Control (RBAC):</strong> All users with access to the local development server can create, edit, and delete student records.</li>
-        <li><strong>Client-Side Search Projection:</strong> Because <code>json-server</code> v1 removed legacy <code>?q=</code> full-text query parameters, multi-field search filtering is executed in the RxJS pipeline inside <code>StudentService.searchStudents()</code> after retrieving <code>/students</code>, which suits departmental cohorts rather than tens of thousands of records without server-side pagination.</li>
-        <li><strong>Single-Term GPA Snapshot:</strong> The model stores current cumulative GPA rather than per-semester transcript history.</li>
+        <li><strong>No Authentication or Role-Based Access Control (RBAC):</strong> Any user with access to the local development server can view, create, edit, and delete student records.</li>
+        <li><strong>Client-Side Search Projection:</strong> Because <code>json-server</code> v1 removed legacy <code>?q=</code> full-text search parameters, multi-field filtering executes in the RxJS pipeline inside <code>StudentService.searchStudents()</code> after fetching <code>/students</code>, which is suited for departmental cohorts rather than tens of thousands of records without server-side pagination.</li>
+        <li><strong>Single-Term GPA Snapshot:</strong> The schema stores each student's current cumulative GPA rather than multi-semester transcript histories.</li>
       </ul>
       <a class="back-top" href="#top">&uarr; Back to top</a>
     </section>
 
-    <!-- 2. INTERFACE PLAN -->
-    <section id="sec-2">
-      <h2>2. Interface Plan</h2>
-
-      <h3>2.1 Design Direction</h3>
-      <p>The interface uses a utilitarian, high-density dark zinc palette with crisp 1px borders, tabular monospace alignment for academic metrics, and a single cobalt accent color for primary actions&mdash;prioritizing scannability, keyboard accessibility, WCAG AA contrast, and seamless responsive reflow from desktop tables to mobile cards.</p>
-
-      <h3>2.2 Initial Sketches</h3>
-      <p>Wireframe sketches planning the sticky navigation shell, Academic Overview metric strip and breakdowns, Student Directory filter toolbar, and Student Detail dossier/form layout:</p>
-      <div class="placeholder-box">[INSERT_SKETCH_IMAGE_HERE]</div>
-
-      <h3>2.3 Final Screenshots</h3>
-      <p>Captured screenshots of the running application across desktop and mobile viewports (Dashboard, Student Directory with active filters, Student Dossier, Registration/Edit validation states, and Delete confirmation):</p>
-      <div class="placeholder-box">[INSERT_FINAL_SCREENSHOT_HERE]</div>
+    <!-- 4. SYSTEM REQUIREMENTS -->
+    <section id="sec-4" class="page-break">
+      <h2>4. System Requirements</h2>
+      <p>The table below lists the exact software, frameworks, libraries, and runtime tools used to develop, test, and run the Student Information Manager.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Software / Tool</th>
+            <th>Version Used</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Runtime Environment</strong></td><td>Node.js</td><td><code>v24.19.0</code> (<code>v20.19+</code> / <code>v22+</code> compatible)</td><td>JavaScript runtime for Angular CLI and <code>json-server</code></td></tr>
+          <tr><td><strong>Package Manager</strong></td><td>npm</td><td><code>11.17.0</code></td><td>Dependency installation and workspace script execution</td></tr>
+          <tr><td><strong>Frontend Framework</strong></td><td>Angular (<code>@angular/core</code>, <code>common</code>, <code>forms</code>, <code>router</code>, <code>platform-browser</code>)</td><td><code>^22.1.0</code></td><td>Standalone SPA components, Signals, Zoneless mode, Routing, Forms, <code>HttpClient</code></td></tr>
+          <tr><td><strong>CLI &amp; Build System</strong></td><td><code>@angular/cli</code> &amp; <code>@angular/build</code></td><td><code>^22.1.7</code></td><td>Development server (<code>ng serve</code>), production builds (<code>ng build</code>), test runner</td></tr>
+          <tr><td><strong>Programming Language</strong></td><td>TypeScript</td><td><code>~6.0.2</code></td><td>Strict static typing for models, services, and components</td></tr>
+          <tr><td><strong>Reactive Library</strong></td><td>RxJS</td><td><code>~7.8.0</code></td><td>Observable streams and operators (<code>switchMap</code>, <code>combineLatest</code>, <code>debounceTime</code>, <code>map</code>, <code>catchError</code>)</td></tr>
+          <tr><td><strong>Local Mock REST API</strong></td><td><code>json-server</code></td><td><code>^1.0.0-beta.15</code></td><td>Writable local REST backend persisting records to <code>db.json</code> on port <code>3000</code></td></tr>
+          <tr><td><strong>Unit Testing</strong></td><td>Vitest &amp; <code>jsdom</code></td><td><code>^4.0.8</code> / <code>^28.0.0</code></td><td>Automated unit testing for <code>StudentService</code> and <code>AppComponent</code> routing</td></tr>
+          <tr><td><strong>Code Formatting</strong></td><td>Prettier</td><td><code>^3.8.1</code></td><td>Consistent TypeScript, HTML, and CSS formatting</td></tr>
+          <tr><td><strong>Browser &amp; IDE</strong></td><td>Chrome / Edge / Firefox &amp; VS Code</td><td>Modern evergreen</td><td>Running the Angular app, DevTools inspection, and source editing</td></tr>
+        </tbody>
+      </table>
       <a class="back-top" href="#top">&uarr; Back to top</a>
     </section>
 
-    <!-- 3. APPLICATION STRUCTURE -->
-    <section id="sec-3" class="page-break">
-      <h2>3. Application Structure</h2>
+    <!-- 5. INTERFACE PLAN -->
+    <section id="sec-5">
+      <h2>5. Interface Plan</h2>
+      <h3>5.1 Design Direction</h3>
+      <p>The interface uses a utilitarian, high-density dark zinc palette (<code>#09090b</code> canvas, <code>#111113</code> surfaces, crisp <code>1px</code> <code>#27272a</code> borders) paired with a single cobalt accent (<code>#2563eb</code>) and tabular monospace numbers (<code>IBM Plex Mono</code>)&mdash;prioritizing scannability, WCAG AA contrast, keyboard accessibility, and zero horizontal overflow on desktop and mobile viewports.</p>
 
-      <h3>3.1 Directory Layout</h3>
+      <h3>5.2 Initial Sketches</h3>
+      <p>Wireframe sketches planning the sticky navigation shell, Academic Overview metric strip and breakdowns, Student Directory filter toolbar, and Student Detail dossier/form layout:</p>
+      <div class="guide-figure-group">
+        <figure class="guide-figure">
+          <img src="screenshots/sketch-1-dashboard.jpg" alt="Initial wireframe sketch of the Academic Overview Dashboard with KPI cards, Enrollment by Program, Enrollment by Year Level, and Recent Registrations" />
+          <figcaption>Sketch 1: Initial wireframe of the Academic Overview Dashboard (<code>/dashboard</code>) showing the navigation shell, KPI strip, program/year breakdowns, and recent registrations table.</figcaption>
+        </figure>
+        <figure class="guide-figure">
+          <img src="screenshots/sketch-2-student-directory.jpg" alt="Initial wireframe sketch of the Student Directory with search bar, course and year-level filters, and student roster table with View, Edit, and Delete actions" />
+          <figcaption>Sketch 2: Initial wireframe of the Student Directory (<code>/students</code>) showing the search input, course and year-level filter dropdowns, and roster action controls.</figcaption>
+        </figure>
+        <figure class="guide-figure">
+          <img src="screenshots/sketch-3-register-student.png" alt="Initial wireframe sketch of the Register Student form with nine required fields and Cancel and Register Student buttons" />
+          <figcaption>Sketch 3: Initial wireframe of the Register Student form (<code>/students/new</code>) outlining the two-column grid for all nine required student fields and submission controls.</figcaption>
+        </figure>
+        <figure class="guide-figure">
+          <img src="screenshots/sketch-4-student-dossier.png" alt="Initial wireframe sketch of the Student Academic Dossier showing student header, Back to Directory, Edit Record, and Delete buttons, and a two-column metadata grid" />
+          <figcaption>Sketch 4: Initial wireframe of the Student Academic Dossier (<code>/students/:id</code>) displaying the student header, record action buttons, and two-column academic profile grid.</figcaption>
+        </figure>
+        <figure class="guide-figure">
+          <img src="screenshots/sketch-5-edit-student.png" alt="Initial wireframe sketch of the Edit Student Record form pre-filled with existing student values and Cancel and Save Changes buttons" />
+          <figcaption>Sketch 5: Initial wireframe of the Edit Student Record view (<code>/students/:id?edit=true</code>) featuring pre-filled form fields alongside <em>Cancel</em> and <em>Save Changes</em> actions.</figcaption>
+        </figure>
+      </div>
+
+      <h3>5.3 Final Screenshots</h3>
+      <p>Captured screenshots of the running application across desktop and mobile viewports (Dashboard, Student Directory with active filters, Student Dossier, Registration/Edit validation states, and Delete confirmation):</p>
+      <div class="guide-figure-group">
+        <figure class="guide-figure">
+          <img src="screenshots/final-desktop-dashboard.png" alt="Final desktop screenshot of the Academic Overview Dashboard" />
+          <figcaption>Desktop (1440&times;900): Academic Overview Dashboard (<code>/dashboard</code>) displaying live KPIs, program and year-level breakdowns, and recent registrations.</figcaption>
+        </figure>
+        <figure class="guide-figure">
+          <img src="screenshots/final-desktop-directory.png" alt="Final desktop screenshot of the Student Directory with active BSCS filter" />
+          <figcaption>Desktop (1440&times;900): Student Directory filtered by <code>BSCS</code> with URL synchronization (<code>/students?course=BSCS</code>) and the <em>Clear Filters</em> button.</figcaption>
+        </figure>
+        <figure class="guide-figure">
+          <img src="screenshots/final-desktop-dossier.png" alt="Final desktop screenshot of the Student Dossier view for Elena Cruz" />
+          <figcaption>Desktop (1440&times;900): Student Academic Dossier (<code>/students/1</code>) displaying full student metadata alongside <em>Edit Record</em> and <em>Delete</em> actions.</figcaption>
+        </figure>
+        <figure class="guide-figure">
+          <img src="screenshots/final-desktop-validation.png" alt="Final desktop screenshot of the Register Student form showing inline validation errors" />
+          <figcaption>Desktop (1440&times;900): Registration form validation state (<code>/students/new</code>) showing the summary alert banner and per-field inline validation messages.</figcaption>
+        </figure>
+        <figure class="guide-figure">
+          <img src="screenshots/final-desktop-delete-modal.png" alt="Final desktop screenshot of the Remove Student Record delete confirmation modal" />
+          <figcaption>Desktop (1440&times;900): Keyboard-accessible delete confirmation modal (<code>Remove Student Record</code>) guarding permanent deletion.</figcaption>
+        </figure>
+        <div class="guide-figure-mobile-pair">
+          <figure class="guide-figure">
+            <img src="screenshots/final-mobile-dashboard.png" alt="Final mobile screenshot of the Academic Overview Dashboard at 390x844" />
+            <figcaption>Mobile (390&times;844): Responsive Dashboard with stacked KPI cards, mobile <em>Menu</em> button, and zero horizontal overflow.</figcaption>
+          </figure>
+          <figure class="guide-figure">
+            <img src="screenshots/final-mobile-directory.png" alt="Final mobile screenshot of the Student Directory with active BSCS filter at 390x844" />
+            <figcaption>Mobile (390&times;844): Responsive Student Directory (<code>/students?course=BSCS</code>) with stacked filter controls and card-style student rows.</figcaption>
+          </figure>
+        </div>
+      </div>
+      <a class="back-top" href="#top">&uarr; Back to top</a>
+    </section>
+
+    <!-- 6. APPLICATION STRUCTURE -->
+    <section id="sec-6" class="page-break">
+      <h2>6. Application Structure</h2>
+      <h3>6.1 Directory Layout</h3>
       <pre><code>StudentInformationManagement/
 ├── db.json                                  # Local json-server database (5 seed students)
 ├── package.json                             # Dependencies and npm scripts (start, api, build, test)
+├── package-lock.json                        # Exact dependency lockfile
 ├── README.md                                # Quick-start overview and route summary
 ├── src/
 │   ├── index.html                           # Application shell and IBM Plex fonts
@@ -546,7 +807,7 @@
     ├── PROJECT_DOCUMENTATION.md             # Complete Markdown documentation
     └── PROJECT_DOCUMENTATION.html           # Print-ready HTML for browser PDF export</code></pre>
 
-      <h3>3.2 Component, Routing, Model, and Service Responsibilities</h3>
+      <h3>6.2 Component, Routing, Model, and Service Responsibilities</h3>
       <table>
         <thead>
           <tr>
@@ -556,56 +817,23 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td><strong>Root Shell (<code>AppComponent</code>)</strong></td>
-            <td><code>src/app/app.component.ts</code></td>
-            <td>Hosts the accessibility skip link, persistent <code>&lt;app-navbar /&gt;</code>, and primary <code>&lt;router-outlet /&gt;</code> container for all routed views.</td>
-          </tr>
-          <tr>
-            <td><strong>Student Model</strong></td>
-            <td><code>src/app/models/student.model.ts</code></td>
-            <td>Defines strict TypeScript types (<code>Student</code>, <code>StudentPayload</code>, <code>StudentStatus</code>, <code>YearLevel</code>, <code>StudentFilterCriteria</code>) and shared constants (<code>COURSE_OPTIONS</code>, <code>YEAR_LEVEL_OPTIONS</code>, <code>STATUS_OPTIONS</code>).</td>
-          </tr>
-          <tr>
-            <td><strong>StudentService</strong></td>
-            <td><code>src/app/services/student.service.ts</code></td>
-            <td>Root-injected singleton (<code>providedIn: 'root'</code>) encapsulating all HTTP CRUD communication with <code>http://localhost:3000/students</code> (<code>getStudents</code>, <code>getStudentById</code>, <code>searchStudents</code>, <code>addStudent</code>, <code>updateStudent</code>, <code>deleteStudent</code>) and centralized <code>HttpErrorResponse</code> normalization.</td>
-          </tr>
-          <tr>
-            <td><strong>App Routing &amp; Config</strong></td>
-            <td><code>src/app/app.routes.ts</code>, <code>src/app/app.config.ts</code></td>
-            <td>Declares all application routes, static-before-dynamic route precedence (<code>/students/new</code> before <code>/students/:id</code>), route <code>data</code> flags, browser <code>&lt;title&gt;</code> metadata, default empty-path redirect, wildcard fallback, and global providers (<code>provideRouter</code>, <code>provideHttpClient</code>).</td>
-          </tr>
-          <tr>
-            <td><strong>NavbarComponent</strong></td>
-            <td><code>src/app/components/navbar/navbar.component.ts</code></td>
-            <td>Persistent top navigation bar with <code>routerLink</code> destinations (<code>Dashboard</code>, <code>Students</code>, <code>Register Student</code>), active route underlines via <code>routerLinkActive</code>, live active path readout subscribed to <code>Router.events</code> (<code>NavigationEnd</code>), and an accessible mobile <code>Menu</code> drawer closable via <code>Escape</code>.</td>
-          </tr>
-          <tr>
-            <td><strong>DashboardComponent</strong></td>
-            <td><code>src/app/components/dashboard/dashboard.component.ts</code></td>
-            <td>Fetches live student records on initialization, derives summary figures (<code>totalStudents</code>, <code>activeCount</code>, <code>attentionCount</code>, <code>averageGpa</code>), renders clickable Course and Year Level breakdowns that programmatically navigate to pre-filtered <code>/students</code> URLs, and lists recent registrations with direct profile links.</td>
-          </tr>
-          <tr>
-            <td><strong>StudentListComponent</strong></td>
-            <td><code>src/app/components/student-list/student-list.component.ts</code></td>
-            <td>Full student directory supporting debounced RxJS search (<code>Subject</code> + <code>debounceTime</code> + <code>switchMap</code>), <code>course</code> and <code>yearLevel</code> dropdown filters synchronized bidirectionally with URL query parameters, loading/empty/error states, inline <code>View</code>/<code>Edit</code> routing, and guarded <code>Delete</code> confirmation (<code>Escape</code> to cancel).</td>
-          </tr>
-          <tr>
-            <td><strong>StudentDetailComponent</strong></td>
-            <td><code>src/app/components/student-detail/student-detail.component.ts</code></td>
-            <td>Multi-mode detail component driven by <code>ActivatedRoute</code> (<code>data</code>, <code>paramMap</code>, and <code>queryParamMap</code>). Renders the validated registration form (<code>/students/new</code>), read-only Academic Dossier (<code>/students/:id</code>), pre-filled edit form (<code>/students/:id?edit=true</code>), record deletion, and 404/network recovery states.</td>
-          </tr>
+          <tr><td><strong>Root Shell (<code>AppComponent</code>)</strong></td><td><code>src/app/app.component.ts</code></td><td>Hosts the accessibility skip link, persistent <code>&lt;app-navbar /&gt;</code>, and primary <code>&lt;router-outlet /&gt;</code> container for all routed views.</td></tr>
+          <tr><td><strong>Student Model</strong></td><td><code>src/app/models/student.model.ts</code></td><td>Defines strict TypeScript types (<code>Student</code>, <code>StudentPayload</code>, <code>StudentStatus</code>, <code>YearLevel</code>, <code>StudentFilterCriteria</code>) and shared constants (<code>COURSE_OPTIONS</code>, <code>YEAR_LEVEL_OPTIONS</code>, <code>STATUS_OPTIONS</code>).</td></tr>
+          <tr><td><strong>StudentService</strong></td><td><code>src/app/services/student.service.ts</code></td><td>Root-injected singleton (<code>providedIn: 'root'</code>) encapsulating all HTTP CRUD communication with <code>http://localhost:3000/students</code> (<code>getStudents</code>, <code>getStudentById</code>, <code>searchStudents</code>, <code>addStudent</code>, <code>updateStudent</code>, <code>deleteStudent</code>) and centralized <code>HttpErrorResponse</code> normalization.</td></tr>
+          <tr><td><strong>App Routing &amp; Config</strong></td><td><code>src/app/app.routes.ts</code>, <code>src/app/app.config.ts</code></td><td>Declares all application routes, static-before-dynamic route precedence (<code>/students/new</code> before <code>/students/:id</code>), route <code>data</code> flags, browser <code>&lt;title&gt;</code> metadata, default empty-path redirect, wildcard fallback, and global providers (<code>provideRouter</code>, <code>provideHttpClient</code>).</td></tr>
+          <tr><td><strong>NavbarComponent</strong></td><td><code>src/app/components/navbar/navbar.component.ts</code></td><td>Persistent top navigation bar with <code>routerLink</code> destinations (<code>Dashboard</code>, <code>Students</code>, <code>Register Student</code>), active route underlines via <code>routerLinkActive</code>, live active path readout subscribed to <code>Router.events</code> (<code>NavigationEnd</code>), and an accessible mobile <code>Menu</code> drawer closable via <code>Escape</code>.</td></tr>
+          <tr><td><strong>DashboardComponent</strong></td><td><code>src/app/components/dashboard/dashboard.component.ts</code></td><td>Fetches live student records on initialization, derives summary figures (<code>totalStudents</code>, <code>activeCount</code>, <code>attentionCount</code>, <code>averageGpa</code>), renders clickable Course and Year Level breakdowns that programmatically navigate to pre-filtered <code>/students</code> URLs, and lists recent registrations with direct profile links.</td></tr>
+          <tr><td><strong>StudentListComponent</strong></td><td><code>src/app/components/student-list/student-list.component.ts</code></td><td>Full student directory supporting debounced RxJS search (<code>Subject</code> + <code>debounceTime</code> + <code>switchMap</code>), <code>course</code> and <code>yearLevel</code> dropdown filters synchronized bidirectionally with URL query parameters, loading/empty/error states, inline <code>View</code>/<code>Edit</code> routing, and guarded <code>Delete</code> confirmation (<code>Escape</code> to cancel).</td></tr>
+          <tr><td><strong>StudentDetailComponent</strong></td><td><code>src/app/components/student-detail/student-detail.component.ts</code></td><td>Multi-mode detail component driven by <code>ActivatedRoute</code> (<code>data</code>, <code>paramMap</code>, and <code>queryParamMap</code>). Renders the validated registration form (<code>/students/new</code>), read-only Academic Dossier (<code>/students/:id</code>), pre-filled edit form (<code>/students/:id?edit=true</code>), record deletion, and 404/network recovery states.</td></tr>
         </tbody>
       </table>
       <a class="back-top" href="#top">&uarr; Back to top</a>
     </section>
 
-    <!-- 4. TOPIC MAPPING -->
-    <section id="sec-4" class="page-break">
-      <h2>4. Topic Mapping</h2>
-      <p>The table below maps every required Angular and RxJS curriculum topic to its exact location and implementation inside the codebase.</p>
-
+    <!-- 7. ANGULAR TOPICS APPLIED -->
+    <section id="sec-7" class="page-break">
+      <h2>7. Angular Topics Applied</h2>
+      <h3>7.1 Curriculum Topic Mapping</h3>
       <table>
         <thead>
           <tr>
@@ -615,82 +843,172 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td><strong>Interpolation (<code>{{ ... }}</code>)</strong></td>
-            <td><code>navbar.component.html</code>, <code>dashboard.component.html</code>, <code>student-list.component.html</code>, <code>student-detail.component.html</code></td>
-            <td>Renders live values such as <code>{{ currentPath() }}</code>, <code>{{ totalStudents() }}</code>, <code>{{ averageGpa() | number: '1.2-2' }}</code>, <code>{{ student.fullName }}</code>, <code>{{ student.studentNumber }}</code>, <code>{{ feedbackMessage() }}</code>, <code>{{ errorMessage() }}</code>, and <code>{{ breadcrumbLabel() }}</code>.</td>
-          </tr>
-          <tr>
-            <td><strong>Property Binding (<code>[...]</code>)</strong></td>
-            <td><code>navbar.component.html</code>, <code>dashboard.component.html</code>, <code>student-list.component.html</code>, <code>student-detail.component.html</code></td>
-            <td>Binds DOM and directive properties dynamically: <code>[routerLink]="['/students', student.id]"</code>, <code>[queryParams]="{ edit: 'true' }"</code>, <code>[routerLinkActiveOptions]="{ exact: true }"</code>, <code>[style.width.%]="item.percentage"</code>, <code>[disabled]="isLoading()"</code>, <code>[disabled]="isSubmitting()"</code>, <code>[attr.aria-expanded]="mobileMenuOpen()"</code>, <code>[attr.aria-invalid]="..."</code>, <code>[ngValue]="year.value"</code>, and <code>[href]="'mailto:' + record.email"</code>.</td>
-          </tr>
-          <tr>
-            <td><strong>Event Binding (<code>(...)</code>)</strong></td>
-            <td>All 4 component templates + component <code>host</code> metadata</td>
-            <td>Handles user interactions: <code>(click)="openCourseFilter(item.course)"</code>, <code>(click)="loadStudents()"</code>, <code>(click)="clearFilters()"</code>, <code>(click)="requestDelete(student)"</code>, <code>(click)="confirmDelete()"</code>, <code>(click)="enterEditMode()"</code>, <code>(ngSubmit)="submitForm(studentForm)"</code>, <code>(ngModelChange)="onFiltersChanged()"</code>, and host keyboard listeners <code>'(document:keydown.escape)': 'cancelDelete()'</code> / <code>'closeMobileMenu()'</code>.</td>
-          </tr>
-          <tr>
-            <td><strong>Two-Way Binding (<code>[(ngModel)]</code>)</strong></td>
-            <td><code>student-list.component.html</code>, <code>student-detail.component.html</code></td>
-            <td>Synchronizes search and filter controls directly with writable signals (<code>[(ngModel)]="searchTerm"</code>, <code>[(ngModel)]="selectedCourse"</code>, <code>[(ngModel)]="selectedYearLevel"</code>) in <code>StudentListComponent</code>, and binds all 9 student form inputs (<code>[(ngModel)]="formModel.studentNumber"</code>, <code>fullName</code>, <code>email</code>, <code>course</code>, <code>yearLevel</code>, <code>gpa</code>, <code>status</code>, <code>enrolledDate</code>, <code>advisor</code>) in <code>StudentDetailComponent</code>.</td>
-          </tr>
-          <tr>
-            <td><strong>Control Flow: <code>@if</code> / <code>@else</code></strong></td>
-            <td><code>navbar.component.html</code>, <code>student-list.component.html</code>, <code>student-detail.component.html</code></td>
-            <td>Conditionally renders the mobile navigation drawer (<code>@if (mobileMenuOpen())</code>), success and error banners (<code>@if (feedbackMessage())</code>), active filter clear button (<code>@if (hasActiveFilters())</code>), delete confirmation alert dialog (<code>@if (pendingDelete(); as target)</code>), and field-level validation messages (<code>@if (studentNumberCtrl.errors?.['required']) { ... } @else { ... }</code>).</td>
-          </tr>
-          <tr>
-            <td><strong>Control Flow: <code>@for</code> with <code>track</code></strong></td>
-            <td><code>dashboard.component.html</code>, <code>student-list.component.html</code>, <code>student-detail.component.html</code></td>
-            <td>Iterates efficiently over collections with explicit identity tracking: <code>@for (student of students(); track student.id)</code>, <code>@for (item of courseBreakdown(); track item.course)</code>, <code>@for (year of yearBreakdown(); track year.yearLevel)</code>, <code>@for (course of courseOptions; track course)</code>, and loading skeleton rows <code>@for (row of [1, 2, 3, 4, 5]; track row)</code>.</td>
-          </tr>
-          <tr>
-            <td><strong>Control Flow: <code>@switch</code> / <code>@case</code> / <code>@default</code></strong></td>
-            <td><code>dashboard.component.html</code>, <code>student-list.component.html</code>, <code>student-detail.component.html</code></td>
-            <td>Controls both view-state rendering (<code>@switch (viewState())</code> across <code>'loading'</code>, <code>'error'</code>, <code>'empty'</code>, <code>'empty-db'</code>, <code>'empty-filter'</code>, <code>'ready'</code>, and <code>@switch (pageState())</code> across <code>'loading'</code>, <code>'error'</code>, <code>'view'</code>, <code>'create'</code>, <code>'edit'</code>) and semantic academic standing display (<code>@switch (student.status)</code> for <code>'Active'</code>, <code>'Probation'</code>, <code>'On Leave'</code>, <code>@default</code>).</td>
-          </tr>
-          <tr>
-            <td><strong>RxJS Observables &amp; <code>subscribe()</code></strong></td>
-            <td><code>student.service.ts</code>, <code>navbar.component.ts</code>, <code>dashboard.component.ts</code>, <code>student-list.component.ts</code>, <code>student-detail.component.ts</code></td>
-            <td><code>StudentService</code> returns typed <code>Observable&lt;Student[]&gt;</code>, <code>Observable&lt;Student&gt;</code>, and <code>Observable&lt;void&gt;</code> streams using <code>pipe(map(...), catchError(...))</code> and <code>throwError(...)</code>. Components explicitly consume API and Router streams via <code>.subscribe({ next, error })</code> and <code>.subscribe(...)</code>&mdash;including debounced search (<code>Subject</code> + <code>debounceTime(120)</code> + <code>switchMap</code>), route loading (<code>combineLatest([route.data, route.paramMap, route.queryParamMap])</code> + <code>switchMap</code>), and <code>Router.events</code> filtering (<code>NavigationEnd</code>). Every subscription uses <code>takeUntilDestroyed(this.destroyRef)</code> to prevent memory leaks.</td>
-          </tr>
-          <tr>
-            <td><strong>Injected Angular Services &amp; HTTP CRUD</strong></td>
-            <td><code>student.service.ts</code>, <code>app.config.ts</code>, <code>dashboard.component.ts</code>, <code>student-list.component.ts</code>, <code>student-detail.component.ts</code></td>
-            <td><code>StudentService</code> is decorated with <code>@Injectable({ providedIn: 'root' })</code>, registers <code>HttpClient</code> via <code>provideHttpClient(withFetch())</code> in <code>app.config.ts</code>, and is consumed via Angular's functional <code>inject(StudentService)</code> API across components. Executes all five RESTful HTTP CRUD operations (<code>GET /students</code>, <code>GET /students/:id</code>, <code>POST /students</code>, <code>PUT /students/:id</code>, and <code>DELETE /students/:id</code>) with centralized error handling.</td>
-          </tr>
-          <tr>
-            <td><strong>Angular Router</strong></td>
-            <td><code>app.routes.ts</code>, <code>app.config.ts</code>, <code>app.component.html</code>, and all 4 components</td>
-            <td>Configured via <code>provideRouter(routes, withComponentInputBinding())</code>, rendering active views inside <code>&lt;router-outlet /&gt;</code>, declarative navigation (<code>routerLink</code>, <code>routerLinkActive</code>), programmatic navigation (<code>router.navigate</code>), dynamic route parameters (<code>:id</code>), URL query parameters (<code>queryParamMap</code>), route <code>data</code>, navigation <code>state</code>, browser document titles, and wildcard fallback (<code>**</code>).</td>
-          </tr>
+          <tr><td><strong>Interpolation (<code>{{ ... }}</code>)</strong></td><td>All 4 component templates</td><td>Renders live values such as <code>{{ currentPath() }}</code>, <code>{{ totalStudents() }}</code>, <code>{{ averageGpa() | number: '1.2-2' }}</code>, <code>{{ student.fullName }}</code>, <code>{{ feedbackMessage() }}</code>, and <code>{{ breadcrumbLabel() }}</code>.</td></tr>
+          <tr><td><strong>Property Binding (<code>[...]</code>)</strong></td><td>All 4 component templates</td><td>Dynamically binds <code>[routerLink]="['/students', student.id]"</code>, <code>[queryParams]="{ edit: 'true' }"</code>, <code>[style.width.%]="item.percentage"</code>, <code>[disabled]="isSubmitting()"</code>, <code>[attr.aria-expanded]</code>, <code>[attr.aria-invalid]</code>, <code>[ngValue]</code>, and <code>[href]</code>.</td></tr>
+          <tr><td><strong>Event Binding (<code>(...)</code>)</strong></td><td>All 4 component templates + <code>host</code> metadata</td><td>Captures user events: <code>(click)="openCourseFilter(item.course)"</code>, <code>(click)="confirmDelete()"</code>, <code>(ngSubmit)="submitForm(studentForm)"</code>, <code>(ngModelChange)="onFiltersChanged()"</code>, and host keyboard listeners <code>'(document:keydown.escape)'</code>.</td></tr>
+          <tr><td><strong>Two-Way Binding (<code>[(ngModel)]</code>)</strong></td><td><code>student-list.component.html</code>, <code>student-detail.component.html</code></td><td>Synchronizes filter controls (<code>[(ngModel)]="searchTerm"</code>, <code>selectedCourse</code>, <code>selectedYearLevel</code>) and all 9 student registration/edit form fields (<code>[(ngModel)]="formModel.*"</code>) with component state.</td></tr>
+          <tr><td><strong>Control Flow: <code>@if</code> / <code>@else</code></strong></td><td><code>navbar</code>, <code>student-list</code>, <code>student-detail</code></td><td>Conditionally renders the mobile menu drawer, confirmation banners, active filter reset button, delete alert dialog, and per-field validation messages.</td></tr>
+          <tr><td><strong>Control Flow: <code>@for</code> with <code>track</code></strong></td><td><code>dashboard</code>, <code>student-list</code>, <code>student-detail</code></td><td>Efficiently iterates over students (<code>track student.id</code>), course breakdowns (<code>track item.course</code>), year levels (<code>track year.yearLevel</code>), select options, and loading skeleton rows.</td></tr>
+          <tr><td><strong>Control Flow: <code>@switch</code> / <code>@case</code> / <code>@default</code></strong></td><td><code>dashboard</code>, <code>student-list</code>, <code>student-detail</code></td><td>Renders view states (<code>loading</code>, <code>error</code>, <code>empty</code>, <code>empty-db</code>, <code>empty-filter</code>, <code>ready</code>), detail page modes (<code>create</code>, <code>view</code>, <code>edit</code>), and semantic academic standing indicators.</td></tr>
+          <tr><td><strong>RxJS Observables &amp; <code>subscribe()</code></strong></td><td><code>student.service.ts</code> + all 4 components</td><td>Returns typed Observables (<code>pipe(map, catchError)</code>), executes debounced search (<code>Subject</code> + <code>debounceTime(120)</code> + <code>switchMap</code>), combines route streams (<code>combineLatest</code> + <code>switchMap</code>), and consumes responses explicitly with <code>.subscribe({ next, error })</code> and <code>takeUntilDestroyed</code>.</td></tr>
+          <tr><td><strong>Injected Angular Services &amp; HTTP CRUD</strong></td><td><code>student.service.ts</code>, <code>app.config.ts</code>, <code>dashboard</code>, <code>student-list</code>, <code>student-detail</code></td><td>Registers <code>provideHttpClient(withFetch())</code>, defines <code>@Injectable({ providedIn: 'root' }) StudentService</code> injected via <code>inject(StudentService)</code>, and performs <code>GET</code>, <code>POST</code>, <code>PUT</code>, and <code>DELETE</code> against <code>http://localhost:3000/students</code>.</td></tr>
+          <tr><td><strong>Angular Router</strong></td><td><code>app.routes.ts</code>, <code>app.config.ts</code>, <code>app.component.html</code>, all 4 components</td><td>Configures <code>provideRouter(routes, withComponentInputBinding())</code>, <code>&lt;router-outlet /&gt;</code>, declarative <code>routerLink</code> / <code>routerLinkActive</code>, programmatic <code>router.navigate</code>, <code>:id</code> params, URL query params, route <code>data</code>, navigation <code>state</code>, and wildcard <code>**</code> fallback.</td></tr>
         </tbody>
       </table>
+
+      <h3>7.2 Relevant Code Excerpts</h3>
+
+      <h4>Excerpt 1: Interpolation, Property Binding, <code>@for</code> with <code>track</code>, and <code>@switch</code> (<code>dashboard.component.html</code>)</h4>
+      <pre><code>@switch (viewState()) {
+  @case ('ready') {
+    &lt;div class="breakdown-list"&gt;
+      @for (item of courseBreakdown(); track item.course) {
+        &lt;button type="button" class="breakdown-row" (click)="openCourseFilter(item.course)"&gt;
+          &lt;div class="breakdown-top"&gt;
+            &lt;span class="course-code mono"&gt;{{ item.course }}&lt;/span&gt;
+            &lt;span class="breakdown-count mono"&gt;
+              {{ item.count }} {{ item.count === 1 ? 'student' : 'students' }} ({{ item.percentage }}%)
+            &lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class="bar-track" aria-hidden="true"&gt;
+            &lt;div class="bar-fill" [style.width.%]="item.percentage"&gt;&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/button&gt;
+      }
+    &lt;/div&gt;
+  }
+}</code></pre>
+
+      <h4>Excerpt 2: Two-Way Binding (<code>[(ngModel)]</code>), Event Binding, and <code>@if</code> (<code>student-list.component.html</code>)</h4>
+      <pre><code>&lt;input
+  id="student-search"
+  type="search"
+  class="control"
+  placeholder="Search by name, student no., email, or advisor..."
+  [(ngModel)]="searchTerm"
+  (ngModelChange)="onFiltersChanged()"
+/&gt;
+
+@if (hasActiveFilters()) {
+  &lt;div class="field-action"&gt;
+    &lt;button type="button" class="btn" (click)="clearFilters()"&gt;Clear Filters&lt;/button&gt;
+  &lt;/div&gt;
+}</code></pre>
+
+      <h4>Excerpt 3: Template-Driven Form Validation &amp; Inline Feedback (<code>student-detail.component.html</code>)</h4>
+      <pre><code>&lt;input
+  id="studentNumber"
+  name="studentNumber"
+  type="text"
+  class="control mono"
+  required
+  pattern="^\d{4}-\d{4}$"
+  [(ngModel)]="formModel.studentNumber"
+  #studentNumberCtrl="ngModel"
+  [attr.aria-invalid]="studentNumberCtrl.invalid &amp;&amp; (studentNumberCtrl.touched || formSubmitted())"
+/&gt;
+@if (studentNumberCtrl.invalid &amp;&amp; (studentNumberCtrl.touched || formSubmitted())) {
+  &lt;span id="studentNumber-err" class="field-error" role="alert"&gt;
+    @if (studentNumberCtrl.errors?.['required']) {
+      Student number is required.
+    } @else {
+      Use format YYYY-NNNN (example: 2026-0142).
+    }
+  &lt;/span&gt;
+}</code></pre>
+
+      <h4>Excerpt 4: Injected Service, HTTP CRUD, and RxJS Error Handling (<code>student.service.ts</code>)</h4>
+      <pre><code>@Injectable({ providedIn: 'root' })
+export class StudentService {
+  private readonly http = inject(HttpClient);
+  private readonly apiUrl = 'http://localhost:3000/students';
+
+  getStudents(): Observable&lt;Student[]&gt; {
+    return this.http
+      .get&lt;Student[]&gt;(this.apiUrl)
+      .pipe(catchError((error: HttpErrorResponse) =&gt; this.handleError(error, 'load student records')));
+  }
+
+  addStudent(payload: StudentPayload): Observable&lt;Student&gt; {
+    return this.http
+      .post&lt;Student&gt;(this.apiUrl, payload)
+      .pipe(catchError((error: HttpErrorResponse) =&gt; this.handleError(error, 'create student record')));
+  }
+
+  updateStudent(id: string, payload: StudentPayload): Observable&lt;Student&gt; {
+    return this.http
+      .put&lt;Student&gt;(`${this.apiUrl}/${encodeURIComponent(id)}`, { id, ...payload })
+      .pipe(catchError((error: HttpErrorResponse) =&gt; this.handleError(error, 'update student record')));
+  }
+
+  deleteStudent(id: string): Observable&lt;void&gt; {
+    return this.http
+      .delete&lt;void&gt;(`${this.apiUrl}/${encodeURIComponent(id)}`)
+      .pipe(catchError((error: HttpErrorResponse) =&gt; this.handleError(error, 'delete student record')));
+  }
+}</code></pre>
+
+      <h4>Excerpt 5: Observables, <code>combineLatest</code>, <code>switchMap</code>, and <code>subscribe()</code> (<code>student-detail.component.ts</code>)</h4>
+      <pre><code>combineLatest([this.route.data, this.route.paramMap, this.route.queryParamMap])
+  .pipe(
+    switchMap(([data, params, queryParams]) =&gt; {
+      const routeMode = data['mode'] as string | undefined;
+      const id = params.get('id');
+      const editFlag = queryParams.get('edit') === 'true';
+
+      if (routeMode === 'create' || !id) {
+        this.pageState.set('create');
+        return of(null);
+      }
+
+      this.currentId.set(id);
+      this.pageState.set('loading');
+      return this.studentService.getStudentById(id).pipe(
+        map((record) =&gt; ({ record, targetState: (editFlag ? 'edit' : 'view') as 'view' | 'edit' })),
+        catchError((err: Error) =&gt; {
+          this.errorMessage.set(err.message);
+          this.pageState.set('error');
+          return of(null);
+        })
+      );
+    }),
+    takeUntilDestroyed(this.destroyRef)
+  )
+  .subscribe((result) =&gt; {
+    if (!result) return;
+    this.student.set(result.record);
+    this.populateForm(result.record);
+    this.pageState.set(result.targetState);
+  });</code></pre>
+
+      <h4>Excerpt 6: Angular Router Configuration &amp; Static Route Precedence (<code>app.routes.ts</code>)</h4>
+      <pre><code>export const routes: Routes = [
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: 'dashboard', component: DashboardComponent, title: 'Dashboard | Student Information Manager' },
+  { path: 'students', component: StudentListComponent, title: 'Student Directory | Student Information Manager' },
+  { path: 'students/new', component: StudentDetailComponent, data: { mode: 'create' }, title: 'Register Student | Student Information Manager' },
+  { path: 'students/:id', component: StudentDetailComponent, data: { mode: 'view' }, title: 'Student Record | Student Information Manager' },
+  { path: '**', redirectTo: 'dashboard' }
+];</code></pre>
       <a class="back-top" href="#top">&uarr; Back to top</a>
     </section>
 
-    <!-- 5. API DOCUMENTATION -->
-    <section id="sec-5" class="page-break">
-      <h2>5. API Documentation</h2>
-
-      <h3>5.1 Server Configuration</h3>
+    <!-- 8. API DOCUMENTATION -->
+    <section id="sec-8" class="page-break">
+      <h2>8. API Documentation</h2>
+      <h3>8.1 Server Configuration and Provider</h3>
       <ul>
+        <li><strong>API Provider:</strong> Local <code>json-server</code> (<code>^1.0.0-beta.15</code>) serving <code>db.json</code></li>
         <li><strong>Base URL:</strong> <code>http://localhost:3000</code></li>
         <li><strong>Resource Collection:</strong> <code>/students</code></li>
         <li><strong>Start Command:</strong> <code>npm run api</code> (executes <code>json-server db.json --port 3000</code>)</li>
         <li><strong>Content Type:</strong> <code>application/json</code></li>
       </ul>
 
-      <h3>5.2 Student Resource Schema</h3>
+      <h3>8.2 Student Resource Schema (Data Fields)</h3>
       <table>
         <thead>
-          <tr>
-            <th>Field</th>
-            <th>Type</th>
-            <th>Constraints / Format</th>
-            <th>Example</th>
-          </tr>
+          <tr><th>Field</th><th>Type</th><th>Constraints / Format</th><th>Example</th></tr>
         </thead>
         <tbody>
           <tr><td><code>id</code></td><td><code>string</code></td><td>Unique identifier assigned by <code>json-server</code> on <code>POST</code></td><td><code>"1"</code></td></tr>
@@ -706,16 +1024,10 @@
         </tbody>
       </table>
 
-      <h3>5.3 Endpoints Reference</h3>
+      <h3>8.3 Endpoints Reference</h3>
       <table>
         <thead>
-          <tr>
-            <th>Operation</th>
-            <th>HTTP Method</th>
-            <th>Endpoint</th>
-            <th>Success Status</th>
-            <th>Description</th>
-          </tr>
+          <tr><th>Operation</th><th>HTTP Method</th><th>Endpoint</th><th>Success Status</th><th>Description</th></tr>
         </thead>
         <tbody>
           <tr><td>List all students</td><td><code>GET</code></td><td><code>/students</code></td><td><code>200 OK</code></td><td>Returns the full array of student objects from <code>db.json</code>.</td></tr>
@@ -726,7 +1038,7 @@
         </tbody>
       </table>
 
-      <h3>5.4 Sample JSON Requests and Responses</h3>
+      <h3>8.4 Sample JSON Requests and Responses</h3>
 
       <h4><code>GET /students</code> (<code>200 OK</code>)</h4>
       <pre><code>[
@@ -828,260 +1140,286 @@
 
       <h4>Error Handling Responses</h4>
       <ul>
-        <li><strong><code>404 Not Found</code></strong> (e.g., <code>GET /students/999</code>): <code>StudentService.handleError()</code> intercepts the <code>HttpErrorResponse</code> and emits <code>"The requested student record was not found."</code></li>
+        <li><strong><code>404 Not Found</code></strong> (e.g., <code>GET /students/999</code>): <code>StudentService.handleError()</code> emits <code>"The requested student record was not found."</code></li>
         <li><strong>Network Error (<code>status: 0</code>)</strong> (when <code>json-server</code> is offline): <code>StudentService.handleError()</code> emits <code>"Cannot reach the local API server at http://localhost:3000. Start json-server and retry."</code></li>
-        <li><strong>Client / Server Errors (<code>4xx</code> / <code>5xx</code>):</strong> Normalized into human-readable action messages (<code>"Request rejected (4xx)..."</code> or <code>"The API server encountered an internal error (5xx)..."</code>) displayed in UI alert banners.</li>
+        <li><strong>Client / Server Errors (<code>4xx</code> / <code>5xx</code>):</strong> Normalized into readable alert banner messages.</li>
       </ul>
       <a class="back-top" href="#top">&uarr; Back to top</a>
     </section>
 
-    <!-- 6. EXPLORATION REPORT -->
-    <section id="sec-6" class="page-break">
-      <h2>6. Exploration Report: Angular Router</h2>
+    <!-- 9. EXPLORATION REPORT -->
+    <section id="sec-9" class="page-break">
+      <h2>9. Exploration Report: Angular Router</h2>
+      <h3>9.1 Feature Explored and Why It Is Useful</h3>
+      <p>Our group explored <strong>Angular Router (<code>@angular/router</code>)</strong>. Rendering every screen with conditional booleans inside one root component prevents bookmarking student profiles, sharing pre-filtered rosters, and using browser Back/Forward buttons. Angular Router maps URL paths, dynamic parameters (<code>:id</code>), and query parameters directly to standalone components rendered inside <code>&lt;router-outlet&gt;</code> with zero full-page reloads, per-route <code>&lt;title&gt;</code> synchronization, declarative active tab indicators, navigation state messaging, and wildcard fallbacks.</p>
 
-      <h3>6.1 What Feature Was Explored and Why It Is Useful</h3>
-      <p>Our group explored <strong>Angular Router (<code>@angular/router</code>)</strong>. In a multi-view administrative tool such as a Student Information Manager, rendering every screen conditionally with boolean flags inside a single root component breaks core browser expectations: users cannot bookmark a student's profile, cannot share a pre-filtered roster link (such as all 2nd Year BSCS students), and cannot press the browser Back or Forward buttons to return to a previous screen.</p>
-      <p><strong>Angular Router</strong> solves these issues by mapping browser URL paths, dynamic segments, and query parameters directly to standalone Angular components inside a <code>&lt;router-outlet&gt;</code> without performing full-page document reloads. It also synchronizes browser <code>&lt;title&gt;</code> tags per route, tracks active links declaratively via <code>routerLinkActive</code>, passes ephemeral cross-route confirmation messages via <code>history.state</code>, and provides wildcard fallbacks for unrecognized URLs.</p>
-
-      <h3>6.2 Sources Consulted</h3>
+      <h3>9.2 Sources Consulted</h3>
       <ol>
-        <li><strong>Angular Official Routing Guide</strong> (<code>https://angular.dev/guide/routing</code>): Standalone <code>provideRouter(routes)</code> setup, route order precedence, parameterized routes, and wildcard redirects.</li>
-        <li><strong>Angular API Reference: <code>ActivatedRoute</code> &amp; <code>Router</code></strong> (<code>https://angular.dev/api/router/ActivatedRoute</code>, <code>https://angular.dev/api/router/Router</code>): Reactive <code>paramMap</code>, <code>queryParamMap</code>, <code>data</code> Observables, and <code>Router.events</code> filtering with <code>NavigationEnd</code>.</li>
-        <li><strong>Angular API Reference: <code>RouterLinkActive</code></strong> (<code>https://angular.dev/api/router/RouterLinkActive</code>): Applying exact-match active styling (<code>[routerLinkActiveOptions]="{ exact: true }"</code>) to top-level navigation items.</li>
-        <li><strong>Angular Zoneless &amp; Signals Interop Guide</strong> (<code>https://angular.dev/guide/zoneless</code>): Ensuring Router event subscriptions and HTTP callbacks trigger deterministic UI updates through Angular Signals in zoneless Angular 22 applications.</li>
-        <li><strong>RxJS <code>switchMap</code> &amp; <code>combineLatest</code> Documentation</strong> (<code>https://rxjs.dev/api/operators/switchMap</code>, <code>https://rxjs.dev/api/index/function/combineLatest</code>): Canceling in-flight HTTP requests when route parameters change rapidly.</li>
+        <li>Angular Official Routing Guide (<code>https://angular.dev/guide/routing</code>)</li>
+        <li>Angular API Reference: <code>ActivatedRoute</code> &amp; <code>Router</code> (<code>https://angular.dev/api/router/ActivatedRoute</code>, <code>https://angular.dev/api/router/Router</code>)</li>
+        <li>Angular API Reference: <code>RouterLinkActive</code> (<code>https://angular.dev/api/router/RouterLinkActive</code>)</li>
+        <li>Angular Zoneless &amp; Signals Interop Guide (<code>https://angular.dev/guide/zoneless</code>)</li>
+        <li>RxJS <code>switchMap</code> &amp; <code>combineLatest</code> Documentation (<code>https://rxjs.dev/api/operators/switchMap</code>)</li>
       </ol>
 
-      <h3>6.3 Experiment Performed</h3>
-      <p>To evaluate Angular Router behavior in standalone Angular 22, a structured four-part routing experiment was carried out:</p>
+      <h3>9.3 Experiment Performed</h3>
       <ol>
-        <li><strong>Route Precedence Test:</strong> Verified how Angular's first-match-wins algorithm behaves when both a static route (<code>students/new</code>) and a dynamic parameter route (<code>students/:id</code>) share the <code>/students/</code> prefix.</li>
-        <li><strong>Same-Component Reuse Test:</strong> Navigated directly between <code>/students/new</code>, <code>/students/:id</code>, and <code>/students/:id?edit=true</code> while all three URLs resolved to <code>StudentDetailComponent</code>, verifying whether <code>ngOnInit()</code> re-executed or whether reactive Observable subscriptions were required.</li>
-        <li><strong>Query Parameter Synchronization Test:</strong> Wired Dashboard program/year cards to navigate via <code>router.navigate(['/students'], { queryParams: { course } })</code>, then modified search and dropdown filters in <code>StudentListComponent</code> to confirm bidirectional URL synchronization and reload persistence.</li>
-        <li><strong>Navigation State &amp; Fallback Test:</strong> Verified transient banner messaging via <code>router.navigate(['/students', created.id], { state: { feedback } })</code>, tested invalid IDs (<code>/students/999</code>), and verified arbitrary invalid routes (<code>/does-not-exist</code>) redirected cleanly to <code>/dashboard</code>.</li>
+        <li><strong>Route Precedence Test:</strong> Verified first-match-wins behavior when static <code>students/new</code> and dynamic <code>students/:id</code> share <code>/students/</code>.</li>
+        <li><strong>Same-Component Reuse Test:</strong> Navigated between <code>/students/new</code>, <code>/students/:id</code>, and <code>/students/:id?edit=true</code> while reusing <code>StudentDetailComponent</code>.</li>
+        <li><strong>Query Parameter Synchronization Test:</strong> Wired Dashboard drill-downs to <code>router.navigate(['/students'], { queryParams: { course } })</code> and verified reload persistence.</li>
+        <li><strong>Navigation State &amp; Fallback Test:</strong> Verified <code>history.state</code> banners, 404 invalid IDs (<code>/students/999</code>), and wildcard fallback redirects (<code>/does-not-exist</code>).</li>
       </ol>
 
-      <h3>6.4 Problems Occurred and How They Were Resolved</h3>
+      <h3>9.4 Problems Occurred and How They Were Resolved</h3>
       <ol>
-        <li><strong>Static vs. Parameterized Route Collision (<code>/students/new</code> vs. <code>/students/:id</code>):</strong> Placing <code>students/:id</code> ahead of <code>students/new</code> caused Angular Router's first-match-wins algorithm to capture <code>"new"</code> as an ID and trigger a <code>404</code> HTTP request. Resolved by placing <code>students/new</code> strictly before <code>students/:id</code> with explicit <code>data: { mode: 'create' }</code> in <code>src/app/app.routes.ts</code> and verifying precedence in <code>app.component.spec.ts</code>.</li>
-        <li><strong>Component Reuse Without Re-Initializing Lifecycle Hooks:</strong> Snapshot lookups inside <code>ngOnInit()</code> did not re-run when navigating directly from <code>/students/new</code> to <code>/students/:id</code> or toggling <code>?edit=true</code>. Resolved by subscribing to <code>combineLatest([this.route.data, this.route.paramMap, this.route.queryParamMap])</code> chained into <code>switchMap()</code> and <code>takeUntilDestroyed(this.destroyRef)</code>.</li>
-        <li><strong>Zoneless Angular 22 Change Detection with Async Streams:</strong> Without <code>zone.js</code>, mutating plain class fields inside <code>Router.events</code> or HTTP callbacks does not schedule change detection reliably. Resolved by storing all reactive UI state in Angular Signals (<code>signal()</code> and <code>computed()</code>).</li>
-        <li><strong>Empty Query Parameters Polluting Browser History:</strong> Writing empty filter strings left noisy <code>?q=&amp;course=&amp;yearLevel=</code> URLs and filled the browser Back stack on every keystroke. Resolved by mapping cleared filters to <code>null</code> with <code>replaceUrl: true</code>.</li>
+        <li><strong>Static vs. Parameterized Route Collision:</strong> Placing <code>students/:id</code> ahead of <code>students/new</code> captured <code>"new"</code> as an ID and caused HTTP 404 errors. Resolved by ordering <code>students/new</code> strictly above <code>students/:id</code> with <code>data: { mode: 'create' }</code>.</li>
+        <li><strong>Same-Component Reuse Without Re-Running <code>ngOnInit()</code>:</strong> Snapshot reads failed when transitioning between create, view, and edit URLs. Resolved via <code>combineLatest([route.data, route.paramMap, route.queryParamMap])</code> piped through <code>switchMap()</code> and <code>takeUntilDestroyed()</code>.</li>
+        <li><strong>Zoneless Angular 22 Change Detection:</strong> Mutating plain fields inside async subscriptions did not refresh the DOM reliably without <code>zone.js</code>. Resolved by storing UI state in Signals (<code>signal()</code>, <code>computed()</code>).</li>
+        <li><strong>Empty Query Parameters Polluting Browser History:</strong> Empty filter strings cluttered URLs and pushed extra Back entries. Resolved by mapping empty filters to <code>null</code> with <code>replaceUrl: true</code>.</li>
       </ol>
 
-      <h3>6.5 How the Final Implementation Works</h3>
+      <h3>9.5 How the Final Implementation Works</h3>
       <ul>
-        <li><strong><code>src/app/app.config.ts</code></strong> registers routing globally through <code>provideRouter(routes, withComponentInputBinding())</code> alongside <code>provideHttpClient(withFetch())</code>.</li>
-        <li><strong><code>src/app/app.routes.ts</code></strong> defines 6 routes: <code>''</code> &rarr; <code>/dashboard</code>, <code>/dashboard</code>, <code>/students</code>, <code>/students/new</code>, <code>/students/:id</code>, and wildcard <code>**</code> &rarr; <code>/dashboard</code>, each with a dedicated document <code>title</code>.</li>
-        <li><strong><code>NavbarComponent</code></strong> uses declarative <code>routerLink</code> and <code>routerLinkActive</code> with <code>[routerLinkActiveOptions]="{ exact: true }"</code> to highlight active tabs, while subscribing to <code>Router.events</code> (<code>NavigationEnd</code>) to display the active path in monospace.</li>
-        <li><strong><code>DashboardComponent</code></strong> uses programmatic navigation (<code>openCourseFilter()</code> and <code>openYearFilter()</code>) to pass <code>?course=</code> or <code>?yearLevel=</code> query parameters into <code>StudentListComponent</code>.</li>
-        <li><strong><code>StudentListComponent</code></strong> subscribes to <code>ActivatedRoute.queryParamMap</code> to hydrate filter controls from the URL, executes filtered lookups through <code>StudentService.searchStudents()</code>, and syncs filter updates back to the URL.</li>
-        <li><strong><code>StudentDetailComponent</code></strong> serves Create (<code>/students/new</code>), View (<code>/students/:id</code>), and Edit (<code>/students/:id?edit=true</code>) workflows seamlessly via <code>@switch (pageState())</code>, passing confirmation banners across navigations via router navigation <code>state</code>.</li>
+        <li><code>app.config.ts</code> registers <code>provideRouter(routes, withComponentInputBinding())</code> and <code>provideHttpClient(withFetch())</code>.</li>
+        <li><code>app.routes.ts</code> declares 6 routes (<code>''</code> &rarr; <code>/dashboard</code>, <code>/dashboard</code>, <code>/students</code>, <code>/students/new</code>, <code>/students/:id</code>, and <code>**</code> &rarr; <code>/dashboard</code>).</li>
+        <li><code>NavbarComponent</code> uses <code>routerLink</code>, <code>routerLinkActive</code>, and <code>Router.events</code> (<code>NavigationEnd</code>) to display the live path.</li>
+        <li><code>DashboardComponent</code> programmatically navigates into pre-filtered <code>/students</code> views; <code>StudentListComponent</code> syncs <code>queryParamMap</code> bidirectionally; <code>StudentDetailComponent</code> switches cleanly across create, view, and edit states.</li>
       </ul>
-
-      <h3>6.6 AI Assistance and Adapted Code Disclosure</h3>
-      <div class="callout">
-        <p style="margin-bottom: 0;">During development, our team used AI assistance (<strong>Antigravity / Gemini</strong>) as a Socratic tutor to help navigate Angular 22's zoneless change detection architecture, Signals-to-RxJS interoperability, and Angular Router edge cases (such as static-before-dynamic route precedence and <code>combineLatest</code> reactive route reloading). No code was copied blindly; every component, service, route configuration, and stylesheet was reviewed, tested live against <code>json-server</code>, verified through automated Vitest specs, and is fully understood by all group members for individual defense questioning.</p>
-      </div>
       <a class="back-top" href="#top">&uarr; Back to top</a>
     </section>
 
-    <!-- 7. INSTALLATION GUIDE -->
-    <section id="sec-7" class="page-break">
-      <h2>7. Installation Guide</h2>
-      <p>Follow these exact steps to install dependencies, launch the mock REST API, and run the Angular application locally.</p>
+    <!-- 10. INSTALLATION AND USER GUIDE -->
+    <section id="sec-10" class="page-break">
+      <h2>10. Installation and User Guide</h2>
 
-      <h3>7.1 Prerequisites Check</h3>
-      <p>Verify that <strong>Node.js</strong> (v20.19+ or v22+) and <strong>npm</strong> (v10+) are installed on your machine:</p>
+      <h3>10.1 Installation Guide</h3>
+      <h4>1. Prerequisites Check</h4>
       <pre><code>node -v
 npm -v</code></pre>
-
-      <h3>7.2 Install Dependencies</h3>
-      <p>Open a terminal in the project root folder (<code>StudentInformationManagement</code>) and install all required npm packages (Angular 22, RxJS, <code>json-server</code>, and Vitest):</p>
+      <h4>2. Install Dependencies</h4>
       <pre><code>cd StudentInformationManagement
 npm install</code></pre>
+      <h4>3. Run Mock API &amp; Angular Server (Two Concurrent Terminals)</h4>
+      <pre><code># Terminal 1: Start json-server REST API on http://localhost:3000/students
+npm run api
 
-      <h3>7.3 Run the Mock API and Angular Server</h3>
-      <p>The application requires <strong>two concurrent terminal windows</strong> running at the same time:</p>
+# Terminal 2: Start Angular dev server on http://localhost:4200
+npm start</code></pre>
+      <h4>4. Optional Verification &amp; Build Commands</h4>
+      <pre><code>npx tsc --noEmit   # Strict TypeScript check
+npm test           # Run Vitest unit tests
+npm run build      # Build production bundle into dist/</code></pre>
 
-      <h4>Terminal 1 &mdash; Start the local <code>json-server</code> mock REST API (Port <code>3000</code>):</h4>
-      <pre><code>npm run api</code></pre>
-      <p>Verify that the API endpoint is serving <code>db.json</code> at <code>http://localhost:3000/students</code>.</p>
-
-      <h4>Terminal 2 &mdash; Start the Angular development server (Port <code>4200</code>):</h4>
-      <pre><code>npm start</code></pre>
-      <p>Once compiled, open <code>http://localhost:4200</code> in your browser (it automatically redirects to <code>http://localhost:4200/dashboard</code>).</p>
-
-      <h3>7.4 Optional Build and Test Commands</h3>
-      <pre><code># Run TypeScript strict type-checking
-npx tsc --noEmit
-
-# Run the Vitest automated unit test suite
-npm test
-
-# Create a production build in dist/student-information-manager
-npm run build</code></pre>
+      <h3>10.2 End-User Guide</h3>
+      <ol>
+        <li>
+          <strong>Inspecting the Academic Overview (<code>/dashboard</code>):</strong> Review live enrollment KPIs (Total Enrolled, Active Standing, Probation/On Leave, Mean GPA). Click any program under <em>Enrollment by Program</em> or cohort under <em>Enrollment by Year Level</em> to drill into pre-filtered student rosters, or click a student name to inspect their dossier.
+          <figure class="guide-figure">
+            <img src="screenshots/guide-1-dashboard.png" alt="Academic Overview Dashboard showing enrollment KPIs, program and year-level breakdowns, and recent registrations" />
+            <figcaption>Figure 1: Academic Overview Dashboard (<code>/dashboard</code>) displaying live KPIs, program and year-level breakdowns, and recent registrations.</figcaption>
+          </figure>
+        </li>
+        <li>
+          <strong>Searching and Filtering Records (<code>/students</code>):</strong> Open <em>Students</em> in the navbar, enter keywords (name, student number, email, course, advisor), and filter by Course or Year Level. Active filters sync directly with the browser URL for reloading or bookmarking; click <em>Clear Filters</em> to reset.
+          <figure class="guide-figure">
+            <img src="screenshots/guide-2-students-filter.png" alt="Student Directory filtered by BSCS with URL query synchronization and Clear Filters button" />
+            <figcaption>Figure 2: Student Directory filtered by <code>BSCS</code> with URL synchronization (<code>/students?course=BSCS</code>) and the <em>Clear Filters</em> control.</figcaption>
+          </figure>
+        </li>
+        <li>
+          <strong>Registering a New Student (<code>/students/new</code>):</strong> Click <em>Register Student</em>, fill out all required fields (Student Number <code>YYYY-NNNN</code>, Full Name, Email, Course, Year Level, GPA <code>0.00</code>&ndash;<code>4.00</code>, Standing, Enrollment Date, Advisor), and submit. Inline validation highlights any invalid fields before sending a <code>POST</code> request.
+          <div class="guide-figure-group">
+            <figure class="guide-figure">
+              <img src="screenshots/guide-3a-register-validation.png" alt="Register Student form displaying validation error summary banner and inline field messages" />
+              <figcaption>Figure 3a: Registration form (<code>/students/new</code>) showing the validation summary banner and inline error feedback on incomplete or invalid fields.</figcaption>
+            </figure>
+            <figure class="guide-figure">
+              <img src="screenshots/guide-3b-register-confirmed.png" alt="Newly registered student Academic Dossier with green confirmation banner" />
+              <figcaption>Figure 3b: Confirmation banner and saved Academic Dossier displayed immediately after a valid <code>POST /students</code> registration.</figcaption>
+            </figure>
+          </div>
+        </li>
+        <li>
+          <strong>Viewing, Editing, and Deleting Records (<code>/students/:id</code>):</strong> Click <em>Edit Record</em> (<code>?edit=true</code>) to update fields and save via <code>PUT</code>. Click <em>Delete</em> from either the directory or dossier to open the keyboard-accessible confirmation dialog (press <code>Escape</code> to cancel or confirm to delete permanently). If the API is offline, restart <code>npm run api</code> and click <em>Retry</em>.
+          <div class="guide-figure-group">
+            <figure class="guide-figure">
+              <img src="screenshots/guide-4a-student-dossier.png" alt="Student Academic Dossier view for Elena Cruz with Back to Directory, Edit Record, and Delete buttons" />
+              <figcaption>Figure 4a: Read-only Academic Dossier (<code>/students/1</code>) providing direct navigation to <em>Edit Record</em> and <em>Delete</em> actions.</figcaption>
+            </figure>
+            <figure class="guide-figure">
+              <img src="screenshots/guide-4b-delete-confirmation.png" alt="Remove Student Record confirmation modal showing Cancel and Confirm Delete buttons" />
+              <figcaption>Figure 4b: Keyboard-accessible delete confirmation dialog (<code>Remove Student Record</code>) requiring explicit confirmation before removing a record.</figcaption>
+            </figure>
+          </div>
+        </li>
+      </ol>
       <a class="back-top" href="#top">&uarr; Back to top</a>
     </section>
 
-    <!-- 8. TESTING RESULTS -->
-    <section id="sec-8" class="page-break">
-      <h2>8. Testing Results</h2>
-
-      <h3>8.1 Automated Unit Tests (Vitest)</h3>
-      <p>Executed via <code>npx ng test --watch=false</code> following final code edits:</p>
+    <!-- 11. TESTING RESULTS -->
+    <section id="sec-11" class="page-break">
+      <h2>11. Testing Results</h2>
+      <h3>11.1 Automated Unit Tests (Vitest)</h3>
       <ul>
         <li><code>src/app/services/student.service.spec.ts</code>: <strong>6 passed / 6 total</strong> (GET list, multi-criteria search/filter, POST create, PUT update, DELETE remove, HTTP status 0 error mapping).</li>
-        <li><code>src/app/app.component.spec.ts</code>: <strong>2 passed / 2 total</strong> (root shell rendering with <code>&lt;app-navbar&gt;</code> + <code>&lt;router-outlet&gt;</code>, route redirects <code>/</code> &rarr; <code>/dashboard</code>, <code>/students/new</code> precedence, wildcard fallback <code>/**</code> &rarr; <code>/dashboard</code>).</li>
-        <li><strong>Build &amp; Typecheck:</strong> <code>npx tsc --noEmit</code> exited <code>0</code>; <code>npm run build</code> produced <code>dist/student-information-manager</code> (<code>387.61 kB</code> initial bundle, <code>97.16 kB</code> transfer) with <strong>0 errors and 0 warnings</strong>.</li>
+        <li><code>src/app/app.component.spec.ts</code>: <strong>2 passed / 2 total</strong> (root shell rendering, default redirect <code>/</code> &rarr; <code>/dashboard</code>, <code>/students/new</code> precedence, wildcard fallback <code>/**</code> &rarr; <code>/dashboard</code>).</li>
+        <li><strong>Build &amp; Typecheck:</strong> <code>npx tsc --noEmit</code> exited <code>0</code>; <code>npm run build</code> completed with <strong>0 errors and 0 warnings</strong> (<code>387.61 kB</code> initial bundle, <code>97.16 kB</code> transfer).</li>
       </ul>
 
-      <h3>8.2 End-to-End Functional Test Cases (10 Cases)</h3>
-      <p>All 10 test cases were executed live against the running Angular development server (<code>http://localhost:4200</code>) and local <code>json-server</code> mock API (<code>http://localhost:3000/students</code>).</p>
-
+      <h3>11.2 End-to-End Functional Test Cases (10 Cases)</h3>
       <table>
         <thead>
           <tr>
             <th>Test ID</th>
             <th>Category</th>
-            <th>Scenario &amp; Steps Executed</th>
-            <th>Expected &amp; Actual Result</th>
+            <th>Scenario &amp; Steps</th>
+            <th>Expected Result</th>
+            <th>Actual Result</th>
             <th>Status</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td><code>TC-01</code></td>
-            <td>Routing &amp; Normal Load</td>
-            <td>1. Open <code>http://localhost:4200/</code>.<br>2. Wait for <code>GET /students</code> to resolve.</td>
-            <td>Redirected to <code>/dashboard</code>; displayed Total <code>5</code>, Active <code>3</code>, Probation/On Leave <code>2</code>, Mean GPA <code>3.24</code>, BSCS <code>2 (40%)</code>, all 4 year levels, and 5 recent rows. Console errors: <code>0</code>.</td>
-            <td><span class="status-pass">PASS</span></td>
-          </tr>
-          <tr>
-            <td><code>TC-02</code></td>
-            <td>Angular Router Drill-Down</td>
-            <td>1. On <code>/dashboard</code>, click <code>BSCS</code> in Enrollment by Program.<br>2. Click <code>Clear Filters</code>.</td>
-            <td>URL updated to <code>/students?course=BSCS</code> showing Elena Cruz and Hannah Reyes; <code>Clear Filters</code> restored <code>/students</code> and all 5 rows.</td>
-            <td><span class="status-pass">PASS</span></td>
-          </tr>
-          <tr>
-            <td><code>TC-03</code></td>
-            <td>Search, Filters &amp; Empty State</td>
-            <td>1. Choose Course <code>BSCS</code> and Year <code>2nd Year</code>.<br>2. Type <code>zzzz-no-match</code> in Search.<br>3. Click <code>Reset Filters</code>.</td>
-            <td>URL became <code>/students?course=BSCS&amp;yearLevel=2</code> (1 row: Hannah Reyes); non-matching query displayed <code>"No matching students"</code>; <code>Reset Filters</code> restored 5 rows.</td>
-            <td><span class="status-pass">PASS</span></td>
-          </tr>
-          <tr>
-            <td><code>TC-04</code></td>
-            <td>Invalid Input Validation</td>
-            <td>1. Open <code>/students/new</code> and submit blank form.<br>2. Enter Student No. <code>123</code>, Email <code>not-an-email</code>, GPA <code>4.9</code> and submit.</td>
-            <td>Blocked HTTP <code>POST</code>; stayed on <code>/students/new</code>; showed <code>"Validation Error"</code> banner plus inline errors for Student Number format, Email validity, GPA range (<code>0.00</code>&ndash;<code>4.00</code>), Full Name, and Advisor.</td>
-            <td><span class="status-pass">PASS</span></td>
-          </tr>
-          <tr>
-            <td><code>TC-05</code></td>
-            <td>Create CRUD &amp; Persistence</td>
-            <td>1. Register valid student <code>Andrea Tolentino</code> (<code>2026-0601</code>, <code>BSIT</code>, 2nd Year, GPA <code>3.74</code>).<br>2. Submit and reload browser.</td>
-            <td>Sent <code>POST /students</code> (<code>201 Created</code>), navigated to <code>/students/Kub7wECDAIQ</code> with confirmation banner, and retained identical persisted record after full page reload.</td>
-            <td><span class="status-pass">PASS</span></td>
-          </tr>
-          <tr>
-            <td><code>TC-06</code></td>
-            <td>Update CRUD &amp; Persistence</td>
-            <td>1. Click <code>Edit Record</code> on Andrea Tolentino.<br>2. Change GPA to <code>3.91</code> and Standing to <code>Probation</code>.<br>3. Click <code>Save Changes</code> and reload.</td>
-            <td>Appended <code>?edit=true</code> with prefilled inputs, saved via <code>PUT /students/:id</code>, returned to view mode displaying confirmation banner, <code>3.91 / 4.00</code>, and <code>Probation</code>; persisted after reload.</td>
-            <td><span class="status-pass">PASS</span></td>
-          </tr>
-          <tr>
-            <td><code>TC-07</code></td>
-            <td>Delete CRUD &amp; Keyboard Cancel</td>
-            <td>1. On <code>/students</code>, click <code>Delete</code> on Andrea Tolentino.<br>2. Press <code>Escape</code>.<br>3. Click <code>Delete</code> again and confirm <code>Delete Record</code>.</td>
-            <td><code>Escape</code> closed <code>alertdialog</code> without deleting (count remained 6); confirming sent <code>DELETE /students/:id</code>, showed confirmation banner, and restored count to 5.</td>
-            <td><span class="status-pass">PASS</span></td>
-          </tr>
-          <tr>
-            <td><code>TC-08</code></td>
-            <td>Invalid Route Parameter</td>
-            <td>1. Navigate directly to <code>http://localhost:4200/students/999</code>.<br>2. Click <code>Back to Student Directory</code>.</td>
-            <td>Handled <code>404 Not Found</code> cleanly with <code>"The requested student record was not found."</code> and recovery button returning cleanly to <code>/students</code>.</td>
-            <td><span class="status-pass">PASS</span></td>
-          </tr>
-          <tr>
-            <td><code>TC-09</code></td>
-            <td>Wildcard Route &amp; Responsive Reflow</td>
-            <td>1. Navigate to <code>/does-not-exist</code>.<br>2. Verify <code>390x844</code> &amp; <code>768x1024</code> viewports.<br>3. Toggle mobile <code>Menu</code> and close via <code>Escape</code>.</td>
-            <td>Redirected to <code>/dashboard</code>; zero horizontal overflow on mobile and tablet; mobile <code>Menu</code> opened (<code>aria-expanded="true"</code>) and closed cleanly on <code>Escape</code>.</td>
-            <td><span class="status-pass">PASS</span></td>
-          </tr>
-          <tr>
-            <td><code>TC-10</code></td>
-            <td>API Failure &amp; Recovery</td>
-            <td>1. Stop <code>json-server</code> on port <code>3000</code>.<br>2. Reload <code>/dashboard</code> and open <code>/students</code>.<br>3. Restart API and click <code>Retry</code>.</td>
-            <td>Both views displayed offline alert banners citing <code>http://localhost:3000</code> with 0 console errors; clicking <code>Retry</code> after restart cleared the alert and reloaded all 5 records.</td>
-            <td><span class="status-pass">PASS</span></td>
-          </tr>
+          <tr><td><code>TC-01</code></td><td>Routing &amp; Load</td><td>Open <code>http://localhost:4200/</code> and wait for <code>GET /students</code>.</td><td>Redirects to <code>/dashboard</code>; displays 5 students, 3 Active, 2 Probation/On Leave, Mean GPA <code>3.24</code>, breakdowns, and 5 rows.</td><td>Redirected to <code>/dashboard</code>; rendered exact counts, <code>3.24</code>, BSCS <code>2 (40%)</code>, and 5 recent rows. 0 console errors.</td><td><span class="status-pass">PASS</span></td></tr>
+          <tr><td><code>TC-02</code></td><td>Router Drill-Down</td><td>Click <code>BSCS</code> on Dashboard; then click <code>Clear Filters</code>.</td><td>Navigates to <code>/students?course=BSCS</code> (2 rows); clearing returns to <code>/students</code> (5 rows).</td><td>URL became <code>/students?course=BSCS</code> (Elena Cruz, Hannah Reyes); Clear Filters restored all 5 rows.</td><td><span class="status-pass">PASS</span></td></tr>
+          <tr><td><code>TC-03</code></td><td>Search &amp; Empty State</td><td>Filter <code>BSCS</code> + <code>2nd Year</code>; type <code>zzzz-no-match</code>; click <code>Reset Filters</code>.</td><td>Shows Hannah Reyes (<code>?course=BSCS&amp;yearLevel=2</code>); non-match shows empty state; Reset restores 5 rows.</td><td>Matched Hannah Reyes; non-matching search showed <code>"No matching students"</code>; Reset restored all 5 rows.</td><td><span class="status-pass">PASS</span></td></tr>
+          <tr><td><code>TC-04</code></td><td>Input Validation</td><td>Submit blank form on <code>/students/new</code>; test ID <code>123</code>, email <code>not-an-email</code>, GPA <code>4.9</code>.</td><td>Blocks HTTP <code>POST</code>; shows validation banner and inline field errors.</td><td>Remained on <code>/students/new</code>; showed <code>"Validation Error"</code> banner and per-field inline errors.</td><td><span class="status-pass">PASS</span></td></tr>
+          <tr><td><code>TC-05</code></td><td>Create &amp; Persist</td><td>Register <code>Andrea Tolentino</code> (<code>2026-0601</code>, <code>BSIT</code>, 2nd Year, GPA <code>3.74</code>); reload browser.</td><td>Sends <code>POST /students</code> (201), navigates to <code>/students/:newId</code> with banner, persists on reload.</td><td>Created ID <code>Kub7wECDAIQ</code>, showed confirmation banner, and persisted identically after full reload.</td><td><span class="status-pass">PASS</span></td></tr>
+          <tr><td><code>TC-06</code></td><td>Update &amp; Persist</td><td>Click <code>Edit Record</code>; change GPA to <code>3.91</code> &amp; Standing to <code>Probation</code>; save and reload.</td><td>Appends <code>?edit=true</code>, saves via <code>PUT</code>, returns to view mode with banner, persists on reload.</td><td>Saved via <code>PUT</code>, showed confirmation banner, <code>3.91 / 4.00</code>, and <code>Probation</code>; persisted after reload.</td><td><span class="status-pass">PASS</span></td></tr>
+          <tr><td><code>TC-07</code></td><td>Delete &amp; Escape</td><td>Click <code>Delete</code> on Andrea Tolentino; press <code>Escape</code>; click <code>Delete</code> again and confirm.</td><td><code>Escape</code> cancels safely; confirming sends <code>DELETE /students/:id</code> and restores count to 5.</td><td><code>Escape</code> dismissed dialog (count remained 6); confirming deleted record and restored count to 5.</td><td><span class="status-pass">PASS</span></td></tr>
+          <tr><td><code>TC-08</code></td><td>Invalid Param</td><td>Navigate directly to <code>/students/999</code>; click <code>Back to Student Directory</code>.</td><td>Handles 404 gracefully with error panel and return link to <code>/students</code>.</td><td>Displayed <code>"The requested student record was not found."</code> and navigated cleanly back to <code>/students</code>.</td><td><span class="status-pass">PASS</span></td></tr>
+          <tr><td><code>TC-09</code></td><td>Wildcard &amp; Mobile</td><td>Open <code>/does-not-exist</code>; verify <code>390x844</code> &amp; <code>768x1024</code> viewports; toggle mobile Menu + <code>Escape</code>.</td><td>Redirects to <code>/dashboard</code>; zero overflow; mobile drawer toggles and closes via <code>Escape</code>.</td><td>Redirected to <code>/dashboard</code>; 0 horizontal overflow on mobile &amp; tablet; drawer toggled and closed on <code>Escape</code>.</td><td><span class="status-pass">PASS</span></td></tr>
+          <tr><td><code>TC-10</code></td><td>API Failure &amp; Retry</td><td>Stop <code>json-server</code>; load <code>/dashboard</code> &amp; <code>/students</code>; restart API and click <code>Retry</code>.</td><td>Displays actionable offline banner citing <code>http://localhost:3000</code>; Retry restores all 5 rows.</td><td>Rendered red offline alert banners with 0 console errors; clicking <code>Retry</code> after restart loaded all 5 records.</td><td><span class="status-pass">PASS</span></td></tr>
         </tbody>
       </table>
       <a class="back-top" href="#top">&uarr; Back to top</a>
     </section>
 
-    <!-- 9. MEMBER CONTRIBUTIONS, REFLECTIONS, AND REFERENCES -->
-    <section id="sec-9" class="page-break">
-      <h2>9. Member Contributions, Reflections, and References</h2>
+    <!-- 12. MEMBER CONTRIBUTION REPORT & INDIVIDUAL REFLECTIONS -->
+    <section id="sec-12" class="page-break">
+      <h2>12. Member Contribution Report and Individual Reflections</h2>
 
-      <h3>9.1 Member Contributions</h3>
-      <p>All group members actively participated in exploring <strong>Angular Router</strong>, contributing code, reviewing pull changes, and studying the complete application for individual defense questioning.</p>
-
+      <h3>12.1 Signed Member Contribution Table</h3>
+      <p>All group members actively participated in exploring <strong>Angular Router</strong>, contributing code, reviewing changes, and studying the full application for individual defense questioning.</p>
       <table>
         <thead>
           <tr>
-            <th>Member Name</th>
-            <th>Assigned Rubric Role</th>
-            <th>Specific Project Contributions</th>
+            <th>Member's Name</th>
+            <th>Assigned Tasks</th>
+            <th>Actual Contributions</th>
+            <th>Files/Features Developed</th>
+            <th>Signature</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td><strong>Joevan Delos Santos</strong></td>
             <td>Project coordination, component structure, and integration</td>
-            <td>Coordinated milestones, designed the standalone component architecture, configured <code>app.routes.ts</code> and <code>app.config.ts</code>, implemented <code>AppComponent</code> and <code>NavbarComponent</code>, and integrated all routed views with Angular Router.</td>
+            <td>Coordinated team milestones, designed standalone component architecture, configured Angular Router &amp; HTTP providers, built root shell &amp; sticky navbar with live path indicator, and led integration across all pages.</td>
+            <td><code>src/app/app.config.ts</code>, <code>src/app/app.routes.ts</code>, <code>src/app/app.component.*</code>, <code>src/app/components/navbar/*</code></td>
+            <td class="sig-cell">__________________</td>
           </tr>
           <tr>
             <td><strong>Jaztin Hart Alejo</strong></td>
             <td>Interface, forms, data binding, and styling</td>
-            <td>Built the global dark-zinc design system (<code>styles.css</code>), responsive breakpoints and mobile table reflow, template-driven student registration/edit forms (<code>StudentDetailComponent</code>), two-way <code>[(ngModel)]</code> bindings, and inline validation feedback.</td>
+            <td>Designed global WCAG AA dark-zinc CSS tokens, built responsive breakpoints and mobile table-to-card reflow, implemented template-driven student registration/edit forms, two-way <code>[(ngModel)]</code> bindings, and inline validation feedback.</td>
+            <td><code>src/styles.css</code>, <code>src/app/components/dashboard/*</code>, <code>src/app/components/student-detail/student-detail.component.{html,css}</code></td>
+            <td class="sig-cell">__________________</td>
           </tr>
           <tr>
             <td><strong>Richmon Ecal</strong></td>
             <td>Services, API integration, and data persistence</td>
-            <td>Designed <code>student.model.ts</code>, implemented the injectable <code>StudentService</code> (<code>HttpClient</code> CRUD operations, RxJS multi-criteria search projection, and HTTP error normalization), and set up <code>db.json</code> with <code>json-server</code> persistence.</td>
+            <td>Defined TypeScript student models/enums, built root-injected <code>StudentService</code> with full <code>HttpClient</code> CRUD, RxJS multi-criteria search projection, centralized <code>HttpErrorResponse</code> translation, and <code>json-server</code> <code>db.json</code> persistence.</td>
+            <td><code>src/app/models/student.model.ts</code>, <code>src/app/services/student.service.ts</code>, <code>db.json</code>, <code>package.json</code> (<code>api</code> script)</td>
+            <td class="sig-cell">__________________</td>
           </tr>
           <tr>
             <td><strong>John Yzhekiel Millar</strong></td>
-            <td>Testing, documentation coordination, and verification</td>
-            <td>Implemented directory filter/query-parameter workflows (<code>StudentListComponent</code>), authored automated Vitest unit tests (<code>student.service.spec.ts</code> and <code>app.component.spec.ts</code>), and verified API offline recovery and persistence behavior.</td>
+            <td>Testing, verification, and directory filter integration</td>
+            <td>Implemented URL-synced debounced search and Course/Year filters in the Student Directory, authored automated Vitest specs for <code>StudentService</code> and route matching, and verified persistence and offline recovery behavior.</td>
+            <td><code>src/app/components/student-list/*</code>, <code>src/app/services/student.service.spec.ts</code>, <code>src/app/app.component.spec.ts</code></td>
+            <td class="sig-cell">__________________</td>
           </tr>
           <tr>
             <td><strong>Celine Licanda</strong></td>
-            <td>Testing, documentation coordination, and verification</td>
-            <td>Executed the 10 live end-to-end test cases (<code>TC-01</code>&ndash;<code>TC-10</code>), verified responsive accessibility across mobile and desktop viewports, and coordinated the final API reference, exploration report, and print-ready PDF documentation.</td>
+            <td>Documentation coordination, QA testing, and verification</td>
+            <td>Executed all 10 live end-to-end test cases (<code>TC-01</code>&ndash;<code>TC-10</code>), verified responsive accessibility and keyboard flows (<code>Escape</code> dismissal), authored API &amp; Router documentation sections, and coordinated final PDF &amp; slide deliverables.</td>
+            <td><code>docs/PROJECT_DOCUMENTATION.md</code>, <code>docs/PROJECT_DOCUMENTATION.html</code>, <code>README.md</code>, QA verification (<code>TC-01</code>&ndash;<code>TC-10</code>)</td>
+            <td class="sig-cell">__________________</td>
           </tr>
         </tbody>
       </table>
 
-      <h3>9.2 Group Reflection</h3>
-      <p>Building the Student Information Manager taught our group how Angular Router, injectable services, RxJS Observables, and Signals work together to keep URL state, live API persistence, and UI feedback cleanly synchronized without page reloads. Resolving real challenges&mdash;especially static-before-dynamic route ordering, same-component reuse via <code>combineLatest</code>, and zoneless Angular 22 change detection&mdash;gave every member much stronger confidence in designing and debugging production-style single-page applications.</p>
+      <h3>12.2 Individual Reflections</h3>
 
-      <h3>9.3 References</h3>
+      <div class="reflection-entry">
+        <h4 class="reflection-author">Joevan Delos Santos <span>&mdash; Coordination, Routing, and Integration</span></h4>
+        <p>Working on this project really helped me understand the new Angular standalone setup. Not using NgModules and just using provideRouter() made connecting the pages very easy. The biggest problem I had was a routing error. When we clicked "Register Student", it gave a 404 error. This happened because the router read the students/:id link before the students/new link. I moved the static route to the top and it fixed the bug. My main work was setting up the root files, configuring the routes, and making sure everyone's work connected together well.</p>
+      </div>
+
+      <div class="reflection-entry">
+        <h4 class="reflection-author">Jaztin Hart Alejo <span>&mdash; Interface, Forms, and Styling</span></h4>
+        <p>I focused on the design and how the application looks. It was surprisingly hard to make it look good on mobile phones. Putting a big data table and a nine-field form on a small screen needed a lot of CSS changes. I made custom rules so the table rows turn into small cards, which stopped the screen from overflowing sideways. Also, using two-way data binding with Angular directives helped me show the loading messages properly. Adding aria-invalid to help with accessibility was a good learning experience for me.</p>
+      </div>
+
+      <div class="reflection-entry">
+        <h4 class="reflection-author">Richmon Ecal <span>&mdash; Services, API, and Persistence</span></h4>
+        <p>My main task was putting all the backend communication inside the StudentService. By using @Injectable and RxJS observables, I kept our user interface completely separate from the direct HTTP links. We had an unexpected issue when the new json-server update removed the old full-text search feature. Because of this, our search filter stopped working. I fixed it by writing a custom search function using the map() operator. This task really helped me learn how to handle data from the API safely.</p>
+      </div>
+
+      <div class="reflection-entry">
+        <h4 class="reflection-author">John Yzhekiel Millar <span>&mdash; Directory Filters and Automated Testing</span></h4>
+        <p>While making the project, I saw a big problem with the browser history. If a user typed or deleted words in the search filter quickly, it added many empty parameters to the URL. Because of this, the user had to click the back button many times just to leave the page. I fixed this by adding replaceUrl: true in the routing code so the history stays clean. Doing this fix and writing the Vitest automated tests taught me how to use RxJS tools like debounceTime so we don't send too many requests to the server.</p>
+      </div>
+
+      <div class="reflection-entry">
+        <h4 class="reflection-author">Celine Licanda <span>&mdash; End-to-End QA and Documentation</span></h4>
+        <p>Testing the application manually gave me an important view on how it actually works. While testing different things, I found a bug where going straight to a newly created student profile did not show the new data. This happened because the page was reading the old route data instead of refreshing. I wrote this down so the team could fix it using a reactive combineLatest method. Other than checking all our ten test cases and keyboard usage, I was the one who arranged and typed the final project documentation to make sure we met all the school requirements.</p>
+      </div>
+      <a class="back-top" href="#top">&uarr; Back to top</a>
+    </section>
+
+    <!-- 13. CONCLUSION AND RECOMMENDATIONS -->
+    <section id="sec-13" class="page-break">
+      <h2>13. Conclusion and Recommendations</h2>
+      <h3>13.1 Accomplishments</h3>
+      <p>Group 1 successfully delivered the <strong>Student Information Manager</strong>, a fully functional, API-connected Angular 22 single-page application that fulfills every functional, architectural, and exploration requirement. The application supports persistent CRUD operations, real-time multi-criteria search and filtering, URL-driven navigation across separate Dashboard, Directory, Registration, and Student Detail views, responsive dark-mode styling, and complete loading/empty/validation/error feedback&mdash;backed by 8 passing Vitest specs and 10 passing end-to-end test cases.</p>
+
+      <h3>13.2 Key Lessons Learned</h3>
+      <ul>
+        <li>Designing routes deliberately&mdash;placing static segments above dynamic <code>:id</code> parameters and subscribing reactively to <code>ActivatedRoute</code> streams&mdash;prevents subtle navigation and component-reuse bugs.</li>
+        <li>Keeping all API calls inside an injected service (<code>StudentService</code>) and binding UI state through Signals makes zoneless Angular 22 apps predictable, testable, and resilient to network failures.</li>
+        <li>Synchronizing search and filter controls with URL query parameters dramatically improves usability by making filtered views reload-safe and bookmarkable.</li>
+      </ul>
+
+      <h3>13.3 Recommendations for Future Improvements</h3>
+      <ol>
+        <li><strong>Production Backend &amp; Relational Database:</strong> Replace <code>json-server</code> (<code>db.json</code>) with a transactional REST API (e.g., Node.js/Express or ASP.NET Core with PostgreSQL) to support concurrent multi-user writes, server-side pagination, and indexed full-text search.</li>
+        <li><strong>Authentication &amp; Role-Based Access Control (RBAC):</strong> Add login authentication and Angular route guards (<code>CanActivateFn</code>) so Registrar Clerks have write privileges while Faculty Advisors have read-only access.</li>
+        <li><strong>Per-Semester Academic History &amp; Uniqueness Enforcement:</strong> Expand the schema to track semester-by-semester transcripts and enforce server-side uniqueness checks on <code>studentNumber</code> and <code>email</code>.</li>
+        <li><strong>Data Export &amp; Reporting:</strong> Add CSV/PDF roster export from the filtered Student Directory for registrar reporting.</li>
+      </ol>
+      <a class="back-top" href="#top">&uarr; Back to top</a>
+    </section>
+
+    <!-- 14. REFERENCES -->
+    <section id="sec-14">
+      <h2>14. References</h2>
+      <h3>Official Documentation &amp; Tutorials</h3>
       <ol>
         <li>Angular Team. <em>Routing in Angular &mdash; Official Guide</em>. <a href="https://angular.dev/guide/routing">https://angular.dev/guide/routing</a></li>
         <li>Angular Team. <em><code>ActivatedRoute</code> API Reference</em>. <a href="https://angular.dev/api/router/ActivatedRoute">https://angular.dev/api/router/ActivatedRoute</a></li>
         <li>Angular Team. <em><code>Router</code> and <code>RouterLinkActive</code> API Reference</em>. <a href="https://angular.dev/api/router/Router">https://angular.dev/api/router/Router</a></li>
         <li>Angular Team. <em>Angular Zoneless Change Detection &amp; Signals Guide</em>. <a href="https://angular.dev/guide/zoneless">https://angular.dev/guide/zoneless</a></li>
         <li>Angular Team. <em>HTTP Client (<code>provideHttpClient</code>) Guide</em>. <a href="https://angular.dev/guide/http">https://angular.dev/guide/http</a></li>
-        <li>RxJS Team. <em>RxJS Documentation &mdash; <code>Observable</code>, <code>switchMap</code>, <code>combineLatest</code>, <code>debounceTime</code>, and <code>catchError</code></em>. <a href="https://rxjs.dev/guide/overview">https://rxjs.dev/guide/overview</a></li>
+        <li>RxJS Team. <em>RxJS Overview &amp; Operators (<code>switchMap</code>, <code>combineLatest</code>, <code>debounceTime</code>, <code>catchError</code>)</em>. <a href="https://rxjs.dev/guide/overview">https://rxjs.dev/guide/overview</a></li>
         <li>Typicode. <em><code>json-server</code> &mdash; Full Fake REST API Documentation</em>. <a href="https://github.com/typicode/json-server">https://github.com/typicode/json-server</a></li>
         <li>Vitest Team. <em>Vitest Testing Framework Documentation</em>. <a href="https://vitest.dev/guide/">https://vitest.dev/guide/</a></li>
+      </ol>
+
+      <h3>Typography, Icons, and Visual Assets</h3>
+      <ol start="9">
+        <li>IBM Corporation. <em>IBM Plex Sans &amp; IBM Plex Mono Typefaces</em> (loaded via Google Fonts in <code>src/index.html</code>). <a href="https://fonts.google.com/specimen/IBM+Plex+Sans">https://fonts.google.com/specimen/IBM+Plex+Sans</a></li>
+        <li>Brand Icon (<code>SIM / Registrar</code>): Custom inline geometric SVG authored directly in <code>src/app/components/navbar/navbar.component.html</code> (no third-party stock images used).</li>
       </ol>
       <a class="back-top" href="#top">&uarr; Back to top</a>
     </section>

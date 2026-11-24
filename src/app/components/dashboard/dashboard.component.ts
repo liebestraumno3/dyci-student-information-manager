@@ -2,7 +2,13 @@ import { CommonModule, DecimalPipe } from '@angular/common';
 import { Component, DestroyRef, OnInit, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router, RouterLink } from '@angular/router';
-import { Student, YEAR_LEVEL_OPTIONS, YearLevel } from '../../models/student.model';
+import {
+  STATUS_META_LIST,
+  Student,
+  YEAR_LEVEL_OPTIONS,
+  YearLevel,
+  getStatusMeta
+} from '../../models/student.model';
 import { StudentService } from '../../services/student.service';
 
 type DashboardViewState = 'loading' | 'error' | 'empty' | 'ready';
@@ -34,6 +40,8 @@ export class DashboardComponent implements OnInit {
   readonly students = signal<Student[]>([]);
   readonly isLoading = signal(true);
   readonly errorMessage = signal<string | null>(null);
+  readonly statusLegend = STATUS_META_LIST;
+  readonly getStatusMeta = getStatusMeta;
 
   readonly viewState = computed<DashboardViewState>(() => {
     if (this.isLoading()) {
@@ -103,7 +111,7 @@ export class DashboardComponent implements OnInit {
   readonly recentStudents = computed(() =>
     [...this.students()]
       .sort((a, b) => b.enrolledDate.localeCompare(a.enrolledDate))
-      .slice(0, 6)
+      .slice(0, 9)
   );
 
   ngOnInit(): void {

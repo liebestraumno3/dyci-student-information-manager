@@ -47,7 +47,9 @@
   border-right: none;
 }
 
-.dossier-item:nth-last-child(-n + 2) {
+.dossier-item-full {
+  grid-column: 1 / -1;
+  border-right: none;
   border-bottom: none;
 }
 

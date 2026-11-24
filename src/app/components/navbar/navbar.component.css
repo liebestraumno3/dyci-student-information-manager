@@ -2,7 +2,7 @@
   position: sticky;
   top: 0;
   z-index: 40;
-  background-color: var(--bg-surface);
+  background-color: var(--bg-surface-solid);
   border-bottom: 1px solid var(--border-subtle);
 }
 
@@ -38,9 +38,13 @@
   text-decoration: none;
 }
 
-.brand-mark {
-  color: var(--accent-text);
+.brand-logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
   flex-shrink: 0;
+  display: block;
 }
 
 .brand-code {
@@ -156,7 +160,7 @@
     flex-direction: column;
     gap: var(--space-1);
     padding: var(--space-3);
-    background-color: var(--bg-surface);
+    background-color: var(--bg-surface-solid);
     border-top: 1px solid var(--border-subtle);
   }
 

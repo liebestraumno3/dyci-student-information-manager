@@ -6,12 +6,16 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { catchError, combineLatest, map, of, switchMap } from 'rxjs';
 import {
   COURSE_OPTIONS,
+  STATUS_META_LIST,
   STATUS_OPTIONS,
   Student,
   StudentPayload,
   StudentStatus,
   YEAR_LEVEL_OPTIONS,
-  YearLevel
+  YearLevel,
+  buildFullName,
+  getStatusMeta,
+  resolveStudentName
 } from '../../models/student.model';
 import { StudentService } from '../../services/student.service';
 
@@ -19,7 +23,8 @@ type DetailPageState = 'loading' | 'error' | 'view' | 'create' | 'edit';
 
 interface StudentFormModel {
   studentNumber: string;
-  fullName: string;
+  firstName: string;
+  lastName: string;
   email: string;
   course: string;
   yearLevel: YearLevel;
@@ -48,6 +53,9 @@ export class StudentDetailComponent implements OnInit {
   readonly courseOptions = COURSE_OPTIONS;
   readonly yearLevelOptions = YEAR_LEVEL_OPTIONS;
   readonly statusOptions = STATUS_OPTIONS;
+  readonly statusMetaList = STATUS_META_LIST;
+  readonly getStatusMeta = getStatusMeta;
+  readonly resolveStudentName = resolveStudentName;
 
   readonly pageState = signal<DetailPageState>('loading');
   readonly student = signal<Student | null>(null);
@@ -203,11 +211,16 @@ export class StudentDetailComponent implements OnInit {
     this.validationBanner.set(null);
     this.errorMessage.set(null);
 
+    const firstName = this.formModel.firstName.trim();
+    const lastName = this.formModel.lastName.trim();
+    const advisor = this.formModel.advisor.trim();
+    const hasInvalidTrimmedName = firstName.length < 2 || lastName.length < 2 || advisor.length < 3;
+
     const gpaValue = this.formModel.gpa;
     const isGpaOutOfRange =
       gpaValue === null || Number.isNaN(gpaValue) || gpaValue < 0 || gpaValue > 4;
 
-    if (form.invalid || isGpaOutOfRange) {
+    if (form.invalid || isGpaOutOfRange || hasInvalidTrimmedName) {
       this.validationBanner.set(
         'Please fix the highlighted validation errors before submitting.'
       );
@@ -216,14 +229,16 @@ export class StudentDetailComponent implements OnInit {
 
     const payload: StudentPayload = {
       studentNumber: this.formModel.studentNumber.trim(),
-      fullName: this.formModel.fullName.trim(),
+      firstName,
+      lastName,
+      fullName: buildFullName(firstName, lastName),
       email: this.formModel.email.trim(),
       course: this.formModel.course,
       yearLevel: Number(this.formModel.yearLevel) as YearLevel,
       gpa: Number(Number(gpaValue).toFixed(2)),
       status: this.formModel.status,
       enrolledDate: this.formModel.enrolledDate,
-      advisor: this.formModel.advisor.trim()
+      advisor
     };
 
     this.isSubmitting.set(true);
@@ -327,9 +342,11 @@ export class StudentDetailComponent implements OnInit {
   }
 
   private populateForm(record: Student): void {
+    const { firstName, lastName } = resolveStudentName(record);
     this.formModel = {
       studentNumber: record.studentNumber,
-      fullName: record.fullName,
+      firstName,
+      lastName,
       email: record.email,
       course: record.course,
       yearLevel: record.yearLevel,
@@ -343,7 +360,8 @@ export class StudentDetailComponent implements OnInit {
   private createEmptyFormModel(): StudentFormModel {
     return {
       studentNumber: '',
-      fullName: '',
+      firstName: '',
+      lastName: '',
       email: '',
       course: 'BSCS',
       yearLevel: 1,

@@ -63,18 +63,22 @@
         <div class="metric-cell">
           <span class="metric-label">Total Enrolled</span>
           <span class="metric-value mono">{{ totalStudents() }}</span>
+          <span class="metric-hint">Registered student records</span>
         </div>
         <div class="metric-cell">
-          <span class="metric-label">Active Standing</span>
+          <span class="metric-label">Active</span>
           <span class="metric-value mono">{{ activeCount() }}</span>
+          <span class="metric-hint">In good academic standing</span>
         </div>
         <div class="metric-cell">
-          <span class="metric-label">Probation / On Leave</span>
+          <span class="metric-label">Needs Attention</span>
           <span class="metric-value mono">{{ attentionCount() }}</span>
+          <span class="metric-hint">Academic probation or on leave</span>
         </div>
         <div class="metric-cell">
           <span class="metric-label">Mean Cumulative GPA</span>
           <span class="metric-value mono">{{ averageGpa() | number: '1.2-2' }}</span>
+          <span class="metric-hint">Out of 4.00 grading scale</span>
         </div>
       </div>
 
@@ -133,7 +137,7 @@
           <a class="panel-link" routerLink="/students">View all {{ totalStudents() }} records</a>
         </div>
 
-        <div class="table-wrap">
+        <div class="table-wrap table-scroll table-scroll-compact">
           <table class="data-table">
             <thead>
               <tr>
@@ -142,8 +146,8 @@
                 <th scope="col">Program</th>
                 <th scope="col">Year</th>
                 <th scope="col" class="num-col">GPA</th>
-                <th scope="col">Standing</th>
-                <th scope="col" class="actions-col">Record</th>
+                <th scope="col">Status</th>
+                <th scope="col" class="actions-col">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -158,37 +162,71 @@
                   <td data-label="Program" class="mono">{{ student.course }}</td>
                   <td data-label="Year">{{ formatYearLabel(student.yearLevel) }}</td>
                   <td data-label="GPA" class="mono num-col">{{ student.gpa | number: '1.2-2' }}</td>
-                  <td data-label="Standing">
+                  <td data-label="Status">
                     @switch (student.status) {
                       @case ('Active') {
-                        <span class="status-text status-active">
+                        <span
+                          class="status-text status-active"
+                          [title]="getStatusMeta(student.status).description"
+                        >
                           <span class="status-dot" aria-hidden="true"></span>Active
                         </span>
                       }
                       @case ('Probation') {
-                        <span class="status-text status-probation">
-                          <span class="status-dot" aria-hidden="true"></span>Probation
+                        <span
+                          class="status-text status-probation"
+                          [title]="getStatusMeta(student.status).description"
+                        >
+                          <span class="status-dot" aria-hidden="true"></span>Academic Probation
                         </span>
                       }
                       @case ('On Leave') {
-                        <span class="status-text status-leave">
+                        <span
+                          class="status-text status-leave"
+                          [title]="getStatusMeta(student.status).description"
+                        >
                           <span class="status-dot" aria-hidden="true"></span>On Leave
                         </span>
                       }
                       @default {
-                        <span class="status-text status-graduated">
-                          <span class="status-dot" aria-hidden="true"></span>{{ student.status }}
+                        <span
+                          class="status-text status-graduated"
+                          [title]="getStatusMeta(student.status).description"
+                        >
+                          <span class="status-dot" aria-hidden="true"></span>{{ getStatusMeta(student.status).label }}
                         </span>
                       }
                     }
                   </td>
-                  <td data-label="Record" class="actions-col">
-                    <a [routerLink]="['/students', student.id]" class="table-action">Inspect</a>
+                  <td data-label="Actions" class="actions-col">
+                    <a [routerLink]="['/students', student.id]" class="table-action">View</a>
                   </td>
                 </tr>
               }
             </tbody>
           </table>
+        </div>
+
+        <div class="status-legend" aria-label="Status guide">
+          <span class="status-legend-title">Status Guide:</span>
+          <ul class="status-legend-list">
+            @for (item of statusLegend; track item.value) {
+              <li class="status-legend-item">
+                <span
+                  class="status-dot"
+                  [class.status-legend-dot-active]="item.value === 'Active'"
+                  [class.status-legend-dot-probation]="item.value === 'Probation'"
+                  [class.status-legend-dot-leave]="item.value === 'On Leave'"
+                  [class.status-legend-dot-graduated]="item.value === 'Graduated'"
+                  aria-hidden="true"
+                ></span>
+                <span>
+                  <span class="status-legend-label">{{ item.label }}:</span>
+                  {{ item.shortDescription }}
+                </span>
+              </li>
+            }
+          </ul>
         </div>
       </section>
     }

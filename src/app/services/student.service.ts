@@ -4,7 +4,8 @@ import { Observable, catchError, map, throwError } from 'rxjs';
 import {
   Student,
   StudentFilterCriteria,
-  StudentPayload
+  StudentPayload,
+  getStatusMeta
 } from '../models/student.model';
 
 @Injectable({
@@ -37,10 +38,14 @@ export class StudentService {
           const matchesQuery =
             !query ||
             student.fullName.toLowerCase().includes(query) ||
+            (student.firstName ?? '').toLowerCase().includes(query) ||
+            (student.lastName ?? '').toLowerCase().includes(query) ||
             student.studentNumber.toLowerCase().includes(query) ||
             student.email.toLowerCase().includes(query) ||
             student.course.toLowerCase().includes(query) ||
-            student.advisor.toLowerCase().includes(query);
+            student.advisor.toLowerCase().includes(query) ||
+            getStatusMeta(student.status).label.toLowerCase().includes(query) ||
+            getStatusMeta(student.status).shortDescription.toLowerCase().includes(query);
 
           const matchesCourse = !course || student.course === course;
           const matchesYear = yearLevel === null || student.yearLevel === yearLevel;
