@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Student Information Manager - Project Documentation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --ink: #111827;
+      --ink-muted: #4b5563;
+      --border: #d1d5db;
+      --surface: #f9fafb;
+      --accent: #1d4ed8;
+      --pass-bg: #ecfdf5;
+      --pass-ink: #065f46;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 32px 20px 64px;
+      background: #ffffff;
+      color: var(--ink);
+      font-family: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .doc {
+      max-width: 880px;
+      margin: 0 auto;
+    }
+
+    .cover {
+      padding-bottom: 20px;
+      margin-bottom: 28px;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .cover-kicker {
+      font-family: 'IBM Plex Mono', ui-monospace, Consolas, monospace;
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 6px 0 8px;
+      font-size: 28px;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px 20px;
+      margin-top: 14px;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--surface);
+      font-size: 13px;
+    }
+
+    h2 {
+      margin: 28px 0 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+      font-size: 18px;
+      letter-spacing: -0.01em;
+    }
+
+    h3 {
+      margin: 18px 0 6px;
+      font-size: 15px;
+    }
+
+    p {
+      margin: 0 0 10px;
+    }
+
+    ul,
+    ol {
+      margin: 0 0 12px;
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 5px;
+    }
+
+    code {
+      font-family: 'IBM Plex Mono', ui-monospace, Consolas, monospace;
+      font-size: 12.5px;
+      background: #f3f4f6;
+      padding: 1px 4px;
+      border-radius: 3px;
+    }
+
+    pre {
+      margin: 10px 0 14px;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--surface);
+      overflow-x: auto;
+      font-family: 'IBM Plex Mono', ui-monospace, Consolas, monospace;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    pre code {
+      background: transparent;
+      padding: 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0 16px;
+      font-size: 13px;
+    }
+
+    th,
+    td {
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--surface);
+      font-weight: 600;
+    }
+
+    .status-pass {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 3px;
+      background: var(--pass-bg);
+      color: var(--pass-ink);
+      font-family: 'IBM Plex Mono', ui-monospace, Consolas, monospace;
+      font-size: 11.5px;
+      font-weight: 600;
+    }
+
+    .print-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--surface);
+      font-size: 13px;
+    }
+
+    .print-btn {
+      padding: 6px 14px;
+      border: 1px solid var(--accent);
+      border-radius: 5px;
+      background: var(--accent);
+      color: #ffffff;
+      font: inherit;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    @media print {
+      body {
+        padding: 0;
+        font-size: 11pt;
+      }
+
+      .print-bar {
+        display: none;
+      }
+
+      h2 {
+        page-break-after: avoid;
+      }
+
+      table,
+      pre {
+        page-break-inside: avoid;
+      }
+
+      tr {
+        page-break-inside: avoid;
+      }
+
+      .page-break {
+        page-break-before: always;
+      }
+    }
+  </style>
+</head>
+<body>
+  <article class="doc">
+    <div class="print-bar">
+      <span>Print-ready finals documentation. Use <strong>Print / Save as PDF</strong> to export.</span>
+      <button type="button" class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+    </div>
+
+    <header class="cover">
+      <div class="cover-kicker">University Finals Project Documentation</div>
+      <h1>Student Information Manager</h1>
+      <p>Utilitarian Angular 22 Single-Page Application with RxJS Observables, Injected Services, Angular Router Exploration, and Local <code>json-server</code> REST API.</p>
+      <div class="meta-grid">
+        <div><strong>Framework:</strong> Angular 22 (Standalone, Zoneless, Signals)</div>
+        <div><strong>Control Flow:</strong> <code>@if</code>, <code>@for</code> (track), <code>@switch</code></div>
+        <div><strong>Reactive &amp; HTTP:</strong> RxJS 7.8 + <code>HttpClient</code></div>
+        <div><strong>Mock API:</strong> <code>json-server</code> (<code>http://localhost:3000/students</code>)</div>
+        <div><strong>Exploration Feature:</strong> Angular Router (<code>@angular/router</code>)</div>
+        <div><strong>Verification:</strong> 8 Vitest Unit Tests + 10 Live E2E Cases</div>
+      </div>
+    </header>
+
+    <section>
+      <h2>1. Project Overview</h2>
+      <h3>1.1 Problem Statement</h3>
+      <p>Academic departments and university registrars routinely manage student enrollment records across multiple degree programs and year levels. Managing student numbers, academic standing, GPA, and assigned advisors through disconnected spreadsheets introduces formatting errors, weak searchability, and manual reconciliation mistakes between summary metrics and individual records. The Student Information Manager provides a structured, validated single-page interface backed by a REST API and URL-driven navigation.</p>
+
+      <h3>1.2 Intended Users</h3>
+      <ul>
+        <li><strong>University Registrar Clerks:</strong> Register incoming students, update academic standing and GPA records, and maintain advisor assignments.</li>
+        <li><strong>Faculty Advisors:</strong> Search advisees quickly by name, student number, or advisor name and open individual academic dossiers.</li>
+        <li><strong>Department Coordinators:</strong> Inspect enrollment distribution by degree program and year level, clicking directly into filtered directory cohorts.</li>
+      </ul>
+
+      <h3>1.3 Objectives</h3>
+      <ol>
+        <li>Architect a standalone Angular application with four modular components (<code>NavbarComponent</code>, <code>DashboardComponent</code>, <code>StudentListComponent</code>, and <code>StudentDetailComponent</code>) and a shared injectable <code>StudentService</code>.</li>
+        <li>Demonstrate modern Angular control flow (<code>@if</code>, <code>@for</code>, <code>@switch</code>), all four data-binding types, and RxJS Observable streams.</li>
+        <li>Support full CRUD operations, multi-field search, and UI filters for <code>course</code> and <code>yearLevel</code> persisted to a local <code>json-server</code> API.</li>
+        <li>Explore and apply Angular Router for default redirects, static route precedence, dynamic route parameters, URL query-parameter sync, programmatic navigation, and wildcard handling.</li>
+        <li>Deliver a high-contrast, accessible, responsive utilitarian dark-mode UI with loading, empty, success, validation, and offline error states.</li>
+      </ol>
+
+      <h3>1.4 Scope and Limitations</h3>
+      <p><strong>Scope:</strong> Live computed enrollment dashboard, URL-synced searchable directory, unified Create/View/Edit/Delete student dossier view, keyboard-accessible confirmation dialogs, client-side validation, automated Vitest specs, and 10 live test cases.</p>
+      <p><strong>Limitations:</strong> Local file persistence via <code>db.json</code> (not transactional for multi-user writes), no user authentication or role-based access control, client-side search filtering inside <code>StudentService.searchStudents()</code> (optimized for departmental cohorts rather than multi-thousand-row server pagination), and single cumulative GPA storage rather than per-term transcript logs.</p>
+    </section>
+
+    <section>
+      <h2>2. Application Structure</h2>
+      <pre><code>src/app/
+├── app.config.ts                                # provideRouter + provideHttpClient(withFetch())
+├── app.routes.ts                                # Centralized route definitions &amp; titles
+├── app.component.{ts,html,css}                  # Root shell: skip-link, Navbar, &lt;router-outlet&gt;
+├── models/student.model.ts                      # Student, StudentPayload, YearLevel, StudentStatus
+├── services/student.service.ts                  # Root-injected HTTP CRUD &amp; RxJS search service
+└── components/
+    ├── navbar/navbar.component.{ts,html,css}    # Sticky top nav, active path readout, mobile menu
+    ├── dashboard/dashboard.component.{ts,html,css}
+    ├── student-list/student-list.component.{ts,html,css}
+    └── student-detail/student-detail.component.{ts,html,css}</code></pre>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Module / Component</th>
+            <th>Primary Responsibilities</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>StudentService</code></td>
+            <td>Root singleton (<code>providedIn: 'root'</code>) handling <code>GET</code>, <code>GET /:id</code>, <code>POST</code>, <code>PUT</code>, <code>DELETE</code> against <code>http://localhost:3000/students</code>, RxJS multi-criteria search filtering, and centralized HTTP error translation.</td>
+          </tr>
+          <tr>
+            <td><code>NavbarComponent</code></td>
+            <td>Renders primary navigation (<code>Dashboard</code>, <code>Students</code>, <code>Register Student</code>) via <code>routerLink</code> and <code>routerLinkActive</code>, displays the active route path by subscribing to <code>Router.events</code> (<code>NavigationEnd</code>), and provides a responsive mobile drawer closable with <code>Escape</code>.</td>
+          </tr>
+          <tr>
+            <td><code>DashboardComponent</code></td>
+            <td>Computes live enrollment totals, active vs. attention counts, and mean GPA from API data; renders interactive Course and Year Level breakdowns that programmatically navigate to pre-filtered <code>/students</code> views; lists recent registrations.</td>
+          </tr>
+          <tr>
+            <td><code>StudentListComponent</code></td>
+            <td>Implements debounced search (<code>Subject</code> + <code>debounceTime(120)</code> + <code>switchMap</code>), <code>course</code> and <code>yearLevel</code> filters synced with URL query parameters, loading/empty/error UI states, inline View/Edit links, and guarded Delete confirmation.</td>
+          </tr>
+          <tr>
+            <td><code>StudentDetailComponent</code></td>
+            <td>Handles Create (<code>/students/new</code>), View (<code>/students/:id</code>), and Edit (<code>/students/:id?edit=true</code>) modes reactively via <code>combineLatest</code> + <code>switchMap</code> over <code>ActivatedRoute</code> streams, complete with inline validation and 404 recovery.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="page-break">
+      <h2>3. Topic Mapping</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Topic</th>
+            <th>Locations</th>
+            <th>Concrete Code Usage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Interpolation</strong></td>
+            <td>All 4 component templates</td>
+            <td><code>{{ currentPath() }}</code>, <code>{{ totalStudents() }}</code>, <code>{{ averageGpa() | number: '1.2-2' }}</code>, <code>{{ student.fullName }}</code>, <code>{{ errorMessage() }}</code>, <code>{{ breadcrumbLabel() }}</code>.</td>
+          </tr>
+          <tr>
+            <td><strong>Property Binding</strong></td>
+            <td>All 4 component templates</td>
+            <td><code>[routerLink]</code>, <code>[queryParams]</code>, <code>[routerLinkActiveOptions]</code>, <code>[style.width.%]="item.percentage"</code>, <code>[disabled]="isSubmitting()"</code>, <code>[attr.aria-expanded]</code>, <code>[attr.aria-invalid]</code>, <code>[ngValue]</code>.</td>
+          </tr>
+          <tr>
+            <td><strong>Event Binding</strong></td>
+            <td>All 4 components</td>
+            <td><code>(click)</code> on drill-down rows, Retry, Clear Filters, Delete/Confirm, and Edit; <code>(ngSubmit)="submitForm(studentForm)"</code>; <code>(ngModelChange)="onFiltersChanged()"</code>; host <code>(document:keydown.escape)</code>.</td>
+          </tr>
+          <tr>
+            <td><strong>Two-Way Binding</strong></td>
+            <td><code>student-list.component.html</code>, <code>student-detail.component.html</code></td>
+            <td><code>[(ngModel)]="searchTerm"</code>, <code>[(ngModel)]="selectedCourse"</code>, <code>[(ngModel)]="selectedYearLevel"</code>, plus all 9 form controls bound to <code>[(ngModel)]="formModel.*"</code>.</td>
+          </tr>
+          <tr>
+            <td><strong><code>@if</code> / <code>@else</code></strong></td>
+            <td><code>navbar</code>, <code>student-list</code>, <code>student-detail</code></td>
+            <td>Mobile navigation drawer, confirmation banners, active filter clear action, delete alertdialog, and per-field validation messages.</td>
+          </tr>
+          <tr>
+            <td><strong><code>@for</code> + <code>track</code></strong></td>
+            <td><code>dashboard</code>, <code>student-list</code>, <code>student-detail</code></td>
+            <td>Student table rows (<code>track student.id</code>), program breakdown bars (<code>track item.course</code>), year-level cohorts (<code>track year.yearLevel</code>), select options, and loading skeletons.</td>
+          </tr>
+          <tr>
+            <td><strong><code>@switch</code></strong></td>
+            <td><code>dashboard</code>, <code>student-list</code>, <code>student-detail</code></td>
+            <td>View-state rendering (<code>loading</code>, <code>error</code>, <code>empty</code>, <code>empty-db</code>, <code>empty-filter</code>, <code>ready</code>), detail page mode (<code>create</code>, <code>view</code>, <code>edit</code>), and semantic status indicators (<code>Active</code>, <code>Probation</code>, <code>On Leave</code>, <code>Graduated</code>).</td>
+          </tr>
+          <tr>
+            <td><strong>RxJS Observables</strong></td>
+            <td><code>student.service.ts</code> + all 4 components</td>
+            <td><code>HttpClient</code> Observables with <code>map</code>, <code>catchError</code>, <code>throwError</code>; <code>Subject</code> + <code>debounceTime(120)</code> + <code>switchMap</code> search pipeline; <code>combineLatest</code> + <code>switchMap</code> route loader; <code>Router.events</code> filtered by <code>NavigationEnd</code>; lifecycle cleanup via <code>takeUntilDestroyed</code>.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>4. API Documentation</h2>
+      <p>Base URL: <code>http://localhost:3000</code> (started with <code>npm run api</code> using <code>json-server db.json --port 3000</code>).</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th>Endpoint</th>
+            <th>Status</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>GET</code></td><td><code>/students</code></td><td><code>200 OK</code></td><td>Retrieve all enrolled student records</td></tr>
+          <tr><td><code>GET</code></td><td><code>/students/:id</code></td><td><code>200 OK</code> / <code>404</code></td><td>Retrieve a single student profile by ID</td></tr>
+          <tr><td><code>POST</code></td><td><code>/students</code></td><td><code>201 Created</code></td><td>Register a new student and persist to <code>db.json</code></td></tr>
+          <tr><td><code>PUT</code></td><td><code>/students/:id</code></td><td><code>200 OK</code></td><td>Update all fields of an existing student record</td></tr>
+          <tr><td><code>DELETE</code></td><td><code>/students/:id</code></td><td><code>200 OK</code></td><td>Delete a student record from <code>db.json</code></td></tr>
+        </tbody>
+      </table>
+
+      <h3>Sample Request: <code>POST /students</code></h3>
+      <pre><code>{
+  "studentNumber": "2026-0601",
+  "fullName": "Andrea Tolentino",
+  "email": "andrea.tolentino@univ.edu",
+  "course": "BSIT",
+  "yearLevel": 2,
+  "gpa": 3.74,
+  "status": "Active",
+  "enrolledDate": "2026-08-20",
+  "advisor": "Prof. Carla Mendoza"
+}</code></pre>
+
+      <h3>Sample Response: <code>201 Created</code></h3>
+      <pre><code>{
+  "id": "Kub7wECDAIQ",
+  "studentNumber": "2026-0601",
+  "fullName": "Andrea Tolentino",
+  "email": "andrea.tolentino@univ.edu",
+  "course": "BSIT",
+  "yearLevel": 2,
+  "gpa": 3.74,
+  "status": "Active",
+  "enrolledDate": "2026-08-20",
+  "advisor": "Prof. Carla Mendoza"
+}</code></pre>
+    </section>
+
+    <section class="page-break">
+      <h2>5. Exploration Report: Angular Router</h2>
+
+      <h3>5.1 Why Angular Router Is Useful</h3>
+      <p>Single-page applications must preserve web fundamentals: bookmarkable student URLs, shareable filtered views, native Back/Forward navigation, and meaningful browser page titles. Angular Router maps URL segments and query parameters directly to standalone components rendered inside <code>&lt;router-outlet&gt;</code> with zero full-page reloads.</p>
+
+      <h3>5.2 Sources Consulted</h3>
+      <ul>
+        <li>Angular Official Routing Guide (<code>angular.dev/guide/routing</code>)</li>
+        <li>Angular API Reference for <code>ActivatedRoute</code>, <code>Router</code>, <code>provideRouter</code>, and <code>RouterLinkActive</code></li>
+        <li>Angular Zoneless Change Detection &amp; Signals Guide (<code>angular.dev/guide/zoneless</code>)</li>
+        <li>RxJS Operator Reference for <code>switchMap</code> and <code>combineLatest</code> (<code>rxjs.dev</code>)</li>
+      </ul>
+
+      <h3>5.3 Experiment Performed</h3>
+      <p>Four controlled tests were performed during development: (1) verifying first-match-wins route precedence between static <code>students/new</code> and parameterized <code>students/:id</code>; (2) navigating between <code>/students/new</code>, <code>/students/:id</code>, and <code>/students/:id?edit=true</code> while reusing <code>StudentDetailComponent</code>; (3) synchronizing Dashboard drill-downs and Student Directory filters with URL query parameters; and (4) passing post-mutation confirmation banners through router navigation <code>state</code> alongside wildcard fallback redirects.</p>
+
+      <h3>5.4 Technical Problems Resolved</h3>
+      <ol>
+        <li><strong>Static vs. Dynamic Route Collision:</strong> Placing <code>students/:id</code> ahead of <code>students/new</code> caused Angular Router to capture <code>"new"</code> as an ID and trigger a <code>404</code> HTTP request. Resolved by placing <code>students/new</code> strictly before <code>students/:id</code> with explicit <code>data: { mode: 'create' }</code>.</li>
+        <li><strong>Same-Component Reuse on Parameter Changes:</strong> Snapshot reads inside <code>ngOnInit()</code> did not re-run when moving directly from <code>/students/new</code> to <code>/students/:id</code> or toggling <code>?edit=true</code>. Resolved by subscribing to <code>combineLatest([route.data, route.paramMap, route.queryParamMap])</code> piped through <code>switchMap()</code>.</li>
+        <li><strong>Zoneless Angular 22 Async Reactivity:</strong> Without <code>zone.js</code>, plain class fields updated inside <code>Router.events</code> or HTTP callbacks do not automatically re-render. Resolved by storing async state in Angular Signals (<code>signal()</code>, <code>computed()</code>) and disposing streams via <code>takeUntilDestroyed</code>.</li>
+        <li><strong>URL Query Pollution on Filter Clear:</strong> Writing empty strings into query params left noisy <code>?q=&amp;course=</code> URLs and filled browser history. Resolved by passing <code>null</code> for empty filters with <code>replaceUrl: true</code>.</li>
+      </ol>
+
+      <h3>5.5 Final Implementation Summary</h3>
+      <p><code>app.config.ts</code> registers <code>provideRouter(routes, withComponentInputBinding())</code>. <code>app.routes.ts</code> declares empty redirect (<code>/</code> -&gt; <code>/dashboard</code>), <code>/dashboard</code>, <code>/students</code>, <code>/students/new</code>, <code>/students/:id</code>, and wildcard fallback (<code>**</code> -&gt; <code>/dashboard</code>). <code>NavbarComponent</code> highlights exact active tabs and displays the live <code>NavigationEnd</code> path; <code>DashboardComponent</code> drills down into filtered directory URLs; <code>StudentListComponent</code> keeps filters bidirectionally synced with URL query parameters; and <code>StudentDetailComponent</code> orchestrates Create, View, and Edit seamlessly over reactive route streams.</p>
+    </section>
+
+    <section class="page-break">
+      <h2>6. Testing Results</h2>
+      <p><strong>Automated Checks:</strong> <code>npx tsc --noEmit</code> exited with code 0; <code>npm run build</code> completed with 0 errors and 0 warnings (<code>387.61 kB</code> initial raw, <code>97.16 kB</code> transfer); Vitest passed <strong>8/8 unit tests</strong> across <code>student.service.spec.ts</code> and <code>app.component.spec.ts</code>.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Category</th>
+            <th>Scenario &amp; Steps</th>
+            <th>Expected &amp; Observed Result</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>TC-01</code></td>
+            <td>Routing / Load</td>
+            <td>Open <code>http://localhost:4200/</code> and load live dashboard data.</td>
+            <td>Redirected to <code>/dashboard</code>; displayed Total <code>5</code>, Active <code>3</code>, Probation/On Leave <code>2</code>, Mean GPA <code>3.24</code>, breakdowns, and 5 rows. 0 console errors.</td>
+            <td><span class="status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td><code>TC-02</code></td>
+            <td>Router Drill-Down</td>
+            <td>Click <code>BSCS</code> on Dashboard, then click <code>Clear Filters</code>.</td>
+            <td>Navigated to <code>/students?course=BSCS</code> (2 rows: Elena Cruz, Hannah Reyes); Clear Filters returned to <code>/students</code> with all 5 rows.</td>
+            <td><span class="status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td><code>TC-03</code></td>
+            <td>Search &amp; Filters</td>
+            <td>Filter Course <code>BSCS</code> + Year <code>2nd Year</code>; enter <code>zzzz-no-match</code>; click <code>Reset Filters</code>.</td>
+            <td>URL became <code>?course=BSCS&amp;yearLevel=2</code> (Hannah Reyes); non-match showed <code>No matching students</code>; Reset restored all 5 rows.</td>
+            <td><span class="status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td><code>TC-04</code></td>
+            <td>Validation</td>
+            <td>Submit blank form on <code>/students/new</code>; test invalid ID <code>123</code>, email <code>not-an-email</code>, GPA <code>4.9</code>.</td>
+            <td>Blocked submission; displayed validation banner and inline field errors for Student Number, Full Name, Email, GPA range, and Advisor.</td>
+            <td><span class="status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td><code>TC-05</code></td>
+            <td>Create &amp; Persist</td>
+            <td>Register valid record <code>Andrea Tolentino</code> (<code>2026-0601</code>, <code>BSIT</code>, GPA <code>3.74</code>) and reload browser.</td>
+            <td><code>POST /students</code> created ID <code>Kub7wECDAIQ</code>, navigated to <code>/students/Kub7wECDAIQ</code> with confirmation banner, and persisted across full reload.</td>
+            <td><span class="status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td><code>TC-06</code></td>
+            <td>Edit &amp; Persist</td>
+            <td>Click <code>Edit Record</code>, update GPA to <code>3.91</code> and Standing to <code>Probation</code>, save, and reload.</td>
+            <td>Switched to <code>?edit=true</code> prefilled, saved via <code>PUT</code>, returned to view mode showing <code>3.91 / 4.00</code> and <code>Probation</code>, persisted across reload.</td>
+            <td><span class="status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td><code>TC-07</code></td>
+            <td>Delete &amp; Keyboard</td>
+            <td>Click <code>Delete</code> on Andrea Tolentino, press <code>Escape</code>, then click <code>Delete</code> and <code>Delete Record</code>.</td>
+            <td><code>Escape</code> dismissed dialog without deletion (count stayed 6); confirming sent <code>DELETE</code>, showed confirmation banner, and restored count to 5.</td>
+            <td><span class="status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td><code>TC-08</code></td>
+            <td>Invalid Param</td>
+            <td>Navigate directly to <code>/students/999</code>, then click <code>Back to Student Directory</code>.</td>
+            <td>Handled HTTP 404 gracefully with <code>The requested student record was not found.</code> and navigated back to <code>/students</code>.</td>
+            <td><span class="status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td><code>TC-09</code></td>
+            <td>Wildcard &amp; Mobile</td>
+            <td>Open <code>/does-not-exist</code>; verify <code>390x844</code> &amp; <code>768x1024</code> reflow; test mobile <code>Menu</code> + <code>Escape</code>.</td>
+            <td>Redirected to <code>/dashboard</code>; zero horizontal overflow on mobile and tablet; mobile drawer toggled and closed cleanly with <code>Escape</code>.</td>
+            <td><span class="status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td><code>TC-10</code></td>
+            <td>API Offline &amp; Retry</td>
+            <td>Stop <code>json-server</code>, load <code>/dashboard</code> and <code>/students</code>, restart API, click <code>Retry</code>.</td>
+            <td>Displayed offline error banner citing <code>http://localhost:3000</code> with 0 console errors; clicking <code>Retry</code> after restart recovered all 5 rows.</td>
+            <td><span class="status-pass">PASS</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </article>
+</body>
+</html>

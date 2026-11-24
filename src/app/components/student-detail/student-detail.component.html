@@ -1,0 +1,471 @@
+<section class="page" aria-labelledby="detail-heading">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a routerLink="/dashboard">Dashboard</a>
+    <span aria-hidden="true">/</span>
+    <a routerLink="/students">Students</a>
+    <span aria-hidden="true">/</span>
+    <span class="breadcrumb-current mono">{{ breadcrumbLabel() }}</span>
+  </nav>
+
+  @if (feedbackMessage()) {
+    <div class="banner banner-success" role="status" aria-live="polite">
+      <div><strong>Confirmed:</strong> {{ feedbackMessage() }}</div>
+      <button
+        type="button"
+        class="btn btn-ghost"
+        aria-label="Dismiss notification"
+        (click)="dismissFeedback()"
+      >
+        Dismiss
+      </button>
+    </div>
+  }
+
+  @switch (pageState()) {
+    @case ('loading') {
+      <div class="panel loading-panel" role="status" aria-live="polite">
+        <p class="loading-caption">Loading student record...</p>
+        <span class="skeleton sk-title"></span>
+        <div class="sk-grid">
+          @for (field of [1, 2, 3, 4, 5, 6]; track field) {
+            <span class="skeleton sk-box"></span>
+          }
+        </div>
+      </div>
+    }
+
+    @case ('error') {
+      <div class="panel error-panel" role="alert">
+        <h1 id="detail-heading" class="page-title">Unable to open student record</h1>
+        <p class="error-copy">{{ errorMessage() }}</p>
+        <div class="action-row">
+          <a class="btn btn-primary" routerLink="/students">Back to Student Directory</a>
+          <button type="button" class="btn" (click)="retryLoad()">Retry</button>
+        </div>
+      </div>
+    }
+
+    @case ('view') {
+      @if (student(); as record) {
+        <header class="page-header">
+          <div>
+            <div class="id-line">
+              <span class="mono student-id">{{ record.studentNumber }}</span>
+              @switch (record.status) {
+                @case ('Active') {
+                  <span class="status-text status-active">
+                    <span class="status-dot" aria-hidden="true"></span>Active
+                  </span>
+                }
+                @case ('Probation') {
+                  <span class="status-text status-probation">
+                    <span class="status-dot" aria-hidden="true"></span>Probation
+                  </span>
+                }
+                @case ('On Leave') {
+                  <span class="status-text status-leave">
+                    <span class="status-dot" aria-hidden="true"></span>On Leave
+                  </span>
+                }
+                @default {
+                  <span class="status-text status-graduated">
+                    <span class="status-dot" aria-hidden="true"></span>{{ record.status }}
+                  </span>
+                }
+              }
+            </div>
+            <h1 id="detail-heading" class="page-title">{{ record.fullName }}</h1>
+          </div>
+
+          <div class="action-row">
+            <a class="btn" routerLink="/students">Back to Directory</a>
+            <button type="button" class="btn btn-primary" (click)="enterEditMode()">
+              Edit Record
+            </button>
+            <button type="button" class="btn btn-danger" (click)="requestDelete()">
+              Delete
+            </button>
+          </div>
+        </header>
+
+        @if (errorMessage()) {
+          <div class="banner banner-error" role="alert">
+            <div><strong>Action Failed:</strong> {{ errorMessage() }}</div>
+          </div>
+        }
+
+        @if (showDeleteConfirm()) {
+          <div class="modal-overlay">
+            <button
+              type="button"
+              class="modal-backdrop"
+              tabindex="-1"
+              aria-label="Close confirmation dialog"
+              [disabled]="isDeleting()"
+              (click)="cancelDelete()"
+            ></button>
+
+            <div
+              class="modal-dialog"
+              role="alertdialog"
+              aria-modal="true"
+              aria-labelledby="detail-delete-title"
+              aria-describedby="detail-delete-desc"
+            >
+              <div class="modal-header">
+                <h2 id="detail-delete-title" class="modal-title">Remove Student Record</h2>
+              </div>
+
+              <div class="modal-body">
+                <p id="detail-delete-desc">
+                  Are you sure you want to permanently remove this student from the registrar API? This action cannot be undone.
+                </p>
+                <div class="modal-target">
+                  <span class="modal-target-name">{{ record.fullName }}</span>
+                  <span class="modal-target-meta mono">
+                    {{ record.studentNumber }} &middot; {{ record.course }} &middot; {{ formatYearLabel(record.yearLevel) }}
+                  </span>
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn"
+                  [disabled]="isDeleting()"
+                  (click)="cancelDelete()"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  [disabled]="isDeleting()"
+                  (click)="confirmDelete()"
+                >
+                  {{ isDeleting() ? 'Deleting...' : 'Confirm Delete' }}
+                </button>
+              </div>
+            </div>
+          </div>
+        }
+
+        <div class="panel dossier-panel">
+          <div class="panel-header">
+            <h2 class="panel-title">Academic Dossier</h2>
+            <span class="panel-meta mono">API ID: {{ record.id }}</span>
+          </div>
+
+          <dl class="dossier-grid">
+            <div class="dossier-item">
+              <dt>Institutional Email</dt>
+              <dd>
+                <a [href]="'mailto:' + record.email">{{ record.email }}</a>
+              </dd>
+            </div>
+
+            <div class="dossier-item">
+              <dt>Degree Program</dt>
+              <dd class="mono">{{ record.course }}</dd>
+            </div>
+
+            <div class="dossier-item">
+              <dt>Year Level</dt>
+              <dd>{{ formatYearLabel(record.yearLevel) }}</dd>
+            </div>
+
+            <div class="dossier-item">
+              <dt>Cumulative GPA</dt>
+              <dd class="mono">{{ record.gpa | number: '1.2-2' }} / 4.00</dd>
+            </div>
+
+            <div class="dossier-item">
+              <dt>Academic Advisor</dt>
+              <dd>{{ record.advisor }}</dd>
+            </div>
+
+            <div class="dossier-item">
+              <dt>Enrollment Date</dt>
+              <dd class="mono">{{ record.enrolledDate }}</dd>
+            </div>
+          </dl>
+        </div>
+      }
+    }
+
+    @default {
+      <header class="page-header">
+        <div>
+          <h1 id="detail-heading" class="page-title">
+            {{ pageState() === 'create' ? 'Register Student' : 'Edit Student Record' }}
+          </h1>
+          <p class="page-subtitle">
+            {{
+              pageState() === 'create'
+                ? 'Enter verified academic details to add a student to the registrar API.'
+                : 'Update the academic profile and save changes directly to the registrar API.'
+            }}
+          </p>
+        </div>
+        <div class="action-row">
+          <button type="button" class="btn" (click)="cancelEdit()">Cancel</button>
+        </div>
+      </header>
+
+      @if (validationBanner()) {
+        <div class="banner banner-error" role="alert">
+          <div><strong>Validation Error:</strong> {{ validationBanner() }}</div>
+        </div>
+      }
+
+      @if (errorMessage()) {
+        <div class="banner banner-error" role="alert">
+          <div><strong>API Error:</strong> {{ errorMessage() }}</div>
+        </div>
+      }
+
+      <form
+        #studentForm="ngForm"
+        class="panel form-panel"
+        novalidate
+        (ngSubmit)="submitForm(studentForm)"
+      >
+        <div class="form-grid">
+          <div class="field">
+            <label for="studentNumber" class="field-label">Student Number *</label>
+            <input
+              id="studentNumber"
+              name="studentNumber"
+              type="text"
+              class="control mono"
+              required
+              pattern="^\d{4}-\d{4}$"
+              placeholder="2026-0142"
+              [(ngModel)]="formModel.studentNumber"
+              #studentNumberCtrl="ngModel"
+              [attr.aria-invalid]="studentNumberCtrl.invalid && (studentNumberCtrl.touched || formSubmitted())"
+              aria-describedby="studentNumber-help studentNumber-err"
+            />
+            <span id="studentNumber-help" class="field-hint">Format: YYYY-NNNN</span>
+            @if (studentNumberCtrl.invalid && (studentNumberCtrl.touched || formSubmitted())) {
+              <span id="studentNumber-err" class="field-error" role="alert">
+                @if (studentNumberCtrl.errors?.['required']) {
+                  Student number is required.
+                } @else {
+                  Use format YYYY-NNNN (example: 2026-0142).
+                }
+              </span>
+            }
+          </div>
+
+          <div class="field">
+            <label for="fullName" class="field-label">Full Name *</label>
+            <input
+              id="fullName"
+              name="fullName"
+              type="text"
+              class="control"
+              required
+              minlength="3"
+              maxlength="80"
+              placeholder="Student full name"
+              [(ngModel)]="formModel.fullName"
+              #fullNameCtrl="ngModel"
+              [attr.aria-invalid]="fullNameCtrl.invalid && (fullNameCtrl.touched || formSubmitted())"
+              aria-describedby="fullName-err"
+            />
+            @if (fullNameCtrl.invalid && (fullNameCtrl.touched || formSubmitted())) {
+              <span id="fullName-err" class="field-error" role="alert">
+                @if (fullNameCtrl.errors?.['required']) {
+                  Full name is required.
+                } @else {
+                  Full name must be at least 3 characters.
+                }
+              </span>
+            }
+          </div>
+
+          <div class="field">
+            <label for="email" class="field-label">Institutional Email *</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              class="control"
+              required
+              email
+              placeholder="name@univ.edu"
+              [(ngModel)]="formModel.email"
+              #emailCtrl="ngModel"
+              [attr.aria-invalid]="emailCtrl.invalid && (emailCtrl.touched || formSubmitted())"
+              aria-describedby="email-err"
+            />
+            @if (emailCtrl.invalid && (emailCtrl.touched || formSubmitted())) {
+              <span id="email-err" class="field-error" role="alert">
+                @if (emailCtrl.errors?.['required']) {
+                  Institutional email is required.
+                } @else {
+                  Enter a valid email address.
+                }
+              </span>
+            }
+          </div>
+
+          <div class="field">
+            <label for="course" class="field-label">Degree Program *</label>
+            <select
+              id="course"
+              name="course"
+              class="control"
+              required
+              [(ngModel)]="formModel.course"
+              #courseCtrl="ngModel"
+              [attr.aria-invalid]="courseCtrl.invalid && (courseCtrl.touched || formSubmitted())"
+            >
+              @for (course of courseOptions; track course) {
+                <option [value]="course">{{ course }}</option>
+              }
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="yearLevel" class="field-label">Year Level *</label>
+            <select
+              id="yearLevel"
+              name="yearLevel"
+              class="control"
+              required
+              [(ngModel)]="formModel.yearLevel"
+              #yearLevelCtrl="ngModel"
+              [attr.aria-invalid]="yearLevelCtrl.invalid && (yearLevelCtrl.touched || formSubmitted())"
+            >
+              @for (year of yearLevelOptions; track year.value) {
+                <option [ngValue]="year.value">{{ year.label }}</option>
+              }
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="gpa" class="field-label">Cumulative GPA (0.00 to 4.00) *</label>
+            <input
+              id="gpa"
+              name="gpa"
+              type="number"
+              class="control mono"
+              required
+              min="0"
+              max="4"
+              step="0.01"
+              placeholder="3.50"
+              [(ngModel)]="formModel.gpa"
+              #gpaCtrl="ngModel"
+              [attr.aria-invalid]="
+                (gpaCtrl.invalid || (formModel.gpa !== null && (formModel.gpa < 0 || formModel.gpa > 4))) &&
+                (gpaCtrl.touched || formSubmitted())
+              "
+              aria-describedby="gpa-err"
+            />
+            @if (
+              (gpaCtrl.invalid || (formModel.gpa !== null && (formModel.gpa < 0 || formModel.gpa > 4))) &&
+              (gpaCtrl.touched || formSubmitted())
+            ) {
+              <span id="gpa-err" class="field-error" role="alert">
+                @if (gpaCtrl.errors?.['required']) {
+                  GPA is required.
+                } @else {
+                  GPA must be between 0.00 and 4.00.
+                }
+              </span>
+            }
+          </div>
+
+          <div class="field">
+            <label for="status" class="field-label">Academic Standing *</label>
+            <select
+              id="status"
+              name="status"
+              class="control"
+              required
+              [(ngModel)]="formModel.status"
+            >
+              @for (status of statusOptions; track status) {
+                <option [value]="status">{{ status }}</option>
+              }
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="enrolledDate" class="field-label">Enrollment Date *</label>
+            <input
+              id="enrolledDate"
+              name="enrolledDate"
+              type="date"
+              class="control mono"
+              required
+              [(ngModel)]="formModel.enrolledDate"
+              #dateCtrl="ngModel"
+              [attr.aria-invalid]="dateCtrl.invalid && (dateCtrl.touched || formSubmitted())"
+              aria-describedby="date-err"
+            />
+            @if (dateCtrl.invalid && (dateCtrl.touched || formSubmitted())) {
+              <span id="date-err" class="field-error" role="alert">
+                Enrollment date is required.
+              </span>
+            }
+          </div>
+
+          <div class="field field-full">
+            <label for="advisor" class="field-label">Academic Advisor *</label>
+            <input
+              id="advisor"
+              name="advisor"
+              type="text"
+              class="control"
+              required
+              minlength="3"
+              maxlength="80"
+              placeholder="Assigned faculty advisor"
+              [(ngModel)]="formModel.advisor"
+              #advisorCtrl="ngModel"
+              [attr.aria-invalid]="advisorCtrl.invalid && (advisorCtrl.touched || formSubmitted())"
+              aria-describedby="advisor-err"
+            />
+            @if (advisorCtrl.invalid && (advisorCtrl.touched || formSubmitted())) {
+              <span id="advisor-err" class="field-error" role="alert">
+                @if (advisorCtrl.errors?.['required']) {
+                  Academic advisor is required.
+                } @else {
+                  Advisor name must be at least 3 characters.
+                }
+              </span>
+            }
+          </div>
+        </div>
+
+        <div class="form-footer">
+          <button
+            type="button"
+            class="btn"
+            [disabled]="isSubmitting()"
+            (click)="cancelEdit()"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="isSubmitting()"
+          >
+            @if (isSubmitting()) {
+              Saving...
+            } @else if (pageState() === 'create') {
+              Register Student
+            } @else {
+              Save Changes
+            }
+          </button>
+        </div>
+      </form>
+    }
+  }
+</section>

@@ -1,0 +1,263 @@
+<section class="page" aria-labelledby="directory-heading">
+  <header class="page-header">
+    <div>
+      <h1 id="directory-heading" class="page-title">Student Directory</h1>
+      <p class="page-subtitle">
+        Showing {{ students().length }}
+        @if (hasActiveFilters() && totalDatabaseCount() > 0) {
+          of {{ totalDatabaseCount() }}
+        }
+        enrolled {{ students().length === 1 ? 'record' : 'records' }}.
+      </p>
+    </div>
+    <div class="header-actions">
+      <button type="button" class="btn" (click)="loadStudents()" [disabled]="isLoading()">
+        Refresh
+      </button>
+    </div>
+  </header>
+
+  @if (feedbackMessage()) {
+    <div class="banner banner-success" role="status" aria-live="polite">
+      <div><strong>Confirmed:</strong> {{ feedbackMessage() }}</div>
+      <button
+        type="button"
+        class="btn btn-ghost"
+        aria-label="Dismiss notification"
+        (click)="dismissFeedback()"
+      >
+        Dismiss
+      </button>
+    </div>
+  }
+
+  <div class="toolbar" role="search" aria-label="Filter student records">
+    <div class="field field-search">
+      <label for="student-search" class="field-label">Search</label>
+      <input
+        id="student-search"
+        type="search"
+        class="control"
+        placeholder="Search by name, student no., email, or advisor..."
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="onFiltersChanged()"
+      />
+    </div>
+
+    <div class="field">
+      <label for="course-filter" class="field-label">Course</label>
+      <select
+        id="course-filter"
+        class="control"
+        [(ngModel)]="selectedCourse"
+        (ngModelChange)="onFiltersChanged()"
+      >
+        <option value="">All Courses</option>
+        @for (course of courseOptions; track course) {
+          <option [value]="course">{{ course }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="year-filter" class="field-label">Year Level</label>
+      <select
+        id="year-filter"
+        class="control"
+        [(ngModel)]="selectedYearLevel"
+        (ngModelChange)="onFiltersChanged()"
+      >
+        <option value="">All Years</option>
+        @for (year of yearLevelOptions; track year.value) {
+          <option [value]="year.value">{{ year.label }}</option>
+        }
+      </select>
+    </div>
+
+    @if (hasActiveFilters()) {
+      <div class="field-action">
+        <button type="button" class="btn" (click)="clearFilters()">Clear Filters</button>
+      </div>
+    }
+  </div>
+
+  @if (pendingDelete(); as target) {
+    <div class="modal-overlay">
+      <button
+        type="button"
+        class="modal-backdrop"
+        tabindex="-1"
+        aria-label="Close confirmation dialog"
+        [disabled]="isDeleting()"
+        (click)="cancelDelete()"
+      ></button>
+
+      <div
+        class="modal-dialog"
+        role="alertdialog"
+        aria-modal="true"
+        aria-labelledby="delete-confirm-title"
+        aria-describedby="delete-confirm-desc"
+      >
+        <div class="modal-header">
+          <h2 id="delete-confirm-title" class="modal-title">Remove Student Record</h2>
+        </div>
+
+        <div class="modal-body">
+          <p id="delete-confirm-desc">
+            Are you sure you want to permanently remove this student from the registrar API? This action cannot be undone.
+          </p>
+          <div class="modal-target">
+            <span class="modal-target-name">{{ target.fullName }}</span>
+            <span class="modal-target-meta mono">
+              {{ target.studentNumber }} &middot; {{ target.course }} &middot; {{ formatYearLabel(target.yearLevel) }}
+            </span>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn"
+            [disabled]="isDeleting()"
+            (click)="cancelDelete()"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            [disabled]="isDeleting()"
+            (click)="confirmDelete()"
+          >
+            {{ isDeleting() ? 'Deleting...' : 'Delete Record' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+
+  @switch (viewState()) {
+    @case ('loading') {
+      <div class="panel loading-panel" role="status" aria-live="polite">
+        <p class="loading-caption">Fetching student records from http://localhost:3000/students...</p>
+        @for (row of [1, 2, 3, 4, 5]; track row) {
+          <div class="skeleton-row">
+            <span class="skeleton sk-id"></span>
+            <span class="skeleton sk-name"></span>
+            <span class="skeleton sk-meta"></span>
+            <span class="skeleton sk-meta"></span>
+          </div>
+        }
+      </div>
+    }
+
+    @case ('error') {
+      <div class="banner banner-error" role="alert">
+        <div>
+          <strong>Unable to load directory:</strong> {{ errorMessage() }}
+        </div>
+        <button type="button" class="btn" (click)="loadStudents()">Retry</button>
+      </div>
+    }
+
+    @case ('empty-db') {
+      <div class="empty-panel">
+        <h2 class="empty-title">No students registered</h2>
+        <p class="empty-copy">
+          The student directory is currently empty. Add your first student record to begin managing enrollment data.
+        </p>
+        <a class="btn btn-primary" routerLink="/students/new">Register Student</a>
+      </div>
+    }
+
+    @case ('empty-filter') {
+      <div class="empty-panel">
+        <h2 class="empty-title">No matching students</h2>
+        <p class="empty-copy">
+          No records match your current search or course and year level filters. Clear the active filters to inspect all {{ totalDatabaseCount() }} students.
+        </p>
+        <button type="button" class="btn" (click)="clearFilters()">Reset Filters</button>
+      </div>
+    }
+
+    @case ('ready') {
+      <div class="panel">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th scope="col">Student No.</th>
+              <th scope="col">Student</th>
+              <th scope="col">Course</th>
+              <th scope="col">Year Level</th>
+              <th scope="col" class="num-col">GPA</th>
+              <th scope="col">Standing</th>
+              <th scope="col" class="actions-col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (student of students(); track student.id) {
+              <tr>
+                <td data-label="Student No." class="mono muted-cell">
+                  {{ student.studentNumber }}
+                </td>
+                <td data-label="Student" class="student-cell">
+                  <a [routerLink]="['/students', student.id]" class="student-name">
+                    {{ student.fullName }}
+                  </a>
+                  <span class="student-email">{{ student.email }}</span>
+                </td>
+                <td data-label="Course" class="mono">{{ student.course }}</td>
+                <td data-label="Year Level">{{ formatYearLabel(student.yearLevel) }}</td>
+                <td data-label="GPA" class="mono num-col">{{ student.gpa | number: '1.2-2' }}</td>
+                <td data-label="Standing">
+                  @switch (student.status) {
+                    @case ('Active') {
+                      <span class="status-text status-active">
+                        <span class="status-dot" aria-hidden="true"></span>Active
+                      </span>
+                    }
+                    @case ('Probation') {
+                      <span class="status-text status-probation">
+                        <span class="status-dot" aria-hidden="true"></span>Probation
+                      </span>
+                    }
+                    @case ('On Leave') {
+                      <span class="status-text status-leave">
+                        <span class="status-dot" aria-hidden="true"></span>On Leave
+                      </span>
+                    }
+                    @default {
+                      <span class="status-text status-graduated">
+                        <span class="status-dot" aria-hidden="true"></span>{{ student.status }}
+                      </span>
+                    }
+                  }
+                </td>
+                <td data-label="Actions" class="actions-col">
+                  <div class="row-actions">
+                    <a [routerLink]="['/students', student.id]" class="action-link">View</a>
+                    <a
+                      [routerLink]="['/students', student.id]"
+                      [queryParams]="{ edit: 'true' }"
+                      class="action-link"
+                    >
+                      Edit
+                    </a>
+                    <button
+                      type="button"
+                      class="action-link action-danger"
+                      (click)="requestDelete(student)"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  }
+</section>

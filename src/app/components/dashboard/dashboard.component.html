@@ -1,0 +1,196 @@
+<section class="page" aria-labelledby="dashboard-heading">
+  <header class="page-header">
+    <div>
+      <h1 id="dashboard-heading" class="page-title">Academic Overview</h1>
+      <p class="page-subtitle">
+        Live enrollment summary loaded from the registrar API. Select a program, year level, or student to drill in.
+      </p>
+    </div>
+    <div class="header-actions">
+      <a class="btn" routerLink="/students">Open Directory</a>
+    </div>
+  </header>
+
+  @switch (viewState()) {
+    @case ('loading') {
+      <div class="loading-shell" role="status" aria-live="polite">
+        <p class="loading-caption">Loading enrollment ledger from http://localhost:3000/students...</p>
+        <div class="metric-strip">
+          @for (item of [1, 2, 3, 4]; track item) {
+            <div class="metric-cell">
+              <span class="skeleton sk-label"></span>
+              <span class="skeleton sk-value"></span>
+            </div>
+          }
+        </div>
+        <div class="split-grid">
+          <div class="panel">
+            <span class="skeleton sk-heading"></span>
+            <span class="skeleton sk-row"></span>
+            <span class="skeleton sk-row"></span>
+            <span class="skeleton sk-row"></span>
+          </div>
+          <div class="panel">
+            <span class="skeleton sk-heading"></span>
+            <span class="skeleton sk-row"></span>
+            <span class="skeleton sk-row"></span>
+          </div>
+        </div>
+      </div>
+    }
+
+    @case ('error') {
+      <div class="banner banner-error" role="alert">
+        <div>
+          <strong>API Connection Error:</strong> {{ errorMessage() }}
+        </div>
+        <button type="button" class="btn" (click)="loadDashboard()">Retry Connection</button>
+      </div>
+    }
+
+    @case ('empty') {
+      <div class="empty-panel">
+        <h2 class="empty-title">No enrolled students yet</h2>
+        <p class="empty-copy">
+          The registrar database returned zero student records. Register a student to populate enrollment metrics and distributions.
+        </p>
+        <a class="btn btn-primary" routerLink="/students/new">Register First Student</a>
+      </div>
+    }
+
+    @case ('ready') {
+      <div class="metric-strip" aria-label="Enrollment summary figures">
+        <div class="metric-cell">
+          <span class="metric-label">Total Enrolled</span>
+          <span class="metric-value mono">{{ totalStudents() }}</span>
+        </div>
+        <div class="metric-cell">
+          <span class="metric-label">Active Standing</span>
+          <span class="metric-value mono">{{ activeCount() }}</span>
+        </div>
+        <div class="metric-cell">
+          <span class="metric-label">Probation / On Leave</span>
+          <span class="metric-value mono">{{ attentionCount() }}</span>
+        </div>
+        <div class="metric-cell">
+          <span class="metric-label">Mean Cumulative GPA</span>
+          <span class="metric-value mono">{{ averageGpa() | number: '1.2-2' }}</span>
+        </div>
+      </div>
+
+      <div class="split-grid">
+        <section class="panel" aria-labelledby="course-dist-heading">
+          <div class="panel-header">
+            <h2 id="course-dist-heading" class="panel-title">Enrollment by Program</h2>
+            <span class="panel-meta">Click a program to filter directory</span>
+          </div>
+
+          <div class="breakdown-list">
+            @for (item of courseBreakdown(); track item.course) {
+              <button
+                type="button"
+                class="breakdown-row"
+                (click)="openCourseFilter(item.course)"
+              >
+                <div class="breakdown-top">
+                  <span class="course-code mono">{{ item.course }}</span>
+                  <span class="breakdown-count mono">
+                    {{ item.count }} {{ item.count === 1 ? 'student' : 'students' }} ({{ item.percentage }}%)
+                  </span>
+                </div>
+                <div class="bar-track" aria-hidden="true">
+                  <div class="bar-fill" [style.width.%]="item.percentage"></div>
+                </div>
+              </button>
+            }
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="year-dist-heading">
+          <div class="panel-header">
+            <h2 id="year-dist-heading" class="panel-title">Enrollment by Year Level</h2>
+            <span class="panel-meta">Filter by cohort</span>
+          </div>
+
+          <div class="year-list">
+            @for (year of yearBreakdown(); track year.yearLevel) {
+              <button
+                type="button"
+                class="year-row"
+                (click)="openYearFilter(year.yearLevel)"
+              >
+                <span class="year-label">{{ year.label }}</span>
+                <span class="year-count mono">{{ year.count }}</span>
+              </button>
+            }
+          </div>
+        </section>
+      </div>
+
+      <section class="panel" aria-labelledby="roster-heading">
+        <div class="panel-header">
+          <h2 id="roster-heading" class="panel-title">Recent Registrations</h2>
+          <a class="panel-link" routerLink="/students">View all {{ totalStudents() }} records</a>
+        </div>
+
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th scope="col">Student No.</th>
+                <th scope="col">Full Name</th>
+                <th scope="col">Program</th>
+                <th scope="col">Year</th>
+                <th scope="col" class="num-col">GPA</th>
+                <th scope="col">Standing</th>
+                <th scope="col" class="actions-col">Record</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (student of recentStudents(); track student.id) {
+                <tr>
+                  <td data-label="Student No." class="mono muted-cell">{{ student.studentNumber }}</td>
+                  <td data-label="Full Name" class="name-cell">
+                    <a [routerLink]="['/students', student.id]" class="row-link">
+                      {{ student.fullName }}
+                    </a>
+                  </td>
+                  <td data-label="Program" class="mono">{{ student.course }}</td>
+                  <td data-label="Year">{{ formatYearLabel(student.yearLevel) }}</td>
+                  <td data-label="GPA" class="mono num-col">{{ student.gpa | number: '1.2-2' }}</td>
+                  <td data-label="Standing">
+                    @switch (student.status) {
+                      @case ('Active') {
+                        <span class="status-text status-active">
+                          <span class="status-dot" aria-hidden="true"></span>Active
+                        </span>
+                      }
+                      @case ('Probation') {
+                        <span class="status-text status-probation">
+                          <span class="status-dot" aria-hidden="true"></span>Probation
+                        </span>
+                      }
+                      @case ('On Leave') {
+                        <span class="status-text status-leave">
+                          <span class="status-dot" aria-hidden="true"></span>On Leave
+                        </span>
+                      }
+                      @default {
+                        <span class="status-text status-graduated">
+                          <span class="status-dot" aria-hidden="true"></span>{{ student.status }}
+                        </span>
+                      }
+                    }
+                  </td>
+                  <td data-label="Record" class="actions-col">
+                    <a [routerLink]="['/students', student.id]" class="table-action">Inspect</a>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </section>
+    }
+  }
+</section>

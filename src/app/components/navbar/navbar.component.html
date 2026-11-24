@@ -1,0 +1,96 @@
+<header class="navbar" role="banner">
+  <div class="navbar-inner">
+    <div class="navbar-left">
+      <a class="brand" routerLink="/dashboard" aria-label="Student Information Manager Home">
+        <svg
+          class="brand-mark"
+          width="18"
+          height="18"
+          viewBox="0 0 18 18"
+          fill="none"
+          aria-hidden="true"
+        >
+          <rect x="1.5" y="2.5" width="15" height="3" rx="1" fill="currentColor" />
+          <rect x="1.5" y="7.5" width="11" height="3" rx="1" fill="currentColor" opacity="0.72" />
+          <rect x="1.5" y="12.5" width="7" height="3" rx="1" fill="currentColor" opacity="0.48" />
+        </svg>
+        <span class="brand-code mono">SIM</span>
+        <span class="brand-divider" aria-hidden="true">/</span>
+        <span class="brand-title">Registrar</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a
+          class="nav-link"
+          routerLink="/dashboard"
+          routerLinkActive="is-active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          Dashboard
+        </a>
+        <a
+          class="nav-link"
+          routerLink="/students"
+          routerLinkActive="is-active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          Students
+        </a>
+      </nav>
+    </div>
+
+    <div class="navbar-right">
+      <span class="route-readout mono" title="Active Angular Router path">
+        {{ currentPath() }}
+      </span>
+      <a
+        class="btn btn-primary nav-cta"
+        routerLink="/students/new"
+        routerLinkActive="is-active-cta"
+      >
+        Register Student
+      </a>
+      <button
+        type="button"
+        class="btn mobile-toggle"
+        [attr.aria-expanded]="mobileMenuOpen()"
+        aria-controls="mobile-nav-panel"
+        (click)="toggleMobileMenu()"
+      >
+        {{ mobileMenuOpen() ? 'Close' : 'Menu' }}
+      </button>
+    </div>
+  </div>
+
+  @if (mobileMenuOpen()) {
+    <nav id="mobile-nav-panel" class="mobile-drawer" aria-label="Mobile navigation">
+      <a
+        class="mobile-link"
+        routerLink="/dashboard"
+        routerLinkActive="is-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="closeMobileMenu()"
+      >
+        Dashboard
+      </a>
+      <a
+        class="mobile-link"
+        routerLink="/students"
+        routerLinkActive="is-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="closeMobileMenu()"
+      >
+        Students
+      </a>
+      <a
+        class="mobile-link mobile-link-primary"
+        routerLink="/students/new"
+        routerLinkActive="is-active"
+        (click)="closeMobileMenu()"
+      >
+        Register Student
+      </a>
+      <div class="mobile-route mono">Route: {{ currentPath() }}</div>
+    </nav>
+  }
+</header>

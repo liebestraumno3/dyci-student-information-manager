@@ -1,0 +1,132 @@
+.toolbar {
+  display: grid;
+  grid-template-columns: minmax(220px, 2fr) minmax(150px, 1fr) minmax(150px, 1fr) auto;
+  gap: var(--space-3);
+  align-items: end;
+  padding: var(--space-4);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background-color: var(--bg-surface);
+}
+
+.field-action {
+  display: flex;
+  align-items: flex-end;
+}
+
+.student-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.student-name {
+  color: var(--text-primary);
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.student-name:hover {
+  color: var(--accent-text);
+}
+
+.student-email {
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.row-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.action-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  padding: 0 var(--space-2);
+  border: none;
+  border-radius: var(--radius-sm);
+  background-color: transparent;
+  color: var(--accent-text);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.action-link:hover {
+  background-color: var(--bg-surface-hover);
+  text-decoration: none;
+}
+
+.action-danger {
+  color: var(--danger-text);
+}
+
+.action-danger:hover {
+  background-color: var(--danger-bg);
+}
+
+.loading-panel {
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.skeleton-row {
+  display: grid;
+  grid-template-columns: 110px 2fr 1fr 1fr;
+  gap: var(--space-4);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.skeleton-row:last-child {
+  border-bottom: none;
+}
+
+.sk-id,
+.sk-name,
+.sk-meta {
+  height: 18px;
+}
+
+@media (max-width: 959px) {
+  .toolbar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .field-search {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 639px) {
+  .toolbar {
+    grid-template-columns: 1fr;
+    padding: var(--space-3);
+  }
+
+  .student-cell {
+    align-items: flex-end;
+  }
+
+  .row-actions {
+    gap: var(--space-2);
+  }
+
+  .action-link {
+    min-height: 44px;
+    padding: 0 var(--space-3);
+  }
+}
